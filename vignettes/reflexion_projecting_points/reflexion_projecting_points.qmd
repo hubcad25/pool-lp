@@ -1,0 +1,354 @@
+---
+title: "Analyse des modèles Random Forest (window 1)"
+format:
+  html:
+    toc: true
+    theme:
+      - cosmo
+    code-block-background: "#f0f0f0"
+    code-background: "#fff"
+    code-link-color: "#555"
+    code-font-size: 14pt
+    fig-dpi: 300
+    number-sections: true
+execute:
+  cache: true
+  echo: false
+  message: false
+  warning: false
+fig-cap-location: top
+knitr:
+  opts_chunk:
+    out.width: "90%"
+editor: source
+---
+
+```{r}
+#| label: packages
+
+library(tidyverse)
+library(randomForest)
+```
+
+# Introduction
+
+Analyse des modèles Random Forest de model3.0 (window=1 an) pour évaluer leur performance et identifier les variables importantes.
+
+# Analyse des modèles
+
+```{r}
+#| label: load-data
+#| cache: false
+#| echo: true
+
+# Exécuter l'analyse directement
+library(tidyverse, quietly = TRUE, warn.conflicts = FALSE)
+library(randomForest, quietly = TRUE, warn.conflicts = FALSE)
+
+cat("Working directory:", getwd(), "\n")
+
+# Chemin relatif depuis vignettes/reflexion_projecting_points/
+model_path <- "../../data/archives/model3.0/models/"
+model_files <- list.files(model_path, pattern = "^w1_.*\\.rds$", full.names = TRUE)
+
+cat("Modèles trouvés:", length(model_files), "\n")
+if (length(model_files) == 0) {
+  stop("Aucun modèle trouvé! Chemin testé: ", model_path)
+}
+
+# Analyser chaque modèle
+results <- map_dfr(model_files, function(filepath) {
+  model <- readRDS(filepath)
+
+  # Parser le nom du fichier
+  parts <- str_remove(basename(filepath), "\\.rds$") %>%
+    str_split("_") %>%
+    unlist()
+
+  # RMSE = racine de MSE
+  rmse <- sqrt(tail(model$mse, 1))
+
+  tibble(
+    metric = parts[2],      # goals ou assists
+    historic = parts[3],    # h1, h2, h3
+    position = parts[4],    # F ou D
+    rmse = rmse,
+    rsq = tail(model$rsq, 1)
+  )
+})
+
+print(results)
+```
+
+# Performance (RMSE)
+
+```{r}
+#| label: fig-rmse
+#| fig-cap: "RMSE des modèles w1 par position et métrique"
+
+results %>%
+  ggplot(aes(x = historic, y = rmse, fill = position)) +
+  geom_col(position = "dodge") +
+  facet_wrap(~metric) +
+  labs(
+    title = "RMSE des modèles w1",
+    x = "Historique",
+    y = "RMSE",
+    fill = "Position"
+  ) +
+  theme_minimal()
+```
+
+```{r}
+#| label: tbl-rmse
+#| tbl-cap: "RMSE par type de modèle"
+
+results %>%
+  arrange(metric, position, historic) %>%
+  select(Métrique = metric, Position = position,
+         Historique = historic, RMSE = rmse, `R²` = rsq) %>%
+  knitr::kable(digits = 2)
+```
+
+# Variables importantes
+
+## Extraction de toutes les variables
+
+```{r}
+#| label: extract-importance
+#| cache: false
+
+# Extraire l'importance de tous les modèles
+all_importance <- map_dfr(model_files, function(filepath) {
+  model <- readRDS(filepath)
+
+  # Parser le nom
+  parts <- str_remove(basename(filepath), "\\.rds$") %>%
+    str_split("_") %>%
+    unlist()
+
+  # Extraire importance
+  importance(model) %>%
+    as.data.frame() %>%
+    rownames_to_column("variable") %>%
+    mutate(
+      metric = parts[2],
+      historic = parts[3],
+      position = parts[4],
+      model = paste(metric, position, historic, sep = "_")
+    )
+})
+
+# Résumé par variable
+var_summary <- all_importance %>%
+  group_by(variable) %>%
+  summarise(
+    mean_imp = mean(IncNodePurity),
+    median_imp = median(IncNodePurity),
+    sd_imp = sd(IncNodePurity),
+    min_imp = min(IncNodePurity),
+    max_imp = max(IncNodePurity),
+    n_models = n(),
+    .groups = "drop"
+  ) %>%
+  arrange(desc(mean_imp))
+
+cat("Total de variables uniques:", nrow(var_summary), "\n\n")
+
+# Afficher le top 50
+cat("=== TOP 50 VARIABLES ===\n")
+var_summary %>%
+  slice_head(n = 50) %>%
+  print(n = 50)
+```
+
+## Top 30 variables globales
+
+```{r}
+#| label: fig-top-variables
+#| fig-cap: "Top 30 variables les plus importantes (moyenne sur tous les modèles)"
+#| fig-height: 10
+
+var_summary %>%
+  slice_head(n = 30) %>%
+  mutate(variable = fct_reorder(variable, mean_imp)) %>%
+  ggplot(aes(x = mean_imp, y = variable)) +
+  geom_col(fill = "steelblue", alpha = 0.8) +
+  labs(
+    title = "Top 30 variables importantes",
+    x = "Importance moyenne (IncNodePurity)",
+    y = NULL
+  ) +
+  theme_minimal() +
+  theme(axis.text.y = element_text(size = 9))
+```
+
+## Scatter plot: Importance par modèle
+
+```{r}
+#| label: fig-scatter-importance
+#| fig-cap: "Importance des variables par modèle"
+#| fig-height: 12
+#| fig-width: 10
+
+# Top 40 variables
+top_vars <- var_summary %>%
+  slice_head(n = 40) %>%
+  pull(variable)
+
+all_importance %>%
+  filter(variable %in% top_vars) %>%
+  mutate(
+    variable = factor(variable, levels = rev(top_vars)),
+    model_label = paste(metric, position, historic, sep = "\n")
+  ) %>%
+  ggplot(aes(x = model, y = variable, size = IncNodePurity, color = IncNodePurity)) +
+  geom_point(alpha = 0.7) +
+  scale_size_continuous(range = c(1, 8)) +
+  scale_color_viridis_c(option = "plasma") +
+  labs(
+    title = "Importance des top 40 variables par modèle",
+    x = "Modèle",
+    y = "Variable",
+    size = "Importance",
+    color = "Importance"
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1, size = 8),
+    axis.text.y = element_text(size = 8)
+  )
+```
+
+## Importance par métrique (goals vs assists)
+
+```{r}
+#| label: importance-by-metric-data
+
+# Top 30 variables par métrique
+cat("\n=== IMPORTANCE PAR MÉTRIQUE (TOP 30) ===\n\n")
+
+comparison <- all_importance %>%
+  group_by(variable, metric) %>%
+  summarise(mean_imp = mean(IncNodePurity), .groups = "drop") %>%
+  pivot_wider(names_from = metric, values_from = mean_imp, values_fill = 0) %>%
+  mutate(
+    total = goals + assists,
+    diff = assists - goals,
+    ratio = assists / (goals + 0.001)
+  ) %>%
+  arrange(desc(total))
+
+cat("Variables les plus importantes globalement:\n")
+comparison %>%
+  slice_head(n = 30) %>%
+  select(variable, goals, assists, total) %>%
+  print(n = 30)
+
+cat("\n\nVariables plus importantes pour ASSISTS:\n")
+comparison %>%
+  filter(total > 10000) %>%
+  arrange(desc(diff)) %>%
+  slice_head(n = 15) %>%
+  select(variable, goals, assists, diff) %>%
+  print(n = 15)
+
+cat("\n\nVariables plus importantes pour GOALS:\n")
+comparison %>%
+  filter(total > 10000) %>%
+  arrange(diff) %>%
+  slice_head(n = 15) %>%
+  select(variable, goals, assists, diff) %>%
+  print(n = 15)
+```
+
+## Importance par position (F vs D)
+
+```{r}
+#| label: importance-by-position
+
+cat("\n=== IMPORTANCE PAR POSITION ===\n\n")
+
+# Importance par position et métrique
+by_position <- all_importance %>%
+  group_by(variable, position, metric) %>%
+  summarise(mean_imp = mean(IncNodePurity), .groups = "drop")
+
+# Top 20 pour chaque combinaison
+cat("TOP 20 VARIABLES - FORWARDS GOALS:\n")
+by_position %>%
+  filter(position == "F", metric == "goals") %>%
+  arrange(desc(mean_imp)) %>%
+  slice_head(n = 20) %>%
+  print(n = 20)
+
+cat("\n\nTOP 20 VARIABLES - FORWARDS ASSISTS:\n")
+by_position %>%
+  filter(position == "F", metric == "assists") %>%
+  arrange(desc(mean_imp)) %>%
+  slice_head(n = 20) %>%
+  print(n = 20)
+
+cat("\n\nTOP 20 VARIABLES - DEFENSEMEN GOALS:\n")
+by_position %>%
+  filter(position == "D", metric == "goals") %>%
+  arrange(desc(mean_imp)) %>%
+  slice_head(n = 20) %>%
+  print(n = 20)
+
+cat("\n\nTOP 20 VARIABLES - DEFENSEMEN ASSISTS:\n")
+by_position %>%
+  filter(position == "D", metric == "assists") %>%
+  arrange(desc(mean_imp)) %>%
+  slice_head(n = 20) %>%
+  print(n = 20)
+
+# Variables qui utilisent seulement d0 (saison courante, pas de lag)
+cat("\n\n=== VARIABLES SANS LAG (d0 seulement) ===\n")
+cat("On peut-on utiliser seulement la saison passée (d0)?\n\n")
+
+no_lag_vars <- var_summary %>%
+  filter(!str_detect(variable, "\\.d[123]")) %>%
+  arrange(desc(mean_imp)) %>%
+  slice_head(n = 30)
+
+cat("Top 30 variables sans lag:\n")
+print(no_lag_vars, n = 30)
+
+# Comparer importance avec/sans lags
+total_imp_all <- sum(var_summary$mean_imp)
+total_imp_no_lag <- sum(no_lag_vars$mean_imp)
+pct_retained <- (total_imp_no_lag / total_imp_all) * 100
+
+cat("\n\nPourcentage d'importance retenue sans lags:", round(pct_retained, 1), "%\n")
+```
+
+```{r}
+#| label: fig-importance-by-metric
+#| fig-cap: "Comparaison de l'importance des variables entre goals et assists"
+#| fig-height: 10
+
+# Top 30 variables
+top30 <- var_summary %>%
+  slice_head(n = 30) %>%
+  pull(variable)
+
+all_importance %>%
+  filter(variable %in% top30) %>%
+  group_by(variable, metric) %>%
+  summarise(mean_imp = mean(IncNodePurity), .groups = "drop") %>%
+  pivot_wider(names_from = metric, values_from = mean_imp, values_fill = 0) %>%
+  mutate(variable = fct_reorder(variable, goals + assists)) %>%
+  ggplot(aes(x = goals, y = assists)) +
+  geom_point(size = 3, alpha = 0.6) +
+  geom_text(aes(label = variable), size = 2.5, hjust = -0.1, vjust = 0) +
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "red") +
+  labs(
+    title = "Importance: Goals vs Assists",
+    subtitle = "Les variables au-dessus de la ligne sont plus importantes pour assists",
+    x = "Importance moyenne (goals)",
+    y = "Importance moyenne (assists)"
+  ) +
+  theme_minimal()
+```
+

@@ -87,8 +87,8 @@ data_combined <- data_all %>%
   left_join(data_5on4, by = c("player_id", "season")) %>%
   replace_na(list(evtoi = 0, pptoi = 0))
 
-# 4. Calculer features normalisées per 60 ---------------------------------
-cat("Calcul des features normalisées per 60...\n")
+# 4. Calculer features normalisées per 60 et à 82 GP ---------------------
+cat("Calcul des features normalisées per 60 et à 82 GP...\n")
 
 data_features <- data_combined %>%
   mutate(
@@ -97,23 +97,36 @@ data_features <- data_combined %>%
     evtoi_per_gp = evtoi / games_played,
     pptoi_per_gp = pptoi / games_played,
 
-    # Conversion rates
+    # Volumes per 60 minutes (calculés AVANT normalisation, car déjà normalisés par temps)
+    high_danger_shots_per60 = (high_danger_shots / icetime_total) * 60,
+    medium_danger_shots_per60 = (medium_danger_shots / icetime_total) * 60,
+    shot_attempts_per60 = (shot_attempts / icetime_total) * 60,
+    x_goals_per60 = (x_goals / icetime_total) * 60,
+    goals_per60 = (goals / icetime_total) * 60,
+    assists_per60 = (assists / icetime_total) * 60
+  ) %>%
+  mutate(
+    # Normaliser TOUS les totaux à 82 GP (saison complète)
+    goals = ifelse(games_played > 0, goals * 82 / games_played, 0),
+    assists = ifelse(games_played > 0, assists * 82 / games_played, 0),
+    high_danger_shots = ifelse(games_played > 0, high_danger_shots * 82 / games_played, 0),
+    medium_danger_shots = ifelse(games_played > 0, medium_danger_shots * 82 / games_played, 0),
+    low_danger_shots = ifelse(games_played > 0, low_danger_shots * 82 / games_played, 0),
+    high_danger_goals = ifelse(games_played > 0, high_danger_goals * 82 / games_played, 0),
+    medium_danger_goals = ifelse(games_played > 0, medium_danger_goals * 82 / games_played, 0),
+    low_danger_goals = ifelse(games_played > 0, low_danger_goals * 82 / games_played, 0),
+    shots_on_goal = ifelse(games_played > 0, shots_on_goal * 82 / games_played, 0),
+    shot_attempts = ifelse(games_played > 0, shot_attempts * 82 / games_played, 0),
+    x_goals = ifelse(games_played > 0, x_goals * 82 / games_played, 0)
+  ) %>%
+  mutate(
+    # Conversion rates (APRÈS normalisation pour être cohérent)
     conversion_high_danger = ifelse(high_danger_shots > 0,
                                     high_danger_goals / high_danger_shots, 0),
     conversion_medium = ifelse(medium_danger_shots > 0,
                                medium_danger_goals / medium_danger_shots, 0),
     conversion_overall = ifelse(shots_on_goal > 0,
-                                goals / shots_on_goal, 0),
-
-    # Volumes per 60 minutes
-    high_danger_shots_per60 = (high_danger_shots / icetime_total) * 60,
-    medium_danger_shots_per60 = (medium_danger_shots / icetime_total) * 60,
-    shot_attempts_per60 = (shot_attempts / icetime_total) * 60,
-    x_goals_per60 = (x_goals / icetime_total) * 60,
-
-    # Production per 60
-    goals_per60 = (goals / icetime_total) * 60,
-    assists_per60 = (assists / icetime_total) * 60
+                                goals / shots_on_goal, 0)
   ) %>%
   # Remplacer Inf et NaN par 0
   mutate(across(where(is.numeric), ~replace(., is.infinite(.) | is.nan(.), 0)))
@@ -144,11 +157,11 @@ calculate_wpm <- function(data, var, weights = c(0.5, 0.3, 0.2)) {
     ungroup()
 }
 
-# Calculer wpm pour goals et assists per 60
+# Calculer wpm pour goals et assists (normalisés à 82 GP)
 data_with_wpm <- data_features %>%
-  calculate_wpm("goals_per60") %>%
+  calculate_wpm("goals") %>%
   rename(wpm_g = wpm) %>%
-  calculate_wpm("assists_per60") %>%
+  calculate_wpm("assists") %>%
   rename(wpm_a = wpm)
 
 # 6. Sélectionner variables finales ---------------------------------------

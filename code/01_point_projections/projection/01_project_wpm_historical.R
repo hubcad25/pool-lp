@@ -7,19 +7,22 @@ library(dplyr)
 
 # Configuration -----------------------------------------------------------
 input_dir <- "data/01_point_projections/processed"
-projection_dir <- "data/01_point_projections/projection"
-output_file <- file.path(projection_dir, "projections_2026.rds")
+output_file <- "data/01_point_projections/projection/projections_2026.rds"
 
 # Charger données ---------------------------------------------------------
 cat("Chargement des données...\n")
 
-# Charger projections existantes ou skeleton de base
-if (file.exists(output_file)) {
-  cat("  Chargement des projections existantes...\n")
-  projections <- readRDS(output_file)
+# Charger projections (depuis mémoire si sourcé par run_all.R, sinon depuis fichier)
+if (!exists("projections")) {
+  if (file.exists(output_file)) {
+    cat("  Chargement des projections depuis fichier...\n")
+    projections <- readRDS(output_file)
+  } else {
+    cat("  Chargement du skeleton...\n")
+    projections <- readRDS("data/01_point_projections/projection/skeleton_2026.rds")
+  }
 } else {
-  cat("  Chargement du skeleton (première projection)...\n")
-  projections <- readRDS(file.path(projection_dir, "skeleton_2026.rds"))
+  cat("  Utilisation des projections en mémoire...\n")
 }
 
 historical_f <- readRDS(file.path(input_dir, "training_data_F.rds"))
@@ -49,9 +52,14 @@ calculate_wpm_2026 <- function(data) {
       names_sep = "_"
     )
 
-  # Calculer WPM
+  # Calculer WPM avec poids adaptatifs
   data_wide %>%
     mutate(
+      # Identifier saisons avec données (> 0)
+      has_2024 = !is.na(goals_2024) & goals_2024 > 0,
+      has_2023 = !is.na(goals_2023) & goals_2023 > 0,
+      has_2022 = !is.na(goals_2022) & goals_2022 > 0,
+
       # Remplacer NA par 0
       goals_2024 = ifelse(is.na(goals_2024), 0, goals_2024),
       goals_2023 = ifelse(is.na(goals_2023), 0, goals_2023),
@@ -60,9 +68,20 @@ calculate_wpm_2026 <- function(data) {
       assists_2023 = ifelse(is.na(assists_2023), 0, assists_2023),
       assists_2022 = ifelse(is.na(assists_2022), 0, assists_2022),
 
-      # Calculer WPM pour 2026
-      wpm_g = 0.5 * goals_2024 + 0.3 * goals_2023 + 0.2 * goals_2022,
-      wpm_a = 0.5 * assists_2024 + 0.3 * assists_2023 + 0.2 * assists_2022,
+      # Calculer WPM pour 2026 avec poids adaptatifs
+      wpm_g = case_when(
+        has_2024 & has_2023 & has_2022 ~ 0.5 * goals_2024 + 0.3 * goals_2023 + 0.2 * goals_2022,  # 3 saisons
+        has_2024 & has_2023 ~ 0.6 * goals_2024 + 0.4 * goals_2023,  # 2 saisons
+        has_2024 ~ 1.0 * goals_2024,  # 1 saison
+        TRUE ~ 0  # 0 saisons
+      ),
+
+      wpm_a = case_when(
+        has_2024 & has_2023 & has_2022 ~ 0.5 * assists_2024 + 0.3 * assists_2023 + 0.2 * assists_2022,  # 3 saisons
+        has_2024 & has_2023 ~ 0.6 * assists_2024 + 0.4 * assists_2023,  # 2 saisons
+        has_2024 ~ 1.0 * assists_2024,  # 1 saison
+        TRUE ~ 0  # 0 saisons
+      ),
 
       # Nombre de saisons avec données
       n_seasons_goals = (goals_2024 > 0) + (goals_2023 > 0) + (goals_2022 > 0),
@@ -147,11 +166,12 @@ summary_stats <- projections %>%
 
 print(summary_stats)
 
-# Sauvegarder -------------------------------------------------------------
-saveRDS(projections, output_file)
+# Nettoyer ---------------------------------------------------------------
+# Enlever variables internes non nécessaires pour la suite
+projections <- projections %>%
+  select(-n_seasons_goals, -n_seasons_assists, -is_rookie)
 
-cat("\n✓ Projections sauvegardées:", output_file, "\n")
-cat("  Variables ajoutées: wpm_g, wpm_a, n_seasons_goals, n_seasons_assists, is_rookie\n")
+cat("\n✓ Variables ajoutées: wpm_g, wpm_a\n")
 
 # Aperçu ------------------------------------------------------------------
 cat("\nAperçu (10 premiers joueurs):\n")

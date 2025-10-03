@@ -1,0 +1,1117 @@
+player_name,position,jersey_number,line,team,source,pp_unit
+Kreider,F,20.0,1,ANA,puckpedia,PP1
+Gauthier,F,61.0,2,ANA,puckpedia,
+Vatrano,F,77.0,3,ANA,puckpedia,PP2
+Nesterenko,F,13.0,4,ANA,puckpedia,
+Carlsson,F,91.0,1,ANA,puckpedia,PP1
+McTavish,F,23.0,2,ANA,puckpedia,PP2
+Strome,F,16.0,3,ANA,puckpedia,PP2
+Poehling,F,25.0,4,ANA,puckpedia,
+Terry,F,19.0,1,ANA,puckpedia,PP1
+Granlund,F,64.0,2,ANA,puckpedia,PP1
+Killorn,F,17.0,3,ANA,puckpedia,PP2
+Colangelo,F,12.0,4,ANA,puckpedia,
+LaCombe,D,2.0,1,ANA,puckpedia,PP1
+Zellweger,D,51.0,2,ANA,puckpedia,PP2
+Mintyukov,D,98.0,3,ANA,puckpedia,
+Gudas,D,7.0,1,ANA,puckpedia,
+Trouba,D,65.0,2,ANA,puckpedia,
+Helleson,D,14.0,3,ANA,puckpedia,
+Geekie,F,39.0,1,BOS,puckpedia,PP2
+Zacha,F,18.0,2,BOS,puckpedia,"PP1, PP2"
+Jeannot,F,84.0,3,BOS,puckpedia,
+Eyssimont,F,81.0,4,BOS,puckpedia,
+Lindholm,F,28.0,1,BOS,puckpedia,"PP1, PP2"
+Mittelstadt,F,11.0,2,BOS,puckpedia,PP1
+Minten,F,93.0,3,BOS,puckpedia,
+Kuraly,F,52.0,4,BOS,puckpedia,
+Pastrnak,F,88.0,1,BOS,puckpedia,PP1
+Arvidsson,F,71.0,2,BOS,puckpedia,PP2
+Khusnutdinov,F,92.0,3,BOS,puckpedia,
+Kastelic,F,47.0,4,BOS,puckpedia,
+Lohrei,D,6.0,1,BOS,puckpedia,PP2
+Zadorov,D,91.0,2,BOS,puckpedia,
+Lindholm,D,27.0,3,BOS,puckpedia,"PP1, PP2"
+McAvoy,D,73.0,1,BOS,puckpedia,PP1
+Jokiharju,D,20.0,2,BOS,puckpedia,
+Peeke,D,26.0,3,BOS,puckpedia,
+Benson,F,6.0,1,BUF,puckpedia,PP2
+Zucker,F,17.0,2,BUF,puckpedia,PP1
+Quinn,F,22.0,3,BUF,puckpedia,PP1
+Malenstyn,F,29.0,4,BUF,puckpedia,
+Norris,F,9.0,1,BUF,puckpedia,PP1
+McLeod,F,71.0,2,BUF,puckpedia,
+Kulich,F,20.0,3,BUF,puckpedia,PP2
+Krebs,F,19.0,4,BUF,puckpedia,
+Thompson,F,72.0,1,BUF,puckpedia,PP1
+Tuch,F,89.0,2,BUF,puckpedia,PP2
+Doan,F,91.0,3,BUF,puckpedia,
+Danforth,F,15.0,4,BUF,puckpedia,
+Byram,D,4.0,1,BUF,puckpedia,PP2
+Power,D,25.0,2,BUF,puckpedia,PP2
+Bryson,D,78.0,3,BUF,puckpedia,
+Dahlin,D,26.0,1,BUF,puckpedia,PP1
+Komarov,D,76.0,2,BUF,puckpedia,
+Timmins,D,21.0,3,BUF,puckpedia,
+Farabee,F,86.0,1,CGY,puckpedia,
+Huberdeau,F,10.0,2,CGY,puckpedia,PP1
+Zary,F,47.0,3,CGY,puckpedia,PP2
+Lomberg,F,70.0,4,CGY,puckpedia,
+Kadri,F,91.0,1,CGY,puckpedia,PP1
+Frost,F,16.0,2,CGY,puckpedia,PP1
+Backlund,F,11.0,3,CGY,puckpedia,PP2
+Pospisil,F,76.0,4,CGY,puckpedia,
+Klapka,F,43.0,1,CGY,puckpedia,
+Coronato,F,27.0,2,CGY,puckpedia,PP1
+Coleman,F,20.0,3,CGY,puckpedia,PP2
+Sharangovich,F,17.0,4,CGY,puckpedia,PP2
+Bahl,D,7.0,1,CGY,puckpedia,
+Hanley,D,44.0,2,CGY,puckpedia,
+Parekh,D,89.0,3,CGY,puckpedia,
+Andersson,D,4.0,1,CGY,puckpedia,PP2
+Weegar,D,52.0,2,CGY,puckpedia,PP1
+Pachal,D,94.0,3,CGY,puckpedia,
+Ehlers,F,27.0,1,CAR,puckpedia,PP1
+Svechnikov,F,37.0,2,CAR,puckpedia,PP1
+Martinook,F,48.0,3,CAR,puckpedia,
+Hall,F,71.0,4,CAR,puckpedia,PP2
+Aho,F,20.0,1,CAR,puckpedia,PP1
+Stankoven,F,22.0,2,CAR,puckpedia,PP2
+Staal,F,11.0,3,CAR,puckpedia,
+Kotkaniemi,F,82.0,4,CAR,puckpedia,
+Jarvis,F,24.0,1,CAR,puckpedia,PP1
+Blake,F,53.0,2,CAR,puckpedia,PP2
+Carrier,F,28.0,3,CAR,puckpedia,
+Robinson,F,50.0,4,CAR,puckpedia,
+Slavin,D,74.0,1,CAR,puckpedia,
+Miller,D,19.0,2,CAR,puckpedia,PP2
+Nikishin,D,21.0,3,CAR,puckpedia,PP2
+Walker,D,26.0,1,CAR,puckpedia,
+Chatfield,D,5.0,2,CAR,puckpedia,
+Gostisbehere,D,4.0,3,CAR,puckpedia,PP1
+Donato,F,8.0,1,CHI,puckpedia,PP2
+Teravainen,F,86.0,2,CHI,puckpedia,PP1
+Slaggert,F,84.0,3,CHI,puckpedia,
+Dach,F,34.0,4,CHI,puckpedia,PP2
+Bedard,F,98.0,1,CHI,puckpedia,PP1
+Nazar,F,91.0,2,CHI,puckpedia,PP1
+Dickinson,F,16.0,3,CHI,puckpedia,
+Foligno,F,17.0,4,CHI,puckpedia,PP2
+Burakovsky,F,28.0,1,CHI,puckpedia,PP2
+Bertuzzi,F,59.0,2,CHI,puckpedia,PP1
+Mikheyev,F,95.0,3,CHI,puckpedia,
+Lafferty,F,24.0,4,CHI,puckpedia,
+Vlasic,D,72.0,1,CHI,puckpedia,
+Kaiser,D,44.0,2,CHI,puckpedia,
+Allan,D,42.0,3,CHI,puckpedia,
+Rinzel,D,6.0,1,CHI,puckpedia,PP1
+Levshunov,D,55.0,2,CHI,puckpedia,PP2
+Murphy,D,5.0,3,CHI,puckpedia,
+Nichushkin,F,13.0,1,COL,puckpedia,PP1
+Landeskog,F,92.0,2,COL,puckpedia,PP2
+Colton,F,20.0,3,COL,puckpedia,PP2
+Kelly,F,17.0,4,COL,puckpedia,
+MacKinnon,F,29.0,1,COL,puckpedia,PP1
+Nelson,F,11.0,2,COL,puckpedia,PP2
+Drury,F,18.0,3,COL,puckpedia,
+Bardakov,F,93.0,4,COL,puckpedia,
+Necas,F,88.0,1,COL,puckpedia,PP1
+Lehkonen,F,62.0,2,COL,puckpedia,PP2
+Olofsson,F,95.0,3,COL,puckpedia,PP1
+Kiviranta,F,94.0,4,COL,puckpedia,
+Toews,D,7.0,1,COL,puckpedia,
+Girard,D,49.0,2,COL,puckpedia,
+Malinski,D,70.0,3,COL,puckpedia,
+Makar,D,8.0,1,COL,puckpedia,PP1
+Manson,D,42.0,2,COL,puckpedia,
+Burns,D,84.0,3,COL,puckpedia,PP2
+Voronkov,F,10.0,1,CBJ,puckpedia,PP2
+Sillinger,F,4.0,2,CBJ,puckpedia,
+Johnson,F,91.0,3,CBJ,puckpedia,PP1
+Chinakhov,F,59.0,4,CBJ,puckpedia,
+Monahan,F,23.0,1,CBJ,puckpedia,PP1
+Jenner,F,38.0,2,CBJ,puckpedia,PP1
+Coyle,F,3.0,3,CBJ,puckpedia,PP2
+Lundestrom,F,21.0,4,CBJ,puckpedia,
+Marchenko,F,86.0,1,CBJ,puckpedia,PP1
+Fantilli,F,19.0,2,CBJ,puckpedia,PP2
+Olivier,F,24.0,3,CBJ,puckpedia,
+Wood,F,11.0,4,CBJ,puckpedia,
+Werenski,D,8.0,1,CBJ,puckpedia,PP1
+Provorov,D,9.0,2,CBJ,puckpedia,PP2
+Mateychuk,D,5.0,3,CBJ,puckpedia,
+Fabbro,D,15.0,1,CBJ,puckpedia,
+Severson,D,78.0,2,CBJ,puckpedia,PP2
+Gudbranson,D,44.0,3,CBJ,puckpedia,
+Robertson,F,21.0,1,DAL,puckpedia,PP1
+Steel,F,18.0,2,DAL,puckpedia,
+Johnston,F,53.0,3,DAL,puckpedia,PP1
+Back,F,10.0,4,DAL,puckpedia,
+Hintz,F,24.0,1,DAL,puckpedia,PP1
+Duchene,F,95.0,2,DAL,puckpedia,PP2
+Faksa,F,12.0,3,DAL,puckpedia,
+Hryckowian,F,49.0,4,DAL,puckpedia,
+Rantanen,F,96.0,1,DAL,puckpedia,PP1
+Seguin,F,91.0,2,DAL,puckpedia,PP2
+Bourque,F,22.0,3,DAL,puckpedia,PP2
+Bastian,F,11.0,4,DAL,puckpedia,
+Lindell,D,23.0,1,DAL,puckpedia,PP2
+Harley,D,55.0,2,DAL,puckpedia,PP1
+Bichsel,D,6.0,3,DAL,puckpedia,
+Heiskanen,D,4.0,1,DAL,puckpedia,PP2
+Lundkvist,D,5.0,2,DAL,puckpedia,
+Lyubushkin,D,46.0,3,DAL,puckpedia,
+Copp,F,18.0,1,DET,puckpedia,
+Debrincat,F,93.0,2,DET,puckpedia,PP1
+Soderblom,F,85.0,3,DET,puckpedia,
+van Riemsdyk,F,21.0,4,DET,puckpedia,PP2
+Larkin,F,71.0,1,DET,puckpedia,PP1
+Kasper,F,92.0,2,DET,puckpedia,PP2
+Compher,F,37.0,3,DET,puckpedia,PP2
+Rasmussen,F,27.0,4,DET,puckpedia,
+Raymond,F,23.0,1,DET,puckpedia,PP1
+Kane,F,88.0,2,DET,puckpedia,PP1
+Appleton,F,22.0,3,DET,puckpedia,
+Berggren,F,48.0,4,DET,puckpedia,PP2
+Chiarot,D,8.0,1,DET,puckpedia,
+Edvinsson,D,77.0,2,DET,puckpedia,
+Gustafsson,D,56.0,3,DET,puckpedia,PP2
+Seider,D,53.0,1,DET,puckpedia,PP1
+Johansson,D,20.0,2,DET,puckpedia,
+Bernard-Docker,D,25.0,3,DET,puckpedia,
+Draisaitl,F,29.0,1,EDM,puckpedia,PP1
+Podkolzin,F,92.0,2,EDM,puckpedia,
+Henrique,F,19.0,3,EDM,puckpedia,PP2
+Howard,F,53.0,4,EDM,puckpedia,
+McDavid,F,97.0,1,EDM,puckpedia,PP1
+Nugent-Hopkins,F,93.0,2,EDM,puckpedia,PP1
+Philp,F,48.0,3,EDM,puckpedia,
+Tomasek,F,86.0,4,EDM,puckpedia,
+Frederic,F,10.0,1,EDM,puckpedia,PP2
+Mangiapane,F,88.0,2,EDM,puckpedia,PP2
+Savoie,F,22.0,3,EDM,puckpedia,
+Kapanen,F,42.0,4,EDM,puckpedia,
+Ekholm,D,14.0,1,EDM,puckpedia,
+Nurse,D,25.0,2,EDM,puckpedia,PP2
+Kulak,D,27.0,3,EDM,puckpedia,
+Bouchard,D,2.0,1,EDM,puckpedia,PP1
+Walman,D,96.0,2,EDM,puckpedia,PP2
+Regula,D,75.0,3,EDM,puckpedia,
+Verhaeghe,F,23.0,1,FLA,puckpedia,
+Luostarinen,F,27.0,2,FLA,puckpedia,PP2
+Boqvist,F,70.0,3,FLA,puckpedia,PP2
+Greer,F,10.0,4,FLA,puckpedia,
+Bennett,F,9.0,1,FLA,puckpedia,PP1
+Lundell,F,15.0,2,FLA,puckpedia,PP1
+Rodrigues,F,17.0,3,FLA,puckpedia,PP2
+Kunin,F,71.0,4,FLA,puckpedia,
+Reinhart,F,13.0,1,FLA,puckpedia,PP1
+Marchand,F,63.0,2,FLA,puckpedia,PP1
+Samoskevich,F,11.0,3,FLA,puckpedia,PP2
+Gadjovich,F,12.0,4,FLA,puckpedia,
+Forsling,D,42.0,1,FLA,puckpedia,
+Mikkola,D,77.0,2,FLA,puckpedia,
+Kulikov,D,7.0,3,FLA,puckpedia,
+Ekblad,D,5.0,1,FLA,puckpedia,PP1
+Jones,D,3.0,2,FLA,puckpedia,PP2
+Petry,D,2.0,3,FLA,puckpedia,
+Kuzmenko,F,96.0,1,LAK,puckpedia,PP1
+Fiala,F,22.0,2,LAK,puckpedia,PP1
+Foegele,F,37.0,3,LAK,puckpedia,
+Malott,F,39.0,4,LAK,puckpedia,
+Kopitar,F,11.0,1,LAK,puckpedia,PP1
+Byfield,F,55.0,2,LAK,puckpedia,PP1
+Danault,F,24.0,3,LAK,puckpedia,PP2
+Turcotte,F,15.0,4,LAK,puckpedia,
+Kempe,F,9.0,1,LAK,puckpedia,PP1
+Laferriere,F,14.0,2,LAK,puckpedia,PP2
+Moore,F,12.0,3,LAK,puckpedia,
+Armia,F,40.0,4,LAK,puckpedia,PP2
+Anderson,D,44.0,1,LAK,puckpedia,
+Edmundson,D,6.0,2,LAK,puckpedia,
+Dumoulin,D,2.0,3,LAK,puckpedia,
+Doughty,D,8.0,1,LAK,puckpedia,PP2
+Ceci,D,5.0,2,LAK,puckpedia,
+Clarke,D,92.0,3,LAK,puckpedia,PP2
+Kaprizov,F,97.0,1,MIN,puckpedia,PP1
+Öhgren,F,28.0,2,MIN,puckpedia,
+Johansson,F,90.0,3,MIN,puckpedia,
+Trenin,F,13.0,4,MIN,puckpedia,
+Rossi,F,23.0,1,MIN,puckpedia,PP2
+Eriksson Ek,F,14.0,2,MIN,puckpedia,PP1
+Hartman,F,38.0,3,MIN,puckpedia,PP2
+Sturm,F,78.0,4,MIN,puckpedia,
+Boldy,F,12.0,1,MIN,puckpedia,PP1
+Tarasenko,F,91.0,2,MIN,puckpedia,PP2
+Foligno,F,17.0,3,MIN,puckpedia,
+Yurov,F,22.0,4,MIN,puckpedia,
+Middleton,D,5.0,1,MIN,puckpedia,
+Buium,D,8.0,2,MIN,puckpedia,PP2
+Jiricek,D,55.0,3,MIN,puckpedia,
+Faber,D,7.0,1,MIN,puckpedia,PP1
+Spurgeon,D,46.0,2,MIN,puckpedia,PP2
+Bogosian,D,24.0,3,MIN,puckpedia,
+Caufield,F,13.0,1,MTL,puckpedia,PP1
+Bolduc,F,76.0,2,MTL,puckpedia,
+Newhook,F,15.0,3,MTL,puckpedia,PP2
+Anderson,F,17.0,4,MTL,puckpedia,
+Suzuki,F,14.0,1,MTL,puckpedia,PP1
+Dach,F,77.0,2,MTL,puckpedia,
+Kapanen,F,91.0,3,MTL,puckpedia,
+Evans,F,71.0,4,MTL,puckpedia,
+Slafkovský,F,20.0,1,MTL,puckpedia,PP1
+Gallagher,F,11.0,2,MTL,puckpedia,PP2
+Demidov,F,93.0,3,MTL,puckpedia,PP2
+Laine,F,92.0,4,MTL,puckpedia,PP1
+Matheson,D,8.0,1,MTL,puckpedia,PP2
+Guhle,D,21.0,2,MTL,puckpedia,
+Xhekaj,D,72.0,3,MTL,puckpedia,
+Dobson,D,53.0,1,MTL,puckpedia,PP2
+Hutson,D,48.0,2,MTL,puckpedia,PP1
+Carrier,D,45.0,3,MTL,puckpedia,
+Dadonov,F,33.0,1,NJD,puckpedia,PP2
+Meier,F,28.0,2,NJD,puckpedia,PP1
+Palat,F,18.0,3,NJD,puckpedia,PP2
+Cotter,F,47.0,4,NJD,puckpedia,
+Hughes,F,86.0,1,NJD,puckpedia,"PP1, PP2"
+Hischier,F,13.0,2,NJD,puckpedia,PP1
+Glass,F,12.0,3,NJD,puckpedia,
+Glendening,F,14.0,4,NJD,puckpedia,
+Bratt,F,63.0,1,NJD,puckpedia,PP1
+Mercer,F,91.0,2,NJD,puckpedia,PP2
+Brown,F,16.0,3,NJD,puckpedia,
+Gritsyuk,F,81.0,4,NJD,puckpedia,PP2
+Siegenthaler,D,71.0,1,NJD,puckpedia,
+Hughes,D,43.0,2,NJD,puckpedia,"PP1, PP2"
+Dillon,D,5.0,3,NJD,puckpedia,
+Hamilton,D,7.0,1,NJD,puckpedia,PP1
+Pesce,D,22.0,2,NJD,puckpedia,
+Nemec,D,17.0,3,NJD,puckpedia,
+Duclair,F,11.0,1,NYI,puckpedia,PP2
+Lee,F,27.0,2,NYI,puckpedia,PP1
+Shabanov,F,49.0,3,NYI,puckpedia,PP2
+Heineman,F,51.0,4,NYI,puckpedia,
+Horvat,F,14.0,1,NYI,puckpedia,PP1
+Barzal,F,13.0,2,NYI,puckpedia,PP1
+Pageau,F,44.0,3,NYI,puckpedia,
+Cizikas,F,53.0,4,NYI,puckpedia,
+Drouin,F,29.0,1,NYI,puckpedia,PP1
+Palmieri,F,21.0,2,NYI,puckpedia,PP2
+Holmstrom,F,10.0,3,NYI,puckpedia,PP2
+Tsyplakov,F,7.0,4,NYI,puckpedia,
+Pelech,D,3.0,1,NYI,puckpedia,
+Romanov,D,28.0,2,NYI,puckpedia,
+Schaefer,D,48.0,3,NYI,puckpedia,
+Pulock,D,6.0,1,NYI,puckpedia,PP2
+DeAngelo,D,77.0,2,NYI,puckpedia,PP1
+Mayfield,D,24.0,3,NYI,puckpedia,
+Panarin,F,10.0,1,NYR,puckpedia,PP1
+Cuylle,F,50.0,2,NYR,puckpedia,PP2
+Berard,F,65.0,3,NYR,puckpedia,
+Edstrom,F,84.0,4,NYR,puckpedia,
+Trocheck,F,16.0,1,NYR,puckpedia,PP1
+Miller,F,8.0,2,NYR,puckpedia,PP1
+Parssinen,F,71.0,3,NYR,puckpedia,PP2
+Carrick,F,39.0,4,NYR,puckpedia,
+Lafreniere,F,13.0,1,NYR,puckpedia,PP2
+Zibanejad,F,93.0,2,NYR,puckpedia,PP1
+Raddysh,F,14.0,3,NYR,puckpedia,PP2
+Rempe,F,73.0,4,NYR,puckpedia,
+Gavrikov,D,44.0,1,NYR,puckpedia,
+Soucy,D,24.0,2,NYR,puckpedia,PP2
+Vaakanainen,D,18.0,3,NYR,puckpedia,
+Fox,D,23.0,1,NYR,puckpedia,PP1
+Borgen,D,17.0,2,NYR,puckpedia,
+Schneider,D,4.0,3,NYR,puckpedia,
+Tkachuk,F,7.0,1,OTT,puckpedia,PP1
+Perron,F,57.0,2,OTT,puckpedia,PP2
+Greig,F,71.0,3,OTT,puckpedia,PP2
+Cousins,F,21.0,4,OTT,puckpedia,
+Stutzle,F,18.0,1,OTT,puckpedia,PP1
+Cozens,F,24.0,2,OTT,puckpedia,PP1
+Pinto,F,12.0,3,OTT,puckpedia,PP1
+Eller,F,89.0,4,OTT,puckpedia,
+Giroux,F,28.0,1,OTT,puckpedia,PP2
+Zetterlund,F,20.0,2,OTT,puckpedia,PP2
+Amadio,F,22.0,3,OTT,puckpedia,
+MacEwen,F,17.0,4,OTT,puckpedia,
+Sanderson,D,85.0,1,OTT,puckpedia,PP1
+Chabot,D,72.0,2,OTT,puckpedia,PP2
+Kleven,D,43.0,3,OTT,puckpedia,
+Zub,D,2.0,1,OTT,puckpedia,
+Jensen,D,3.0,2,OTT,puckpedia,
+Spence,D,10.0,3,OTT,puckpedia,
+Grebenkin,F,29.0,1,PHI,puckpedia,
+Tippett,F,74.0,2,PHI,puckpedia,PP2
+Foerster,F,71.0,3,PHI,puckpedia,PP2
+Hathaway,F,19.0,4,PHI,puckpedia,
+Couturier,F,14.0,1,PHI,puckpedia,PP1
+Zegras,F,46.0,2,PHI,puckpedia,PP1
+Cates,F,27.0,3,PHI,puckpedia,PP2
+Dvorak,F,22.0,4,PHI,puckpedia,
+Konecny,F,11.0,1,PHI,puckpedia,PP1
+Michkov,F,39.0,2,PHI,puckpedia,PP1
+Brink,F,10.0,3,PHI,puckpedia,PP2
+Deslauriers,F,44.0,4,PHI,puckpedia,
+York,D,8.0,1,PHI,puckpedia,
+Seeler,D,24.0,2,PHI,puckpedia,
+Ginning,D,13.0,3,PHI,puckpedia,
+Sanheim,D,6.0,1,PHI,puckpedia,PP2
+Drysdale,D,9.0,2,PHI,puckpedia,PP1
+Zamula,D,5.0,3,PHI,puckpedia,
+Koivunen,F,41.0,1,PIT,puckpedia,PP2
+Mantha,F,39.0,2,PIT,puckpedia,PP2
+Kindel,F,81.0,3,PIT,puckpedia,PP2
+Dewar,F,19.0,4,PIT,puckpedia,
+Crosby,F,87.0,1,PIT,puckpedia,PP1
+Malkin,F,71.0,2,PIT,puckpedia,PP1
+Novak,F,18.0,3,PIT,puckpedia,
+Lizotte,F,46.0,4,PIT,puckpedia,
+Rakell,F,67.0,1,PIT,puckpedia,PP1
+Brazeau,F,15.0,2,PIT,puckpedia,PP2
+Tomasino,F,53.0,3,PIT,puckpedia,
+Acciari,F,55.0,4,PIT,puckpedia,
+Jones,D,82.0,1,PIT,puckpedia,PP2
+Wotherspoon,D,28.0,2,PIT,puckpedia,
+Graves,D,27.0,3,PIT,puckpedia,
+Letang,D,58.0,1,PIT,puckpedia,PP1
+Karlsson,D,65.0,2,PIT,puckpedia,PP1
+Clifton,D,75.0,3,PIT,puckpedia,
+Eklund,F,72.0,1,SJS,puckpedia,PP1
+Graf,F,51.0,2,SJS,puckpedia,
+Skinner,F,53.0,3,SJS,puckpedia,PP2
+Goodrow,F,23.0,4,SJS,puckpedia,
+Celebrini,F,71.0,1,SJS,puckpedia,PP1
+Misa,F,77.0,2,SJS,puckpedia,PP2
+Wennberg,F,21.0,3,SJS,puckpedia,PP2
+Gaudette,F,81.0,4,SJS,puckpedia,PP2
+Toffoli,F,73.0,1,SJS,puckpedia,PP1
+Smith,F,2.0,2,SJS,puckpedia,PP1
+Kurashev,F,96.0,3,SJS,puckpedia,
+Reaves,F,75.0,4,SJS,puckpedia,
+Ferraro,D,38.0,1,SJS,puckpedia,
+Leddy,D,4.0,2,SJS,puckpedia,
+Mukhamadullin,D,85.0,3,SJS,puckpedia,
+Liljegren,D,37.0,1,SJS,puckpedia,PP1
+Klingberg,D,3.0,2,SJS,puckpedia,PP2
+Orlov,D,9.0,3,SJS,puckpedia,
+McCann,F,19.0,1,SEA,puckpedia,PP1
+Marchment,F,27.0,2,SEA,puckpedia,PP2
+Schwartz,F,17.0,3,SEA,puckpedia,PP1
+Kartye,F,12.0,4,SEA,puckpedia,
+Beniers,F,10.0,1,SEA,puckpedia,PP1
+Stephenson,F,9.0,2,SEA,puckpedia,PP2
+Wright,F,51.0,3,SEA,puckpedia,PP1
+Gaudreau,F,89.0,4,SEA,puckpedia,
+Nyman,F,38.0,1,SEA,puckpedia,PP2
+Tolvanen,F,20.0,2,SEA,puckpedia,
+Eberle,F,7.0,3,SEA,puckpedia,PP2
+Hayden,F,15.0,4,SEA,puckpedia,
+Dunn,D,29.0,1,SEA,puckpedia,PP1
+Lindgren,D,55.0,2,SEA,puckpedia,
+Oleksiak,D,24.0,3,SEA,puckpedia,
+Larsson,D,6.0,1,SEA,puckpedia,
+Montour,D,62.0,2,SEA,puckpedia,PP2
+Mahura,D,28.0,3,SEA,puckpedia,
+Buchnevich,F,89.0,1,STL,puckpedia,PP1
+Holloway,F,81.0,2,STL,puckpedia,PP1
+Neighbours,F,63.0,3,STL,puckpedia,PP2
+Toropchenko,F,13.0,4,STL,puckpedia,
+Thomas,F,18.0,1,STL,puckpedia,PP1
+Schenn,F,10.0,2,STL,puckpedia,PP2
+Suter,F,22.0,3,STL,puckpedia,PP2
+Sundqvist,F,70.0,4,STL,puckpedia,
+Snuggerud,F,21.0,1,STL,puckpedia,PP1
+Kyrou,F,25.0,2,STL,puckpedia,PP2
+Bjugstad,F,77.0,3,STL,puckpedia,
+Walker,F,26.0,4,STL,puckpedia,
+Fowler,D,17.0,1,STL,puckpedia,PP1
+Broberg,D,6.0,2,STL,puckpedia,
+Tucker,D,75.0,3,STL,puckpedia,
+Parayko,D,55.0,1,STL,puckpedia,
+Faulk,D,72.0,2,STL,puckpedia,PP2
+Mailloux,D,23.0,3,STL,puckpedia,
+Guentzel,F,59.0,1,TBL,puckpedia,PP1
+Hagel,F,38.0,2,TBL,puckpedia,PP1
+Bjorkstrand,F,22.0,3,TBL,puckpedia,PP2
+Girgensons,F,28.0,4,TBL,puckpedia,
+Point,F,21.0,1,TBL,puckpedia,PP1
+Cirelli,F,71.0,2,TBL,puckpedia,PP2
+Gourde,F,37.0,3,TBL,puckpedia,PP2
+Finley,F,62.0,4,TBL,puckpedia,
+Kucherov,F,86.0,1,TBL,puckpedia,PP1
+Goncalves,F,93.0,2,TBL,puckpedia,PP2
+Chaffee,F,41.0,3,TBL,puckpedia,
+Geekie,F,14.0,4,TBL,puckpedia,
+Hedman,D,77.0,1,TBL,puckpedia,PP1
+McDonagh,D,27.0,2,TBL,puckpedia,
+Lilleberg,D,78.0,3,TBL,puckpedia,
+Moser,D,90.0,1,TBL,puckpedia,
+Cernak,D,81.0,2,TBL,puckpedia,
+Raddysh,D,43.0,3,TBL,puckpedia,PP2
+Knies,F,23.0,1,TOR,puckpedia,PP1
+McMann,F,74.0,2,TOR,puckpedia,PP2
+Joshua,F,81.0,3,TOR,puckpedia,
+Lorentz,F,18.0,4,TOR,puckpedia,
+Matthews,F,34.0,1,TOR,puckpedia,PP1
+Tavares,F,91.0,2,TOR,puckpedia,PP1
+Roy,F,55.0,3,TOR,puckpedia,PP2
+Kampf,F,64.0,4,TOR,puckpedia,
+Domi,F,11.0,1,TOR,puckpedia,PP2
+Nylander,F,88.0,2,TOR,puckpedia,PP1
+Maccelli,F,63.0,3,TOR,puckpedia,PP2
+Cowan,F,53.0,4,TOR,puckpedia,
+McCabe,D,22.0,1,TOR,puckpedia,
+Rielly,D,44.0,2,TOR,puckpedia,PP1
+Benoit,D,2.0,3,TOR,puckpedia,
+Tanev,D,8.0,1,TOR,puckpedia,
+Carlo,D,25.0,2,TOR,puckpedia,
+Ekman-Larsson,D,95.0,3,TOR,puckpedia,PP2
+Guenther,F,11.0,1,UTA,puckpedia,PP1
+Keller,F,9.0,2,UTA,puckpedia,PP1
+Crouse,F,67.0,3,UTA,puckpedia,PP2
+O'Brien,F,38.0,4,UTA,puckpedia,
+Cooley,F,92.0,1,UTA,puckpedia,PP2
+Hayton,F,27.0,2,UTA,puckpedia,PP2
+McBain,F,22.0,3,UTA,puckpedia,PP2
+Stenlund,F,82.0,4,UTA,puckpedia,
+Peterka,F,77.0,1,UTA,puckpedia,PP1
+Schmaltz,F,8.0,2,UTA,puckpedia,PP1
+Carcone,F,53.0,3,UTA,puckpedia,
+Tanev,F,13.0,4,UTA,puckpedia,
+Sergachev,D,98.0,1,UTA,puckpedia,PP1
+Cole,D,28.0,2,UTA,puckpedia,
+Maatta,D,2.0,3,UTA,puckpedia,
+Marino,D,6.0,1,UTA,puckpedia,
+Durzi,D,50.0,2,UTA,puckpedia,PP2
+Schmidt,D,88.0,3,UTA,puckpedia,
+DeBrusk,F,74.0,1,VAN,puckpedia,PP1
+Kane,F,91.0,2,VAN,puckpedia,PP2
+O'Connor,F,18.0,3,VAN,puckpedia,
+Räty,F,54.0,4,VAN,puckpedia,
+Pettersson,F,40.0,1,VAN,puckpedia,PP1
+Chytil,F,72.0,2,VAN,puckpedia,PP2
+Cootes,F,80.0,3,VAN,puckpedia,
+Blueger,F,53.0,4,VAN,puckpedia,
+Boeser,F,6.0,1,VAN,puckpedia,PP1
+Garland,F,8.0,2,VAN,puckpedia,PP1
+Sherwood,F,44.0,3,VAN,puckpedia,PP2
+Lekkerimaki,F,23.0,4,VAN,puckpedia,PP2
+Hughes,D,43.0,1,VAN,puckpedia,PP1
+Pettersson,D,29.0,2,VAN,puckpedia,PP1
+Pettersson,D,25.0,3,VAN,puckpedia,PP1
+Hronek,D,17.0,1,VAN,puckpedia,PP2
+Myers,D,57.0,2,VAN,puckpedia,
+Forbort,D,27.0,3,VAN,puckpedia,
+Barbashev,F,49.0,1,VGK,puckpedia,PP2
+Smith,F,19.0,2,VGK,puckpedia,PP2
+Saad,F,20.0,3,VGK,puckpedia,
+Howden,F,21.0,4,VGK,puckpedia,
+Eichel,F,9.0,1,VGK,puckpedia,PP1
+Karlsson,F,71.0,2,VGK,puckpedia,PP2
+Hertl,F,48.0,3,VGK,puckpedia,PP1
+Sissons,F,10.0,4,VGK,puckpedia,
+Marner,F,93.0,1,VGK,puckpedia,PP1
+Stone,F,61.0,2,VGK,puckpedia,PP1
+Dorofeyev,F,16.0,3,VGK,puckpedia,PP2
+Kolesar,F,55.0,4,VGK,puckpedia,
+McNabb,D,3.0,1,VGK,puckpedia,
+Hanifin,D,15.0,2,VGK,puckpedia,PP2
+Lauzon,D,5.0,3,VGK,puckpedia,
+Theodore,D,27.0,1,VGK,puckpedia,PP1
+Whitecloud,D,2.0,2,VGK,puckpedia,
+Korczak,D,6.0,3,VGK,puckpedia,
+Connor,F,81.0,1,WPG,puckpedia,PP1
+Perfetti,F,91.0,2,WPG,puckpedia,PP1
+Niederreiter,F,62.0,3,WPG,puckpedia,PP2
+Pearson,F,70.0,4,WPG,puckpedia,
+Scheifele,F,55.0,1,WPG,puckpedia,PP1
+Toews,F,19.0,2,WPG,puckpedia,PP2
+Namestnikov,F,7.0,3,WPG,puckpedia,PP2
+Barron,F,36.0,4,WPG,puckpedia,
+Vilardi,F,13.0,1,WPG,puckpedia,PP1
+Nyquist,F,14.0,2,WPG,puckpedia,
+Iafallo,F,9.0,3,WPG,puckpedia,PP2
+Koepke,F,45.0,4,WPG,puckpedia,
+Morrissey,D,44.0,1,WPG,puckpedia,PP1
+Stanley,D,64.0,2,WPG,puckpedia,
+Fleury,D,24.0,3,WPG,puckpedia,
+Demelo,D,2.0,1,WPG,puckpedia,
+Pionk,D,4.0,2,WPG,puckpedia,PP2
+Schenn,D,5.0,3,WPG,puckpedia,
+Chris Kreider,F,20.0,1,ANA,dailyfaceoff,PP1
+Leo Carlsson,F,91.0,1,ANA,dailyfaceoff,PP1
+Troy Terry,F,19.0,1,ANA,dailyfaceoff,PP1
+Cutter Gauthier,F,61.0,2,ANA,dailyfaceoff,PP2
+Mason McTavish,F,23.0,2,ANA,dailyfaceoff,PP2
+Mikael Granlund,F,64.0,2,ANA,dailyfaceoff,PP1
+Frank Vatrano,F,77.0,3,ANA,dailyfaceoff,PP2
+Ryan Strome,F,16.0,3,ANA,dailyfaceoff,PP2
+Alex Killorn,F,17.0,3,ANA,dailyfaceoff,
+Nikita Nesterenko,F,13.0,4,ANA,dailyfaceoff,
+Ryan Poehling,F,25.0,4,ANA,dailyfaceoff,
+Sam Colangelo,F,12.0,4,ANA,dailyfaceoff,
+Jackson Lacombe,D,2.0,1,ANA,dailyfaceoff,PP1
+Radko Gudas,D,7.0,1,ANA,dailyfaceoff,
+Olen Zellweger,D,51.0,2,ANA,dailyfaceoff,PP2
+Jacob Trouba,D,65.0,2,ANA,dailyfaceoff,
+Pavel Mintyukov,D,98.0,3,ANA,dailyfaceoff,
+Drew Helleson,D,14.0,3,ANA,dailyfaceoff,
+Morgan Geekie,F,39.0,1,BOS,dailyfaceoff,PP1
+Elias Lindholm,F,28.0,1,BOS,dailyfaceoff,PP1
+David Pastrnak,F,88.0,1,BOS,dailyfaceoff,PP1
+Pavel Zacha,F,18.0,2,BOS,dailyfaceoff,PP1
+Casey Mittelstadt,F,11.0,2,BOS,dailyfaceoff,PP2
+Viktor Arvidsson,F,71.0,2,BOS,dailyfaceoff,PP2
+Tanner Jeannot,F,84.0,3,BOS,dailyfaceoff,
+Fraser Minten,F,,3,BOS,dailyfaceoff,
+Marat Khusnutdinov,F,92.0,3,BOS,dailyfaceoff,PP2
+Michael Eyssimont,F,81.0,4,BOS,dailyfaceoff,
+Sean Kuraly,F,52.0,4,BOS,dailyfaceoff,
+Mark Kastelic,F,47.0,4,BOS,dailyfaceoff,
+Mason Lohrei,D,6.0,1,BOS,dailyfaceoff,PP2
+Charlie McAvoy,D,73.0,1,BOS,dailyfaceoff,PP1
+Hampus Lindholm,D,27.0,2,BOS,dailyfaceoff,PP2
+Andrew Peeke,D,26.0,2,BOS,dailyfaceoff,
+Nikita Zadorov,D,91.0,3,BOS,dailyfaceoff,
+Henri Jokiharju,D,20.0,3,BOS,dailyfaceoff,
+Zach Benson,F,6.0,1,BUF,dailyfaceoff,
+Josh Norris,F,9.0,1,BUF,dailyfaceoff,PP1
+Tage Thompson,F,72.0,1,BUF,dailyfaceoff,PP1
+Jason Zucker,F,17.0,2,BUF,dailyfaceoff,PP1
+Ryan McLeod,F,71.0,2,BUF,dailyfaceoff,
+Alex Tuch,F,89.0,2,BUF,dailyfaceoff,PP1
+Jack Quinn,F,22.0,3,BUF,dailyfaceoff,PP2
+Jiri Kulich,F,20.0,3,BUF,dailyfaceoff,PP2
+Josh Doan,F,91.0,3,BUF,dailyfaceoff,PP2
+Beck Malenstyn,F,29.0,4,BUF,dailyfaceoff,
+Peyton Krebs,F,19.0,4,BUF,dailyfaceoff,
+Justin Danforth,F,15.0,4,BUF,dailyfaceoff,
+Bowen Byram,D,4.0,1,BUF,dailyfaceoff,PP2
+Rasmus Dahlin,D,26.0,1,BUF,dailyfaceoff,PP1
+Owen Power,D,25.0,2,BUF,dailyfaceoff,PP2
+Michael Kesselring,D,8.0,2,BUF,dailyfaceoff,
+Ryan Johnson,D,33.0,3,BUF,dailyfaceoff,
+Conor Timmins,D,21.0,3,BUF,dailyfaceoff,
+Joel Farabee,F,86.0,1,CGY,dailyfaceoff,
+Nazem Kadri,F,91.0,1,CGY,dailyfaceoff,PP1
+Yegor Sharangovich,F,17.0,1,CGY,dailyfaceoff,PP2
+Jonathan Huberdeau,F,10.0,2,CGY,dailyfaceoff,PP1
+Morgan Frost,F,16.0,2,CGY,dailyfaceoff,PP1
+Matt Coronato,F,27.0,2,CGY,dailyfaceoff,PP1
+Connor Zary,F,47.0,3,CGY,dailyfaceoff,PP2
+Mikael Backlund,F,11.0,3,CGY,dailyfaceoff,PP2
+Blake Coleman,F,20.0,3,CGY,dailyfaceoff,
+Ryan Lomberg,F,70.0,4,CGY,dailyfaceoff,
+Martin Pospisil,F,76.0,4,CGY,dailyfaceoff,
+Adam Klapka,F,43.0,4,CGY,dailyfaceoff,
+Kevin Bahl,D,7.0,1,CGY,dailyfaceoff,
+Rasmus Andersson,D,4.0,1,CGY,dailyfaceoff,PP2
+Joel Hanley,D,44.0,2,CGY,dailyfaceoff,
+MacKenzie Weegar,D,52.0,2,CGY,dailyfaceoff,PP1
+Zayne Parekh,D,89.0,3,CGY,dailyfaceoff,PP2
+Brayden Pachal,D,94.0,3,CGY,dailyfaceoff,
+Nikolaj Ehlers,F,27.0,1,CAR,dailyfaceoff,PP1
+Sebastian Aho,F,20.0,1,CAR,dailyfaceoff,PP1
+Seth Jarvis,F,24.0,1,CAR,dailyfaceoff,PP1
+Andrei Svechnikov,F,37.0,2,CAR,dailyfaceoff,PP1
+Logan Stankoven,F,22.0,2,CAR,dailyfaceoff,PP2
+Jackson Blake,F,53.0,2,CAR,dailyfaceoff,PP2
+Jordan Martinook,F,48.0,3,CAR,dailyfaceoff,
+Jordan Staal,F,11.0,3,CAR,dailyfaceoff,
+William Carrier,F,28.0,3,CAR,dailyfaceoff,
+Taylor Hall,F,71.0,4,CAR,dailyfaceoff,PP2
+Mark Jankowski,F,77.0,4,CAR,dailyfaceoff,
+Eric Robinson,F,50.0,4,CAR,dailyfaceoff,
+Jaccob Slavin,D,74.0,1,CAR,dailyfaceoff,
+Sean Walker,D,26.0,1,CAR,dailyfaceoff,PP2
+K'Andre Miller,D,19.0,2,CAR,dailyfaceoff,
+Shayne Gostisbehere,D,4.0,2,CAR,dailyfaceoff,PP1
+Alexander Nikishin,D,21.0,3,CAR,dailyfaceoff,PP2
+Jalen Chatfield,D,5.0,3,CAR,dailyfaceoff,
+Ryan Donato,F,8.0,1,CHI,dailyfaceoff,PP2
+Connor Bedard,F,98.0,1,CHI,dailyfaceoff,PP1
+Andre Burakovsky,F,28.0,1,CHI,dailyfaceoff,PP2
+Teuvo Teravainen,F,86.0,2,CHI,dailyfaceoff,PP1
+Frank Nazar,F,91.0,2,CHI,dailyfaceoff,PP1
+Tyler Bertuzzi,F,59.0,2,CHI,dailyfaceoff,PP1
+Landon Slaggert,F,84.0,3,CHI,dailyfaceoff,
+Jason Dickinson,F,16.0,3,CHI,dailyfaceoff,
+Ilya Mikheyev,F,95.0,3,CHI,dailyfaceoff,
+Colton Dach,F,34.0,4,CHI,dailyfaceoff,PP2
+Nick Foligno,F,17.0,4,CHI,dailyfaceoff,PP2
+Sam Lafferty,F,24.0,4,CHI,dailyfaceoff,
+Alex Vlasic,D,72.0,1,CHI,dailyfaceoff,
+Sam Rinzel,D,6.0,1,CHI,dailyfaceoff,PP1
+Wyatt Kaiser,D,44.0,2,CHI,dailyfaceoff,
+Artyom Levshunov,D,55.0,2,CHI,dailyfaceoff,PP2
+Nolan Allan,D,,3,CHI,dailyfaceoff,
+Connor Murphy,D,5.0,3,CHI,dailyfaceoff,
+Artturi Lehkonen,F,62.0,1,COL,dailyfaceoff,PP2
+Nathan MacKinnon,F,29.0,1,COL,dailyfaceoff,PP1
+Martin Necas,F,88.0,1,COL,dailyfaceoff,PP1
+Gabriel Landeskog,F,92.0,2,COL,dailyfaceoff,PP2
+Brock Nelson,F,11.0,2,COL,dailyfaceoff,PP1
+Valeri Nichushkin,F,13.0,2,COL,dailyfaceoff,PP1
+Ross Colton,F,20.0,3,COL,dailyfaceoff,
+Jack Drury,F,18.0,3,COL,dailyfaceoff,
+Victor Olofsson,F,95.0,3,COL,dailyfaceoff,PP2
+Parker Kelly,F,17.0,4,COL,dailyfaceoff,
+Zakhar Bardakov,F,93.0,4,COL,dailyfaceoff,
+Joel Kiviranta,F,94.0,4,COL,dailyfaceoff,
+Devon Toews,D,7.0,1,COL,dailyfaceoff,PP2
+Cale Makar,D,8.0,1,COL,dailyfaceoff,PP1
+Sam Malinski,D,70.0,2,COL,dailyfaceoff,
+Josh Manson,D,42.0,2,COL,dailyfaceoff,
+Keaton Middleton,D,,3,COL,dailyfaceoff,
+Brent Burns,D,84.0,3,COL,dailyfaceoff,PP2
+Dmitri Voronkov,F,10.0,1,CBJ,dailyfaceoff,PP2
+Sean Monahan,F,23.0,1,CBJ,dailyfaceoff,PP1
+Kirill Marchenko,F,86.0,1,CBJ,dailyfaceoff,PP1
+Cole Sillinger,F,4.0,2,CBJ,dailyfaceoff,
+Boone Jenner,F,38.0,2,CBJ,dailyfaceoff,PP1
+Adam Fantilli,F,19.0,2,CBJ,dailyfaceoff,PP2
+Kent Johnson,F,91.0,3,CBJ,dailyfaceoff,PP1
+Charlie Coyle,F,3.0,3,CBJ,dailyfaceoff,
+Mathieu Olivier,F,24.0,3,CBJ,dailyfaceoff,
+Yegor Chinakhov,F,59.0,4,CBJ,dailyfaceoff,PP2
+Isac Lundestrom,F,21.0,4,CBJ,dailyfaceoff,
+Miles Wood,F,11.0,4,CBJ,dailyfaceoff,
+Zach Werenski,D,8.0,1,CBJ,dailyfaceoff,PP1
+Dante Fabbro,D,15.0,1,CBJ,dailyfaceoff,
+Ivan Provorov,D,9.0,2,CBJ,dailyfaceoff,PP2
+Damon Severson,D,78.0,2,CBJ,dailyfaceoff,
+Denton Mateychuk,D,5.0,3,CBJ,dailyfaceoff,PP2
+Erik Gudbranson,D,44.0,3,CBJ,dailyfaceoff,
+Sam Steel,F,18.0,1,DAL,dailyfaceoff,PP2
+Roope Hintz,F,24.0,1,DAL,dailyfaceoff,PP1
+Mikko Rantanen,F,96.0,1,DAL,dailyfaceoff,PP1
+Jason Robertson,F,21.0,2,DAL,dailyfaceoff,PP1
+Wyatt Johnston,F,53.0,2,DAL,dailyfaceoff,PP1
+Mavrik Bourque,F,22.0,2,DAL,dailyfaceoff,PP2
+Justin Hryckowian,F,49.0,3,DAL,dailyfaceoff,
+Matt Duchene,F,95.0,3,DAL,dailyfaceoff,PP2
+Tyler Seguin,F,91.0,3,DAL,dailyfaceoff,PP2
+Oskar Back,F,10.0,4,DAL,dailyfaceoff,
+Radek Faksa,F,12.0,4,DAL,dailyfaceoff,
+Colin Blackwell,F,15.0,4,DAL,dailyfaceoff,
+Esa Lindell,D,23.0,1,DAL,dailyfaceoff,
+Miro Heiskanen,D,4.0,1,DAL,dailyfaceoff,PP1
+Thomas Harley,D,55.0,2,DAL,dailyfaceoff,PP2
+Nils Lundkvist,D,5.0,2,DAL,dailyfaceoff,
+Lian Bichsel,D,6.0,3,DAL,dailyfaceoff,
+Alex Petrovic,D,,3,DAL,dailyfaceoff,
+Emmitt Finnie,F,58.0,1,DET,dailyfaceoff,PP2
+Dylan Larkin,F,71.0,1,DET,dailyfaceoff,PP1
+Lucas Raymond,F,23.0,1,DET,dailyfaceoff,PP1
+Alex DeBrincat,F,93.0,2,DET,dailyfaceoff,PP1
+Marco Kasper,F,92.0,2,DET,dailyfaceoff,PP2
+Patrick Kane,F,88.0,2,DET,dailyfaceoff,PP1
+Andrew Copp,F,18.0,3,DET,dailyfaceoff,PP2
+J.T. Compher,F,37.0,3,DET,dailyfaceoff,
+Michael Brandsegg-Nygård,F,28.0,3,DET,dailyfaceoff,PP2
+Elmer Soderblom,F,85.0,4,DET,dailyfaceoff,
+Michael Rasmussen,F,27.0,4,DET,dailyfaceoff,
+Mason Appleton,F,22.0,4,DET,dailyfaceoff,
+Ben Chiarot,D,8.0,1,DET,dailyfaceoff,
+Moritz Seider,D,53.0,1,DET,dailyfaceoff,PP1
+Simon Edvinsson,D,77.0,2,DET,dailyfaceoff,
+Albert Johansson,D,20.0,2,DET,dailyfaceoff,
+Erik Gustafsson,D,56.0,3,DET,dailyfaceoff,PP2
+Jacob Bernard-Docker,D,25.0,3,DET,dailyfaceoff,
+Leon Draisaitl,F,29.0,1,EDM,dailyfaceoff,PP1
+Connor McDavid,F,97.0,1,EDM,dailyfaceoff,PP1
+Trent Frederic,F,10.0,1,EDM,dailyfaceoff,PP2
+Vasily Podkolzin,F,92.0,2,EDM,dailyfaceoff,
+Ryan Nugent-Hopkins,F,93.0,2,EDM,dailyfaceoff,PP1
+Andrew Mangiapane,F,88.0,2,EDM,dailyfaceoff,
+Isaac Howard,F,53.0,3,EDM,dailyfaceoff,PP2
+David Tomasek,F,86.0,3,EDM,dailyfaceoff,PP1
+Kasperi Kapanen,F,42.0,3,EDM,dailyfaceoff,
+Adam Henrique,F,19.0,4,EDM,dailyfaceoff,PP2
+Noah Philp,F,48.0,4,EDM,dailyfaceoff,
+Matthew Savoie,F,22.0,4,EDM,dailyfaceoff,PP2
+Mattias Ekholm,D,14.0,1,EDM,dailyfaceoff,
+Evan Bouchard,D,2.0,1,EDM,dailyfaceoff,PP1
+Darnell Nurse,D,25.0,2,EDM,dailyfaceoff,PP2
+Jake Walman,D,96.0,2,EDM,dailyfaceoff,
+Brett Kulak,D,27.0,3,EDM,dailyfaceoff,
+Ty Emberson,D,49.0,3,EDM,dailyfaceoff,
+Carter Verhaeghe,F,23.0,1,FLA,dailyfaceoff,PP2
+Sam Bennett,F,9.0,1,FLA,dailyfaceoff,PP1
+Sam Reinhart,F,13.0,1,FLA,dailyfaceoff,PP1
+Eetu Luostarinen,F,27.0,2,FLA,dailyfaceoff,PP2
+Anton Lundell,F,15.0,2,FLA,dailyfaceoff,PP2
+Brad Marchand,F,63.0,2,FLA,dailyfaceoff,PP2
+Jesper Boqvist,F,70.0,3,FLA,dailyfaceoff,
+Evan Rodrigues,F,17.0,3,FLA,dailyfaceoff,
+Mackie Samoskevich,F,11.0,3,FLA,dailyfaceoff,PP1
+Jonah Gadjovich,F,12.0,4,FLA,dailyfaceoff,
+Luke Kunin,F,71.0,4,FLA,dailyfaceoff,
+A.J. Greer,F,10.0,4,FLA,dailyfaceoff,
+Gustav Forsling,D,42.0,1,FLA,dailyfaceoff,PP2
+Aaron Ekblad,D,5.0,1,FLA,dailyfaceoff,PP1
+Niko Mikkola,D,77.0,2,FLA,dailyfaceoff,
+Seth Jones,D,3.0,2,FLA,dailyfaceoff,PP1
+Dmitry Kulikov,D,7.0,3,FLA,dailyfaceoff,
+Jeff Petry,D,2.0,3,FLA,dailyfaceoff,
+Andrei Kuzmenko,F,96.0,1,LAK,dailyfaceoff,PP1
+Anze Kopitar,F,11.0,1,LAK,dailyfaceoff,PP1
+Adrian Kempe,F,9.0,1,LAK,dailyfaceoff,PP1
+Kevin Fiala,F,22.0,2,LAK,dailyfaceoff,PP1
+Quinton Byfield,F,55.0,2,LAK,dailyfaceoff,PP1
+Alex Laferriere,F,14.0,2,LAK,dailyfaceoff,PP2
+Trevor Moore,F,12.0,3,LAK,dailyfaceoff,
+Phillip Danault,F,24.0,3,LAK,dailyfaceoff,PP2
+Warren Foegele,F,37.0,3,LAK,dailyfaceoff,PP2
+Jeff Malott,F,39.0,4,LAK,dailyfaceoff,
+Alex Turcotte,F,15.0,4,LAK,dailyfaceoff,
+Joel Armia,F,40.0,4,LAK,dailyfaceoff,
+Mikey Anderson,D,44.0,1,LAK,dailyfaceoff,
+Drew Doughty,D,8.0,1,LAK,dailyfaceoff,PP2
+Brian Dumoulin,D,2.0,2,LAK,dailyfaceoff,
+Brandt Clarke,D,92.0,2,LAK,dailyfaceoff,PP2
+Joel Edmundson,D,6.0,3,LAK,dailyfaceoff,
+Cody Ceci,D,5.0,3,LAK,dailyfaceoff,
+Kirill Kaprizov,F,97.0,1,MIN,dailyfaceoff,PP1
+Marco Rossi,F,23.0,1,MIN,dailyfaceoff,PP1
+Matt Boldy,F,12.0,1,MIN,dailyfaceoff,PP1
+Liam Ohgren,F,28.0,2,MIN,dailyfaceoff,PP2
+Joel Eriksson Ek,F,14.0,2,MIN,dailyfaceoff,PP1
+Vladimir Tarasenko,F,91.0,2,MIN,dailyfaceoff,PP2
+Danila Yurov,F,22.0,3,MIN,dailyfaceoff,PP2
+Ryan Hartman,F,38.0,3,MIN,dailyfaceoff,PP2
+Marcus Johansson,F,,3,MIN,dailyfaceoff,
+Marcus Foligno,F,17.0,4,MIN,dailyfaceoff,
+Nico Sturm,F,78.0,4,MIN,dailyfaceoff,
+Yakov Trenin,F,13.0,4,MIN,dailyfaceoff,
+Jacob Middleton,D,5.0,1,MIN,dailyfaceoff,
+Brock Faber,D,7.0,1,MIN,dailyfaceoff,PP2
+Zeev Buium,D,8.0,2,MIN,dailyfaceoff,PP1
+Jared Spurgeon,D,46.0,2,MIN,dailyfaceoff,
+Zach Bogosian,D,24.0,3,MIN,dailyfaceoff,
+David Jiricek,D,,3,MIN,dailyfaceoff,
+Cole Caufield,F,13.0,1,MTL,dailyfaceoff,PP1
+Nick Suzuki,F,14.0,1,MTL,dailyfaceoff,PP1
+Juraj Slafkovsky,F,20.0,1,MTL,dailyfaceoff,PP1
+Patrik Laine,F,92.0,2,MTL,dailyfaceoff,PP2
+Kirby Dach,F,77.0,2,MTL,dailyfaceoff,PP2
+Ivan Demidov,F,93.0,2,MTL,dailyfaceoff,PP1
+Zack Bolduc,F,76.0,3,MTL,dailyfaceoff,PP2
+Alex Newhook,F,15.0,3,MTL,dailyfaceoff,PP2
+Oliver Kapanen,F,91.0,3,MTL,dailyfaceoff,
+Brendan Gallagher,F,11.0,4,MTL,dailyfaceoff,
+Jake Evans,F,71.0,4,MTL,dailyfaceoff,
+Josh Anderson,F,17.0,4,MTL,dailyfaceoff,
+Mike Matheson,D,8.0,1,MTL,dailyfaceoff,
+Noah Dobson,D,53.0,1,MTL,dailyfaceoff,PP2
+Kaiden Guhle,D,21.0,2,MTL,dailyfaceoff,
+Lane Hutson,D,48.0,2,MTL,dailyfaceoff,PP1
+Arber Xhekaj,D,72.0,3,MTL,dailyfaceoff,
+Alexandre Carrier,D,45.0,3,MTL,dailyfaceoff,
+Filip Forsberg,F,9.0,1,NSH,dailyfaceoff,PP1
+Ryan O'Reilly,F,90.0,1,NSH,dailyfaceoff,PP1
+Brady Martin,F,,1,NSH,dailyfaceoff,PP2
+Steven Stamkos,F,91.0,2,NSH,dailyfaceoff,PP1
+Fedor Svechkov,F,40.0,2,NSH,dailyfaceoff,PP2
+Joakim Kemell,F,,2,NSH,dailyfaceoff,PP2
+Michael Bunting,F,58.0,3,NSH,dailyfaceoff,PP2
+Erik Haula,F,56.0,3,NSH,dailyfaceoff,
+Jonathan Marchessault,F,81.0,3,NSH,dailyfaceoff,PP1
+Cole Smith,F,36.0,4,NSH,dailyfaceoff,
+Michael McCarron,F,47.0,4,NSH,dailyfaceoff,
+Ozzy Wiesblatt,F,2024.0,4,NSH,dailyfaceoff,
+Adam Wilsby,D,83.0,1,NSH,dailyfaceoff,
+Roman Josi,D,59.0,1,NSH,dailyfaceoff,PP1
+Brady Skjei,D,76.0,2,NSH,dailyfaceoff,PP2
+Nick Perbix,D,48.0,2,NSH,dailyfaceoff,
+Spencer Stastney,D,,3,NSH,dailyfaceoff,
+Justin Barron,D,20.0,3,NSH,dailyfaceoff,
+Evgenii Dadonov,F,33.0,1,NJD,dailyfaceoff,PP2
+Jack Hughes,F,86.0,1,NJD,dailyfaceoff,PP1
+Jesper Bratt,F,63.0,1,NJD,dailyfaceoff,PP1
+Timo Meier,F,28.0,2,NJD,dailyfaceoff,PP1
+Nico Hischier,F,13.0,2,NJD,dailyfaceoff,PP1
+Dawson Mercer,F,91.0,2,NJD,dailyfaceoff,PP2
+Ondrej Palat,F,18.0,3,NJD,dailyfaceoff,
+Cody Glass,F,12.0,3,NJD,dailyfaceoff,PP2
+Connor Brown,F,16.0,3,NJD,dailyfaceoff,
+Paul Cotter,F,47.0,4,NJD,dailyfaceoff,
+Juho Lammikko,F,83.0,4,NJD,dailyfaceoff,
+Arseny Gritsyuk,F,81.0,4,NJD,dailyfaceoff,PP2
+Jonas Siegenthaler,D,71.0,1,NJD,dailyfaceoff,
+Dougie Hamilton,D,7.0,1,NJD,dailyfaceoff,PP1
+Luke Hughes,D,43.0,2,NJD,dailyfaceoff,PP2
+Brett Pesce,D,22.0,2,NJD,dailyfaceoff,
+Brenden Dillon,D,5.0,3,NJD,dailyfaceoff,
+Simon Nemec,D,17.0,3,NJD,dailyfaceoff,
+Jonathan Drouin,F,29.0,1,NYI,dailyfaceoff,PP1
+Bo Horvat,F,14.0,1,NYI,dailyfaceoff,PP1
+Emil Heineman,F,51.0,1,NYI,dailyfaceoff,
+Anders Lee,F,27.0,2,NYI,dailyfaceoff,PP1
+Mathew Barzal,F,13.0,2,NYI,dailyfaceoff,PP1
+Kyle Palmieri,F,21.0,2,NYI,dailyfaceoff,PP2
+Maxim Shabanov,F,49.0,3,NYI,dailyfaceoff,PP2
+Jean-Gabriel Pageau,F,44.0,3,NYI,dailyfaceoff,PP2
+Simon Holmstrom,F,10.0,3,NYI,dailyfaceoff,
+Anthony Duclair,F,11.0,4,NYI,dailyfaceoff,PP2
+Casey Cizikas,F,53.0,4,NYI,dailyfaceoff,
+Maxim Tsyplakov,F,7.0,4,NYI,dailyfaceoff,
+Alexander Romanov,D,28.0,1,NYI,dailyfaceoff,
+Tony DeAngelo,D,77.0,1,NYI,dailyfaceoff,PP1
+Adam Pelech,D,3.0,2,NYI,dailyfaceoff,
+Ryan Pulock,D,6.0,2,NYI,dailyfaceoff,
+Matthew Schaefer,D,48.0,3,NYI,dailyfaceoff,PP2
+Scott Mayfield,D,24.0,3,NYI,dailyfaceoff,
+Will Cuylle,F,50.0,1,NYR,dailyfaceoff,PP2
+J.T. Miller,F,8.0,1,NYR,dailyfaceoff,PP1
+Mika Zibanejad,F,93.0,1,NYR,dailyfaceoff,PP1
+Artemi Panarin,F,10.0,2,NYR,dailyfaceoff,PP1
+Vincent Trocheck,F,16.0,2,NYR,dailyfaceoff,PP2
+Alexis Lafrenière,F,13.0,2,NYR,dailyfaceoff,PP1
+Brett Berard,F,65.0,3,NYR,dailyfaceoff,PP2
+Juuso Parssinen,F,71.0,3,NYR,dailyfaceoff,
+Taylor Raddysh,F,14.0,3,NYR,dailyfaceoff,PP2
+Adam Edstrom,F,84.0,4,NYR,dailyfaceoff,
+Sam Carrick,F,39.0,4,NYR,dailyfaceoff,
+Matt Rempe,F,73.0,4,NYR,dailyfaceoff,
+Vladislav Gavrikov,D,44.0,1,NYR,dailyfaceoff,
+Adam Fox,D,23.0,1,NYR,dailyfaceoff,PP1
+Carson Soucy,D,24.0,2,NYR,dailyfaceoff,
+Will Borgen,D,17.0,2,NYR,dailyfaceoff,
+Urho Vaakanainen,D,18.0,3,NYR,dailyfaceoff,
+Braden Schneider,D,4.0,3,NYR,dailyfaceoff,PP2
+Brady Tkachuk,F,7.0,1,OTT,dailyfaceoff,PP1
+Tim Stützle,F,18.0,1,OTT,dailyfaceoff,PP1
+Claude Giroux,F,28.0,1,OTT,dailyfaceoff,PP2
+David Perron,F,57.0,2,OTT,dailyfaceoff,PP2
+Dylan Cozens,F,24.0,2,OTT,dailyfaceoff,PP1
+Fabian Zetterlund,F,20.0,2,OTT,dailyfaceoff,PP2
+Ridly Greig,F,71.0,3,OTT,dailyfaceoff,PP2
+Shane Pinto,F,12.0,3,OTT,dailyfaceoff,PP1
+Michael Amadio,F,22.0,3,OTT,dailyfaceoff,
+Nick Cousins,F,21.0,4,OTT,dailyfaceoff,
+Lars Eller,F,89.0,4,OTT,dailyfaceoff,
+Zack MacEwen,F,17.0,4,OTT,dailyfaceoff,
+Jake Sanderson,D,85.0,1,OTT,dailyfaceoff,PP1
+Artem Zub,D,2.0,1,OTT,dailyfaceoff,
+Thomas Chabot,D,72.0,2,OTT,dailyfaceoff,PP2
+Nick Jensen,D,3.0,2,OTT,dailyfaceoff,
+Jordan Spence,D,10.0,3,OTT,dailyfaceoff,
+Carter Yakemchuk,D,2024.0,3,OTT,dailyfaceoff,
+Owen Tippett,F,74.0,1,PHI,dailyfaceoff,PP1
+Trevor Zegras,F,46.0,1,PHI,dailyfaceoff,PP1
+Matvei Michkov,F,39.0,1,PHI,dailyfaceoff,PP1
+Nikita Grebenkin,F,71.0,2,PHI,dailyfaceoff,
+Sean Couturier,F,14.0,2,PHI,dailyfaceoff,PP2
+Travis Konecny,F,11.0,2,PHI,dailyfaceoff,PP1
+Tyson Foerster,F,71.0,3,PHI,dailyfaceoff,PP2
+Noah Cates,F,27.0,3,PHI,dailyfaceoff,
+Bobby Brink,F,10.0,3,PHI,dailyfaceoff,PP2
+Nicolas Deslauriers,F,44.0,4,PHI,dailyfaceoff,
+Christian Dvorak,F,22.0,4,PHI,dailyfaceoff,
+Garnet Hathaway,F,19.0,4,PHI,dailyfaceoff,
+Cam York,D,8.0,1,PHI,dailyfaceoff,PP2
+Travis Sanheim,D,6.0,1,PHI,dailyfaceoff,PP2
+Nick Seeler,D,24.0,2,PHI,dailyfaceoff,
+Jamie Drysdale,D,9.0,2,PHI,dailyfaceoff,PP1
+Adam Ginning,D,,3,PHI,dailyfaceoff,
+Egor Zamula,D,5.0,3,PHI,dailyfaceoff,
+Rickard Rakell,F,67.0,1,PIT,dailyfaceoff,PP1
+Sidney Crosby,F,87.0,1,PIT,dailyfaceoff,PP1
+Bryan Rust,F,17.0,1,PIT,dailyfaceoff,PP1
+Ville Koivunen,F,41.0,2,PIT,dailyfaceoff,PP2
+Evgeni Malkin,F,71.0,2,PIT,dailyfaceoff,PP1
+Anthony Mantha,F,39.0,2,PIT,dailyfaceoff,PP2
+Filip Hallander,F,,3,PIT,dailyfaceoff,PP2
+Tommy Novak,F,18.0,3,PIT,dailyfaceoff,
+Philip Tomasino,F,53.0,3,PIT,dailyfaceoff,PP2
+Connor Dewar,F,19.0,4,PIT,dailyfaceoff,
+Blake Lizotte,F,46.0,4,PIT,dailyfaceoff,
+Justin Brazeau,F,16.0,4,PIT,dailyfaceoff,
+Parker Wotherspoon,D,28.0,1,PIT,dailyfaceoff,
+Erik Karlsson,D,65.0,1,PIT,dailyfaceoff,PP1
+Kris Letang,D,58.0,2,PIT,dailyfaceoff,PP2
+Matt Dumba,D,24.0,2,PIT,dailyfaceoff,
+Owen Pickering,D,38.0,3,PIT,dailyfaceoff,
+Harrison Brunicke,D,2024.0,3,PIT,dailyfaceoff,
+Jeff Skinner,F,53.0,1,SJS,dailyfaceoff,PP2
+Macklin Celebrini,F,71.0,1,SJS,dailyfaceoff,PP1
+Will Smith,F,2.0,1,SJS,dailyfaceoff,PP1
+William Eklund,F,72.0,2,SJS,dailyfaceoff,PP1
+Alex Wennberg,F,21.0,2,SJS,dailyfaceoff,PP2
+Tyler Toffoli,F,73.0,2,SJS,dailyfaceoff,PP1
+Philipp Kurashev,F,96.0,3,SJS,dailyfaceoff,
+Michael Misa,F,77.0,3,SJS,dailyfaceoff,PP2
+Collin Graf,F,51.0,3,SJS,dailyfaceoff,
+Barclay Goodrow,F,23.0,4,SJS,dailyfaceoff,
+Adam Gaudette,F,81.0,4,SJS,dailyfaceoff,PP2
+Ty Dellandrea,F,10.0,4,SJS,dailyfaceoff,
+Mario Ferraro,D,38.0,1,SJS,dailyfaceoff,
+Timothy Liljegren,D,37.0,1,SJS,dailyfaceoff,
+Nick Leddy,D,4.0,2,SJS,dailyfaceoff,
+John Klingberg,D,3.0,2,SJS,dailyfaceoff,PP1
+Shakir Mukhamadullin,D,85.0,3,SJS,dailyfaceoff,
+Dmitry Orlov,D,9.0,3,SJS,dailyfaceoff,PP2
+Jared McCann,F,19.0,1,SEA,dailyfaceoff,PP1
+Matty Beniers,F,10.0,1,SEA,dailyfaceoff,PP1
+Jordan Eberle,F,7.0,1,SEA,dailyfaceoff,PP1
+Jaden Schwartz,F,17.0,2,SEA,dailyfaceoff,PP1
+Shane Wright,F,51.0,2,SEA,dailyfaceoff,PP2
+Ryan Winterton,F,,2,SEA,dailyfaceoff,
+Mason Marchment,F,27.0,3,SEA,dailyfaceoff,
+Chandler Stephenson,F,9.0,3,SEA,dailyfaceoff,PP2
+Eeli Tolvanen,F,20.0,3,SEA,dailyfaceoff,PP2
+Tye Kartye,F,12.0,4,SEA,dailyfaceoff,
+Frederick Gaudreau,F,89.0,4,SEA,dailyfaceoff,
+Jani Nyman,F,38.0,4,SEA,dailyfaceoff,PP2
+Vince Dunn,D,29.0,1,SEA,dailyfaceoff,PP1
+Adam Larsson,D,6.0,1,SEA,dailyfaceoff,
+Jamie Oleksiak,D,24.0,2,SEA,dailyfaceoff,
+Brandon Montour,D,62.0,2,SEA,dailyfaceoff,PP2
+Ryan Lindgren,D,55.0,3,SEA,dailyfaceoff,
+Cale Fleury,D,,3,SEA,dailyfaceoff,
+Pavel Buchnevich,F,89.0,1,STL,dailyfaceoff,PP1
+Robert Thomas,F,18.0,1,STL,dailyfaceoff,PP1
+Jimmy Snuggerud,F,21.0,1,STL,dailyfaceoff,PP1
+Dylan Holloway,F,81.0,2,STL,dailyfaceoff,PP2
+Pius Suter,F,22.0,2,STL,dailyfaceoff,
+Jordan Kyrou,F,25.0,2,STL,dailyfaceoff,PP2
+Jake Neighbours,F,63.0,3,STL,dailyfaceoff,PP2
+Brayden Schenn,F,10.0,3,STL,dailyfaceoff,PP1
+Mathieu Joseph,F,71.0,3,STL,dailyfaceoff,
+Alexey Toropchenko,F,13.0,4,STL,dailyfaceoff,
+Nick Bjugstad,F,77.0,4,STL,dailyfaceoff,
+Alexandre Texier,F,,4,STL,dailyfaceoff,
+Cam Fowler,D,17.0,1,STL,dailyfaceoff,PP1
+Colton Parayko,D,55.0,1,STL,dailyfaceoff,
+Philip Broberg,D,6.0,2,STL,dailyfaceoff,
+Justin Faulk,D,72.0,2,STL,dailyfaceoff,PP2
+Tyler Tucker,D,75.0,3,STL,dailyfaceoff,
+Logan Mailloux,D,23.0,3,STL,dailyfaceoff,PP2
+Jake Guentzel,F,59.0,1,TBL,dailyfaceoff,PP1
+Brayden Point,F,21.0,1,TBL,dailyfaceoff,PP1
+Nikita Kucherov,F,86.0,1,TBL,dailyfaceoff,PP1
+Brandon Hagel,F,38.0,2,TBL,dailyfaceoff,PP2
+Anthony Cirelli,F,71.0,2,TBL,dailyfaceoff,PP2
+Gage Goncalves,F,93.0,2,TBL,dailyfaceoff,PP2
+Oliver Bjorkstrand,F,22.0,3,TBL,dailyfaceoff,PP1
+Yanni Gourde,F,37.0,3,TBL,dailyfaceoff,
+Mitchell Chaffee,F,41.0,3,TBL,dailyfaceoff,PP2
+Pontus Holmberg,F,29.0,4,TBL,dailyfaceoff,
+Jack Finley,F,62.0,4,TBL,dailyfaceoff,
+Zemgus Girgensons,F,28.0,4,TBL,dailyfaceoff,
+Victor Hedman,D,77.0,1,TBL,dailyfaceoff,PP1
+J.J. Moser,D,90.0,1,TBL,dailyfaceoff,
+Ryan McDonagh,D,27.0,2,TBL,dailyfaceoff,
+Erik Cernak,D,81.0,2,TBL,dailyfaceoff,
+Emil Lilleberg,D,78.0,3,TBL,dailyfaceoff,
+Darren Raddysh,D,43.0,3,TBL,dailyfaceoff,PP2
+Matthew Knies,F,23.0,1,TOR,dailyfaceoff,PP1
+Auston Matthews,F,34.0,1,TOR,dailyfaceoff,PP1
+Max Domi,F,11.0,1,TOR,dailyfaceoff,PP2
+Bobby McMann,F,74.0,2,TOR,dailyfaceoff,PP2
+John Tavares,F,91.0,2,TOR,dailyfaceoff,PP1
+William Nylander,F,88.0,2,TOR,dailyfaceoff,PP1
+Matias Maccelli,F,63.0,3,TOR,dailyfaceoff,PP2
+Nicolas Roy,F,55.0,3,TOR,dailyfaceoff,PP2
+Dakota Joshua,F,81.0,3,TOR,dailyfaceoff,
+Steven Lorentz,F,18.0,4,TOR,dailyfaceoff,
+David Kampf,F,64.0,4,TOR,dailyfaceoff,
+Easton Cowan,F,,4,TOR,dailyfaceoff,
+Jake McCabe,D,22.0,1,TOR,dailyfaceoff,
+Chris Tanev,D,8.0,1,TOR,dailyfaceoff,
+Morgan Rielly,D,44.0,2,TOR,dailyfaceoff,PP1
+Brandon Carlo,D,25.0,2,TOR,dailyfaceoff,
+Oliver Ekman-Larsson,D,95.0,3,TOR,dailyfaceoff,PP2
+Simon Benoit,D,2.0,3,TOR,dailyfaceoff,
+Dylan Guenther,F,11.0,1,UTA,dailyfaceoff,PP1
+Logan Cooley,F,92.0,1,UTA,dailyfaceoff,PP2
+JJ Peterka,F,77.0,1,UTA,dailyfaceoff,PP2
+Clayton Keller,F,9.0,2,UTA,dailyfaceoff,PP1
+Barrett Hayton,F,27.0,2,UTA,dailyfaceoff,PP1
+Nick Schmaltz,F,8.0,2,UTA,dailyfaceoff,PP1
+Lawson Crouse,F,67.0,3,UTA,dailyfaceoff,
+Jack McBain,F,22.0,3,UTA,dailyfaceoff,PP2
+Michael Carcone,F,53.0,3,UTA,dailyfaceoff,
+Kailer Yamamoto,F,56.0,4,UTA,dailyfaceoff,PP2
+Kevin Stenlund,F,82.0,4,UTA,dailyfaceoff,
+Brandon Tanev,F,13.0,4,UTA,dailyfaceoff,
+Mikhail Sergachev,D,98.0,1,UTA,dailyfaceoff,PP1
+John Marino,D,6.0,1,UTA,dailyfaceoff,
+Ian Cole,D,28.0,2,UTA,dailyfaceoff,
+Sean Durzi,D,50.0,2,UTA,dailyfaceoff,PP2
+Nate Schmidt,D,88.0,3,UTA,dailyfaceoff,
+Olli Maatta,D,2.0,3,UTA,dailyfaceoff,
+Jake DeBrusk,F,74.0,1,VAN,dailyfaceoff,PP1
+Elias Pettersson,F,40.0,1,VAN,dailyfaceoff,PP1
+Brock Boeser,F,6.0,1,VAN,dailyfaceoff,PP1
+Evander Kane,F,91.0,2,VAN,dailyfaceoff,PP2
+Filip Chytil,F,72.0,2,VAN,dailyfaceoff,PP1
+Jonathan Lekkerimaki,F,23.0,2,VAN,dailyfaceoff,PP2
+Kiefer Sherwood,F,44.0,3,VAN,dailyfaceoff,
+Teddy Blueger,F,53.0,3,VAN,dailyfaceoff,
+Conor Garland,F,8.0,3,VAN,dailyfaceoff,PP2
+Drew O'Connor,F,18.0,4,VAN,dailyfaceoff,
+Aatu Raty,F,54.0,4,VAN,dailyfaceoff,PP2
+Linus Karlsson,F,94.0,4,VAN,dailyfaceoff,
+Quinn Hughes,D,43.0,1,VAN,dailyfaceoff,PP1
+Filip Hronek,D,17.0,1,VAN,dailyfaceoff,PP2
+Marcus Pettersson,D,29.0,2,VAN,dailyfaceoff,
+Tyler Myers,D,57.0,2,VAN,dailyfaceoff,
+Derek Forbort,D,27.0,3,VAN,dailyfaceoff,
+Elias Nils Pettersson,D,25.0,3,VAN,dailyfaceoff,
+Ivan Barbashev,F,49.0,1,VGK,dailyfaceoff,PP2
+Jack Eichel,F,9.0,1,VGK,dailyfaceoff,PP1
+Mitch Marner,F,93.0,1,VGK,dailyfaceoff,PP1
+Reilly Smith,F,19.0,2,VGK,dailyfaceoff,PP2
+William Karlsson,F,71.0,2,VGK,dailyfaceoff,PP2
+Mark Stone,F,61.0,2,VGK,dailyfaceoff,PP1
+Brandon Saad,F,20.0,3,VGK,dailyfaceoff,
+Tomas Hertl,F,48.0,3,VGK,dailyfaceoff,PP1
+Pavel Dorofeyev,F,16.0,3,VGK,dailyfaceoff,PP2
+Brett Howden,F,21.0,4,VGK,dailyfaceoff,
+Colton Sissons,F,10.0,4,VGK,dailyfaceoff,
+Keegan Kolesar,F,55.0,4,VGK,dailyfaceoff,
+Brayden McNabb,D,3.0,1,VGK,dailyfaceoff,
+Shea Theodore,D,27.0,1,VGK,dailyfaceoff,PP1
+Noah Hanifin,D,15.0,2,VGK,dailyfaceoff,PP2
+Zach Whitecloud,D,2.0,2,VGK,dailyfaceoff,
+Jeremy Lauzon,D,5.0,3,VGK,dailyfaceoff,
+Kaedan Korczak,D,6.0,3,VGK,dailyfaceoff,
+Aliaksei Protas,F,21.0,1,WSH,dailyfaceoff,PP2
+Dylan Strome,F,17.0,1,WSH,dailyfaceoff,PP1
+Alex Ovechkin,F,8.0,1,WSH,dailyfaceoff,PP1
+Connor McMichael,F,24.0,2,WSH,dailyfaceoff,PP2
+Pierre-Luc Dubois,F,80.0,2,WSH,dailyfaceoff,PP1
+Tom Wilson,F,43.0,2,WSH,dailyfaceoff,PP1
+Anthony Beauvillier,F,72.0,3,WSH,dailyfaceoff,
+Hendrix Lapierre,F,29.0,3,WSH,dailyfaceoff,
+Ryan Leonard,F,9.0,3,WSH,dailyfaceoff,PP2
+Brandon Duhaime,F,22.0,4,WSH,dailyfaceoff,
+Nic Dowd,F,26.0,4,WSH,dailyfaceoff,
+Justin Sourdif,F,34.0,4,WSH,dailyfaceoff,
+Martin Fehervary,D,42.0,1,WSH,dailyfaceoff,
+John Carlson,D,74.0,1,WSH,dailyfaceoff,PP1
+Rasmus Sandin,D,38.0,2,WSH,dailyfaceoff,PP2
+Matt Roy,D,3.0,2,WSH,dailyfaceoff,
+Jakob Chychrun,D,6.0,3,WSH,dailyfaceoff,PP2
+Trevor van Riemsdyk,D,57.0,3,WSH,dailyfaceoff,
+Kyle Connor,F,81.0,1,WPG,dailyfaceoff,PP1
+Mark Scheifele,F,55.0,1,WPG,dailyfaceoff,PP1
+Gabriel Vilardi,F,13.0,1,WPG,dailyfaceoff,PP1
+Cole Perfetti,F,91.0,2,WPG,dailyfaceoff,PP1
+Jonathan Toews,F,19.0,2,WPG,dailyfaceoff,PP2
+Gustav Nyquist,F,14.0,2,WPG,dailyfaceoff,PP2
+Nino Niederreiter,F,62.0,3,WPG,dailyfaceoff,PP2
+Vladislav Namestnikov,F,7.0,3,WPG,dailyfaceoff,PP2
+Alex Iafallo,F,9.0,3,WPG,dailyfaceoff,
+Tanner Pearson,F,70.0,4,WPG,dailyfaceoff,
+Morgan Barron,F,36.0,4,WPG,dailyfaceoff,
+Cole Koepke,F,45.0,4,WPG,dailyfaceoff,
+Josh Morrissey,D,44.0,1,WPG,dailyfaceoff,PP1
+Dylan DeMelo,D,2.0,1,WPG,dailyfaceoff,
+Haydn Fleury,D,24.0,2,WPG,dailyfaceoff,
+Neal Pionk,D,4.0,2,WPG,dailyfaceoff,PP2
+Logan Stanley,D,64.0,3,WPG,dailyfaceoff,
+Luke Schenn,D,5.0,3,WPG,dailyfaceoff,

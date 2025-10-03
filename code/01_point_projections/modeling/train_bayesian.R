@@ -20,19 +20,23 @@ train_bayesian_model <- function(data, target, name) {
   cat("\n=== Entraînement bayésien FINAL:", name, "===\n")
 
   # TOUTES les données (pas de split train/valid)
-  train_clean <- data %>%
+  # Filtrer season >= 2010 car WPM nécessite 3 saisons d'historique
+  train_data <- data %>%
+    filter(season >= 2010)
+
+  train_clean <- train_data %>%
     select(
       all_of(target),
       wpm_g, wpm_a,
       evtoi_per_gp, pptoi_per_gp,
-      high_danger_shots_per60, medium_danger_shots_per60,
+      high_danger_shots, medium_danger_shots,
       conversion_high_danger, conversion_medium, conversion_overall,
-      x_goals_per60, shot_attempts_per60
+      x_goals, shot_attempts
     ) %>%
     filter(if_all(everything(), ~!is.na(.) & !is.infinite(.)))
 
-  cat("  Données d'entraînement:", nrow(train_clean), "observations (2020-2024)\n")
-  cat("  Saisons:", paste(sort(unique(data$season)), collapse = ", "), "\n")
+  cat("  Observations:", nrow(train_clean), "\n")
+  cat("  Saisons:", paste(sort(unique(train_data$season)), collapse = ", "), "\n")
 
   # Priors
   priors <- c(
@@ -44,11 +48,13 @@ train_bayesian_model <- function(data, target, name) {
   # Formule avec interactions
   formula <- as.formula(paste(
     target, "~ wpm_g + wpm_a + evtoi_per_gp + pptoi_per_gp +",
-    "high_danger_shots_per60 + medium_danger_shots_per60 +",
+    "high_danger_shots + medium_danger_shots +",
     "conversion_high_danger + conversion_medium + conversion_overall +",
-    "x_goals_per60 + shot_attempts_per60 +",
+    "x_goals + shot_attempts +",
     # Interactions: quantité × qualité, TOI × performance
-    "high_danger_shots_per60:conversion_high_danger +",
+    "high_danger_shots:conversion_high_danger +",
+    "medium_danger_shots:conversion_medium +",
+    "shot_attempts:conversion_overall +",
     "evtoi_per_gp:wpm_g + pptoi_per_gp:wpm_a"
   ))
 
@@ -61,12 +67,13 @@ train_bayesian_model <- function(data, target, name) {
     prior = priors,
     family = gaussian(),
     chains = 4,
-    iter = 2000,
-    warmup = 1000,
+    iter = 3000,
+    warmup = 1500,
     cores = 4,
     seed = 42,
-    refresh = 0,
-    silent = 2
+    control = list(max_treedepth = 15),
+    refresh = 100,  # Afficher progrès toutes les 100 itérations
+    silent = 0      # Verbose mode activé
   )
 
   # Prédictions sur données d'entraînement (pour diagnostics)
@@ -108,7 +115,7 @@ cat("  Defensemen:", nrow(data_d), "lignes\n")
 # Entraîner les 4 modèles FINAUX ------------------------------------------
 cat("\n" , rep("=", 60), "\n", sep = "")
 cat("ENTRAÎNEMENT DES MODÈLES BAYÉSIENS FINAUX\n")
-cat("(sur toutes les données 2020-2024)\n")
+cat("Données: 2010-2024 (WPM nécessite 3 saisons d'historique)\n")
 cat(rep("=", 60), "\n", sep = "")
 
 # Initialiser liste de résultats

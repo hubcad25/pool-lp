@@ -1,0 +1,1117 @@
+player_id,player_name,skeleton_full_name,team,position,jersey_number,line,pp_unit,source,match_confidence,match_method,match_note
+8475184.0,Kreider,Chris Kreider,ANA,F,20.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8483445.0,Gauthier,Cutter Gauthier,ANA,F,61.0,2,,puckpedia,100.0,exact,matched_with_score_100.0
+8478366.0,Vatrano,Frank Vatrano,ANA,F,77.0,3,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8481754.0,Nesterenko,Nikita Nesterenko,ANA,F,13.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8484153.0,Carlsson,Leo Carlsson,ANA,F,91.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8482745.0,McTavish,Mason McTavish,ANA,F,23.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8476458.0,Strome,Ryan Strome,ANA,F,16.0,3,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8480068.0,Poehling,Ryan Poehling,ANA,F,25.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8478873.0,Terry,Troy Terry,ANA,F,19.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8475798.0,Granlund,Mikael Granlund,ANA,F,64.0,2,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8473986.0,Killorn,Alex Killorn,ANA,F,17.0,3,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8482118.0,Colangelo,Sam Colangelo,ANA,F,12.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8481605.0,LaCombe,Jackson LaCombe,ANA,D,2.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8482803.0,Zellweger,Olen Zellweger,ANA,D,51.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8483490.0,Mintyukov,Pavel Mintyukov,ANA,D,98.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8475462.0,Gudas,Radko Gudas,ANA,D,7.0,1,,puckpedia,100.0,exact,matched_with_score_100.0
+8476885.0,Trouba,Jacob Trouba,ANA,D,65.0,2,,puckpedia,100.0,exact,matched_with_score_100.0
+8481563.0,Helleson,Drew Helleson,ANA,D,14.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8475184.0,Chris Kreider,Chris Kreider,ANA,F,20.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8484153.0,Leo Carlsson,Leo Carlsson,ANA,F,91.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478873.0,Troy Terry,Troy Terry,ANA,F,19.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8483445.0,Cutter Gauthier,Cutter Gauthier,ANA,F,61.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482745.0,Mason McTavish,Mason McTavish,ANA,F,23.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8475798.0,Mikael Granlund,Mikael Granlund,ANA,F,64.0,2,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478366.0,Frank Vatrano,Frank Vatrano,ANA,F,77.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476458.0,Ryan Strome,Ryan Strome,ANA,F,16.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8473986.0,Alex Killorn,Alex Killorn,ANA,F,17.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8481754.0,Nikita Nesterenko,Nikita Nesterenko,ANA,F,13.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480068.0,Ryan Poehling,Ryan Poehling,ANA,F,25.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482118.0,Sam Colangelo,Sam Colangelo,ANA,F,12.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8481605.0,Jackson Lacombe,Jackson LaCombe,ANA,D,2.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8475462.0,Radko Gudas,Radko Gudas,ANA,D,7.0,1,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482803.0,Olen Zellweger,Olen Zellweger,ANA,D,51.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476885.0,Jacob Trouba,Jacob Trouba,ANA,D,65.0,2,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8483490.0,Pavel Mintyukov,Pavel Mintyukov,ANA,D,98.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8481563.0,Drew Helleson,Drew Helleson,ANA,D,14.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8479987.0,Geekie,Morgan Geekie,BOS,F,39.0,1,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8478401.0,Zacha,Pavel Zacha,BOS,F,18.0,2,"PP1, PP2",puckpedia,100.0,exact,matched_with_score_100.0
+8479661.0,Jeannot,Tanner Jeannot,BOS,F,84.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8479591.0,Eyssimont,Michael Eyssimont,BOS,F,81.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8477496.0,Lindholm,Elias Lindholm,BOS,F,28.0,1,"PP1, PP2",puckpedia,100.0,exact,matched_with_score_100.0
+8479999.0,Mittelstadt,Casey Mittelstadt,BOS,F,11.0,2,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8483489.0,Minten,Fraser Minten,BOS,F,93.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8476374.0,Kuraly,Sean Kuraly,BOS,F,52.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8477956.0,Pastrnak,David Pastrnak,BOS,F,88.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8478042.0,Arvidsson,Viktor Arvidsson,BOS,F,71.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8482177.0,Khusnutdinov,Marat Khusnutdinov,BOS,F,92.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8480355.0,Kastelic,Mark Kastelic,BOS,F,47.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8482511.0,Lohrei,Mason Lohrei,BOS,D,6.0,1,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8477507.0,Zadorov,Nikita Zadorov,BOS,D,91.0,2,,puckpedia,100.0,exact,matched_with_score_100.0
+8476854.0,Lindholm,Hampus Lindholm,BOS,D,27.0,3,"PP1, PP2",puckpedia,100.0,exact,matched_with_score_100.0
+8479325.0,McAvoy,Charlie McAvoy,BOS,D,73.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8480035.0,Jokiharju,Henri Jokiharju,BOS,D,20.0,2,,puckpedia,100.0,exact,matched_with_score_100.0
+8479369.0,Peeke,Andrew Peeke,BOS,D,26.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8479987.0,Morgan Geekie,Morgan Geekie,BOS,F,39.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477496.0,Elias Lindholm,Elias Lindholm,BOS,F,28.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477956.0,David Pastrnak,David Pastrnak,BOS,F,88.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478401.0,Pavel Zacha,Pavel Zacha,BOS,F,18.0,2,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8479999.0,Casey Mittelstadt,Casey Mittelstadt,BOS,F,11.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478042.0,Viktor Arvidsson,Viktor Arvidsson,BOS,F,71.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8479661.0,Tanner Jeannot,Tanner Jeannot,BOS,F,84.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8483489.0,Fraser Minten,Fraser Minten,BOS,F,,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482177.0,Marat Khusnutdinov,Marat Khusnutdinov,BOS,F,92.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8479591.0,Michael Eyssimont,Michael Eyssimont,BOS,F,81.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476374.0,Sean Kuraly,Sean Kuraly,BOS,F,52.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480355.0,Mark Kastelic,Mark Kastelic,BOS,F,47.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482511.0,Mason Lohrei,Mason Lohrei,BOS,D,6.0,1,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8479325.0,Charlie McAvoy,Charlie McAvoy,BOS,D,73.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476854.0,Hampus Lindholm,Hampus Lindholm,BOS,D,27.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8479369.0,Andrew Peeke,Andrew Peeke,BOS,D,26.0,2,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477507.0,Nikita Zadorov,Nikita Zadorov,BOS,D,91.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480035.0,Henri Jokiharju,Henri Jokiharju,BOS,D,20.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8484145.0,Benson,Zach Benson,BUF,F,6.0,1,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8475722.0,Zucker,Jason Zucker,BUF,F,17.0,2,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8482097.0,Quinn,Jack Quinn,BUF,F,22.0,3,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8479359.0,Malenstyn,Beck Malenstyn,BUF,F,29.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8480064.0,Norris,Josh Norris,BUF,F,9.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8480802.0,McLeod,Ryan McLeod,BUF,F,71.0,2,,puckpedia,100.0,exact,matched_with_score_100.0
+8483468.0,Kulich,Jiri Kulich,BUF,F,20.0,3,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8481522.0,Krebs,Peyton Krebs,BUF,F,19.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8479420.0,Thompson,Tage Thompson,BUF,F,72.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8477949.0,Tuch,Alex Tuch,BUF,F,89.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8482659.0,Doan,Josh Doan,BUF,F,91.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8479941.0,Danforth,Justin Danforth,BUF,F,15.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8481524.0,Byram,Bowen Byram,BUF,D,4.0,1,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8482671.0,Power,Owen Power,BUF,D,25.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8480196.0,Bryson,Jacob Bryson,BUF,D,78.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8480839.0,Dahlin,Rasmus Dahlin,BUF,D,26.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8483732.0,Komarov,Vsevolod Komarov,BUF,D,76.0,2,,puckpedia,100.0,exact,matched_with_score_100.0
+8479982.0,Timmins,Conor Timmins,BUF,D,21.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8484145.0,Zach Benson,Zach Benson,BUF,F,6.0,1,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480064.0,Josh Norris,Josh Norris,BUF,F,9.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8479420.0,Tage Thompson,Tage Thompson,BUF,F,72.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8475722.0,Jason Zucker,Jason Zucker,BUF,F,17.0,2,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480802.0,Ryan McLeod,Ryan McLeod,BUF,F,71.0,2,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477949.0,Alex Tuch,Alex Tuch,BUF,F,89.0,2,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482097.0,Jack Quinn,Jack Quinn,BUF,F,22.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8483468.0,Jiri Kulich,Jiri Kulich,BUF,F,20.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482659.0,Josh Doan,Josh Doan,BUF,F,91.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8479359.0,Beck Malenstyn,Beck Malenstyn,BUF,F,29.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8481522.0,Peyton Krebs,Peyton Krebs,BUF,F,19.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8479941.0,Justin Danforth,Justin Danforth,BUF,F,15.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8481524.0,Bowen Byram,Bowen Byram,BUF,D,4.0,1,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480839.0,Rasmus Dahlin,Rasmus Dahlin,BUF,D,26.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482671.0,Owen Power,Owen Power,BUF,D,25.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480891.0,Michael Kesselring,Michael Kesselring,BUF,D,8.0,2,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8481564.0,Ryan Johnson,Ryan Johnson,BUF,D,33.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8479982.0,Conor Timmins,Conor Timmins,BUF,D,21.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477940.0,Ehlers,Nikolaj Ehlers,CAR,F,27.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8480830.0,Svechnikov,Andrei Svechnikov,CAR,F,37.0,2,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8476921.0,Martinook,Jordan Martinook,CAR,F,48.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8475791.0,Hall,Taylor Hall,CAR,F,71.0,4,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8478427.0,Aho,Sebastian Aho,CAR,F,20.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8482702.0,Stankoven,Logan Stankoven,CAR,F,22.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8473533.0,Staal,Jordan Staal,CAR,F,11.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8480829.0,Kotkaniemi,Jesperi Kotkaniemi,CAR,F,82.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8482093.0,Jarvis,Seth Jarvis,CAR,F,24.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8482809.0,Blake,Jackson Blake,CAR,F,53.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8477478.0,Carrier,William Carrier,CAR,F,28.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8480762.0,Robinson,Eric Robinson,CAR,F,50.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8476958.0,Slavin,Jaccob Slavin,CAR,D,74.0,1,,puckpedia,100.0,exact,matched_with_score_100.0
+8480817.0,Miller,K'Andre Miller,CAR,D,19.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8482100.0,Nikishin,Alexander Nikishin,CAR,D,21.0,3,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8480336.0,Walker,Sean Walker,CAR,D,26.0,1,,puckpedia,100.0,exact,matched_with_score_100.0
+8478970.0,Chatfield,Jalen Chatfield,CAR,D,5.0,2,,puckpedia,100.0,exact,matched_with_score_100.0
+8476906.0,Gostisbehere,Shayne Gostisbehere,CAR,D,4.0,3,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8477940.0,Nikolaj Ehlers,Nikolaj Ehlers,CAR,F,27.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478427.0,Sebastian Aho,Sebastian Aho,CAR,F,20.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482093.0,Seth Jarvis,Seth Jarvis,CAR,F,24.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480830.0,Andrei Svechnikov,Andrei Svechnikov,CAR,F,37.0,2,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482702.0,Logan Stankoven,Logan Stankoven,CAR,F,22.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482809.0,Jackson Blake,Jackson Blake,CAR,F,53.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476921.0,Jordan Martinook,Jordan Martinook,CAR,F,48.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8473533.0,Jordan Staal,Jordan Staal,CAR,F,11.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477478.0,William Carrier,William Carrier,CAR,F,28.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8475791.0,Taylor Hall,Taylor Hall,CAR,F,71.0,4,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476873.0,Mark Jankowski,Mark Jankowski,CAR,F,77.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480762.0,Eric Robinson,Eric Robinson,CAR,F,50.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476958.0,Jaccob Slavin,Jaccob Slavin,CAR,D,74.0,1,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480336.0,Sean Walker,Sean Walker,CAR,D,26.0,1,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480817.0,K'Andre Miller,K'Andre Miller,CAR,D,19.0,2,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476906.0,Shayne Gostisbehere,Shayne Gostisbehere,CAR,D,4.0,2,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482100.0,Alexander Nikishin,Alexander Nikishin,CAR,D,21.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478970.0,Jalen Chatfield,Jalen Chatfield,CAR,D,5.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8481716.0,Voronkov,Dmitri Voronkov,CBJ,F,10.0,1,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8482705.0,Sillinger,Cole Sillinger,CBJ,F,4.0,2,,puckpedia,100.0,exact,matched_with_score_100.0
+8482660.0,Johnson,Kent Johnson,CBJ,F,91.0,3,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8482475.0,Chinakhov,Yegor Chinakhov,CBJ,F,59.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8477497.0,Monahan,Sean Monahan,CBJ,F,23.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8476432.0,Jenner,Boone Jenner,CBJ,F,38.0,2,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8475745.0,Coyle,Charlie Coyle,CBJ,F,3.0,3,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8480806.0,Lundestrom,Isac Lundestrom,CBJ,F,21.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8480893.0,Marchenko,Kirill Marchenko,CBJ,F,86.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8484166.0,Fantilli,Adam Fantilli,CBJ,F,19.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8479671.0,Olivier,Mathieu Olivier,CBJ,F,24.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8477425.0,Wood,Miles Wood,CBJ,F,11.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8478460.0,Werenski,Zach Werenski,CBJ,D,8.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8478500.0,Provorov,Ivan Provorov,CBJ,D,9.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8483485.0,Mateychuk,Denton Mateychuk,CBJ,D,5.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8479371.0,Fabbro,Dante Fabbro,CBJ,D,15.0,1,,puckpedia,100.0,exact,matched_with_score_100.0
+8476923.0,Severson,Damon Severson,CBJ,D,78.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8475790.0,Gudbranson,Erik Gudbranson,CBJ,D,44.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8481716.0,Dmitri Voronkov,Dmitri Voronkov,CBJ,F,10.0,1,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477497.0,Sean Monahan,Sean Monahan,CBJ,F,23.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480893.0,Kirill Marchenko,Kirill Marchenko,CBJ,F,86.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482705.0,Cole Sillinger,Cole Sillinger,CBJ,F,4.0,2,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476432.0,Boone Jenner,Boone Jenner,CBJ,F,38.0,2,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8484166.0,Adam Fantilli,Adam Fantilli,CBJ,F,19.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482660.0,Kent Johnson,Kent Johnson,CBJ,F,91.0,3,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8475745.0,Charlie Coyle,Charlie Coyle,CBJ,F,3.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8479671.0,Mathieu Olivier,Mathieu Olivier,CBJ,F,24.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482475.0,Yegor Chinakhov,Yegor Chinakhov,CBJ,F,59.0,4,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480806.0,Isac Lundestrom,Isac Lundestrom,CBJ,F,21.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477425.0,Miles Wood,Miles Wood,CBJ,F,11.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478460.0,Zach Werenski,Zach Werenski,CBJ,D,8.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8479371.0,Dante Fabbro,Dante Fabbro,CBJ,D,15.0,1,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478500.0,Ivan Provorov,Ivan Provorov,CBJ,D,9.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476923.0,Damon Severson,Damon Severson,CBJ,D,78.0,2,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8483485.0,Denton Mateychuk,Denton Mateychuk,CBJ,D,5.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8475790.0,Erik Gudbranson,Erik Gudbranson,CBJ,D,44.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480797.0,Farabee,Joel Farabee,CGY,F,86.0,1,,puckpedia,100.0,exact,matched_with_score_100.0
+8476456.0,Huberdeau,Jonathan Huberdeau,CGY,F,10.0,2,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8482074.0,Zary,Connor Zary,CGY,F,47.0,3,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8479066.0,Lomberg,Ryan Lomberg,CGY,F,70.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8475172.0,Kadri,Nazem Kadri,CGY,F,91.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8480028.0,Frost,Morgan Frost,CGY,F,16.0,2,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8474150.0,Backlund,Mikael Backlund,CGY,F,11.0,3,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8481028.0,Pospisil,Martin Pospisil,CGY,F,76.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8483609.0,Klapka,Adam Klapka,CGY,F,43.0,1,,puckpedia,100.0,exact,matched_with_score_100.0
+8482679.0,Coronato,Matt Coronato,CGY,F,27.0,2,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8476399.0,Coleman,Blake Coleman,CGY,F,20.0,3,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8481068.0,Sharangovich,Yegor Sharangovich,CGY,F,17.0,4,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8480860.0,Bahl,Kevin Bahl,CGY,D,7.0,1,,puckpedia,100.0,exact,matched_with_score_100.0
+8477810.0,Hanley,Joel Hanley,CGY,D,44.0,2,,puckpedia,100.0,exact,matched_with_score_100.0
+8484768.0,Parekh,Zayne Parekh,CGY,D,89.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8478397.0,Andersson,Rasmus Andersson,CGY,D,4.0,1,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8477346.0,Weegar,MacKenzie Weegar,CGY,D,52.0,2,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8481167.0,Pachal,Brayden Pachal,CGY,D,94.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8480797.0,Joel Farabee,Joel Farabee,CGY,F,86.0,1,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8475172.0,Nazem Kadri,Nazem Kadri,CGY,F,91.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8481068.0,Yegor Sharangovich,Yegor Sharangovich,CGY,F,17.0,1,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476456.0,Jonathan Huberdeau,Jonathan Huberdeau,CGY,F,10.0,2,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480028.0,Morgan Frost,Morgan Frost,CGY,F,16.0,2,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482679.0,Matt Coronato,Matt Coronato,CGY,F,27.0,2,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482074.0,Connor Zary,Connor Zary,CGY,F,47.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8474150.0,Mikael Backlund,Mikael Backlund,CGY,F,11.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476399.0,Blake Coleman,Blake Coleman,CGY,F,20.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8479066.0,Ryan Lomberg,Ryan Lomberg,CGY,F,70.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8481028.0,Martin Pospisil,Martin Pospisil,CGY,F,76.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8483609.0,Adam Klapka,Adam Klapka,CGY,F,43.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480860.0,Kevin Bahl,Kevin Bahl,CGY,D,7.0,1,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478397.0,Rasmus Andersson,Rasmus Andersson,CGY,D,4.0,1,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477810.0,Joel Hanley,Joel Hanley,CGY,D,44.0,2,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477346.0,MacKenzie Weegar,MacKenzie Weegar,CGY,D,52.0,2,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8484768.0,Zayne Parekh,Zayne Parekh,CGY,D,89.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8481167.0,Brayden Pachal,Brayden Pachal,CGY,D,94.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477987.0,Donato,Ryan Donato,CHI,F,8.0,1,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8476882.0,Teravainen,Teuvo Teravainen,CHI,F,86.0,2,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8482172.0,Slaggert,Landon Slaggert,CHI,F,84.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8482703.0,Dach,Colton Dach,CHI,F,34.0,4,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8484144.0,Bedard,Connor Bedard,CHI,F,98.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8483493.0,Nazar,Frank Nazar,CHI,F,91.0,2,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8477450.0,Dickinson,Jason Dickinson,CHI,F,16.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8473422.0,Foligno,Nick Foligno,CHI,F,17.0,4,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8477444.0,Burakovsky,Andre Burakovsky,CHI,F,28.0,1,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8477479.0,Bertuzzi,Tyler Bertuzzi,CHI,F,59.0,2,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8481624.0,Mikheyev,Ilya Mikheyev,CHI,F,95.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8478043.0,Lafferty,Sam Lafferty,CHI,F,24.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8481568.0,Vlasic,Alex Vlasic,CHI,D,72.0,1,,puckpedia,100.0,exact,matched_with_score_100.0
+8482176.0,Kaiser,Wyatt Kaiser,CHI,D,44.0,2,,puckpedia,100.0,exact,matched_with_score_100.0
+8482700.0,Allan,Nolan Allan,CHI,D,42.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8483506.0,Rinzel,Sam Rinzel,CHI,D,6.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8484783.0,Levshunov,Artyom Levshunov,CHI,D,55.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8476473.0,Murphy,Connor Murphy,CHI,D,5.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8477987.0,Ryan Donato,Ryan Donato,CHI,F,8.0,1,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8484144.0,Connor Bedard,Connor Bedard,CHI,F,98.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477444.0,Andre Burakovsky,Andre Burakovsky,CHI,F,28.0,1,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476882.0,Teuvo Teravainen,Teuvo Teravainen,CHI,F,86.0,2,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8483493.0,Frank Nazar,Frank Nazar,CHI,F,91.0,2,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477479.0,Tyler Bertuzzi,Tyler Bertuzzi,CHI,F,59.0,2,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482172.0,Landon Slaggert,Landon Slaggert,CHI,F,84.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477450.0,Jason Dickinson,Jason Dickinson,CHI,F,16.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8481624.0,Ilya Mikheyev,Ilya Mikheyev,CHI,F,95.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482703.0,Colton Dach,Colton Dach,CHI,F,34.0,4,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8473422.0,Nick Foligno,Nick Foligno,CHI,F,17.0,4,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478043.0,Sam Lafferty,Sam Lafferty,CHI,F,24.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8481568.0,Alex Vlasic,Alex Vlasic,CHI,D,72.0,1,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8483506.0,Sam Rinzel,Sam Rinzel,CHI,D,6.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482176.0,Wyatt Kaiser,Wyatt Kaiser,CHI,D,44.0,2,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8484783.0,Artyom Levshunov,Artyom Levshunov,CHI,D,55.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482700.0,Nolan Allan,Nolan Allan,CHI,D,,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476473.0,Connor Murphy,Connor Murphy,CHI,D,5.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477501.0,Nichushkin,Valeri Nichushkin,COL,F,13.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8476455.0,Landeskog,Gabriel Landeskog,COL,F,92.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8479525.0,Colton,Ross Colton,COL,F,20.0,3,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8480448.0,Kelly,Parker Kelly,COL,F,17.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8477492.0,MacKinnon,Nathan MacKinnon,COL,F,29.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8475754.0,Nelson,Brock Nelson,COL,F,11.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8480835.0,Drury,Jack Drury,COL,F,18.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8482947.0,Bardakov,Zakhar Bardakov,COL,F,93.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8480039.0,Necas,Martin Necas,COL,F,88.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8477476.0,Lehkonen,Artturi Lehkonen,COL,F,62.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8478109.0,Olofsson,Victor Olofsson,COL,F,95.0,3,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8481641.0,Kiviranta,Joel Kiviranta,COL,F,94.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8478038.0,Toews,Devon Toews,COL,D,7.0,1,,puckpedia,100.0,exact,matched_with_score_100.0
+8479398.0,Girard,Samuel Girard,COL,D,49.0,2,,puckpedia,100.0,exact,matched_with_score_100.0
+8484258.0,Malinski,Sam Malinski,COL,D,70.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8480069.0,Makar,Cale Makar,COL,D,8.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8476312.0,Manson,Josh Manson,COL,D,42.0,2,,puckpedia,100.0,exact,matched_with_score_100.0
+8470613.0,Burns,Brent Burns,COL,D,84.0,3,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8477476.0,Artturi Lehkonen,Artturi Lehkonen,COL,F,62.0,1,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477492.0,Nathan MacKinnon,Nathan MacKinnon,COL,F,29.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480039.0,Martin Necas,Martin Necas,COL,F,88.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476455.0,Gabriel Landeskog,Gabriel Landeskog,COL,F,92.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8475754.0,Brock Nelson,Brock Nelson,COL,F,11.0,2,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477501.0,Valeri Nichushkin,Valeri Nichushkin,COL,F,13.0,2,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8479525.0,Ross Colton,Ross Colton,COL,F,20.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480835.0,Jack Drury,Jack Drury,COL,F,18.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478109.0,Victor Olofsson,Victor Olofsson,COL,F,95.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480448.0,Parker Kelly,Parker Kelly,COL,F,17.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482947.0,Zakhar Bardakov,Zakhar Bardakov,COL,F,93.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8481641.0,Joel Kiviranta,Joel Kiviranta,COL,F,94.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478038.0,Devon Toews,Devon Toews,COL,D,7.0,1,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480069.0,Cale Makar,Cale Makar,COL,D,8.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8484258.0,Sam Malinski,Sam Malinski,COL,D,70.0,2,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476312.0,Josh Manson,Josh Manson,COL,D,42.0,2,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8479387.0,Keaton Middleton,Keaton Middleton,COL,D,,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8470613.0,Brent Burns,Brent Burns,COL,D,84.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480027.0,Robertson,Jason Robertson,DAL,F,21.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8479351.0,Steel,Sam Steel,DAL,F,18.0,2,,puckpedia,100.0,exact,matched_with_score_100.0
+8482740.0,Johnston,Wyatt Johnston,DAL,F,53.0,3,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8480840.0,Back,Oskar Bäck,DAL,F,10.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8478449.0,Hintz,Roope Hintz,DAL,F,24.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8475168.0,Duchene,Matt Duchene,DAL,F,95.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8476889.0,Faksa,Radek Faksa,DAL,F,12.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8484829.0,Hryckowian,Justin Hryckowian,DAL,F,49.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8478420.0,Rantanen,Mikko Rantanen,DAL,F,96.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8475794.0,Seguin,Tyler Seguin,DAL,F,91.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8482145.0,Bourque,Mavrik Bourque,DAL,F,22.0,3,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8479414.0,Bastian,Nathan Bastian,DAL,F,11.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8476902.0,Lindell,Esa Lindell,DAL,D,23.0,1,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8481581.0,Harley,Thomas Harley,DAL,D,55.0,2,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8483425.0,Bichsel,Lian Bichsel,DAL,D,6.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8480036.0,Heiskanen,Miro Heiskanen,DAL,D,4.0,1,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8480878.0,Lundkvist,Nils Lundkvist,DAL,D,5.0,2,,puckpedia,100.0,exact,matched_with_score_100.0
+8480950.0,Lyubushkin,Ilya Lyubushkin,DAL,D,46.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8479351.0,Sam Steel,Sam Steel,DAL,F,18.0,1,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478449.0,Roope Hintz,Roope Hintz,DAL,F,24.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478420.0,Mikko Rantanen,Mikko Rantanen,DAL,F,96.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480027.0,Jason Robertson,Jason Robertson,DAL,F,21.0,2,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482740.0,Wyatt Johnston,Wyatt Johnston,DAL,F,53.0,2,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482145.0,Mavrik Bourque,Mavrik Bourque,DAL,F,22.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8484829.0,Justin Hryckowian,Justin Hryckowian,DAL,F,49.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8475168.0,Matt Duchene,Matt Duchene,DAL,F,95.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8475794.0,Tyler Seguin,Tyler Seguin,DAL,F,91.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480840.0,Oskar Back,Oskar Bäck,DAL,F,10.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476889.0,Radek Faksa,Radek Faksa,DAL,F,12.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476278.0,Colin Blackwell,Colin Blackwell,DAL,F,15.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476902.0,Esa Lindell,Esa Lindell,DAL,D,23.0,1,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480036.0,Miro Heiskanen,Miro Heiskanen,DAL,D,4.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8481581.0,Thomas Harley,Thomas Harley,DAL,D,55.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480878.0,Nils Lundkvist,Nils Lundkvist,DAL,D,5.0,2,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8483425.0,Lian Bichsel,Lian Bichsel,DAL,D,6.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8475755.0,Alex Petrovic,Alexander Petrovic,DAL,D,,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477429.0,Copp,Andrew Copp,DET,F,18.0,1,,puckpedia,100.0,exact,matched_with_score_100.0
+8479337.0,Debrincat,Alex DeBrincat,DET,F,93.0,2,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8481725.0,Soderblom,Elmer Soderblom,DET,F,85.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8474037.0,van Riemsdyk,James van Riemsdyk,DET,F,21.0,4,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8477946.0,Larkin,Dylan Larkin,DET,F,71.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8483464.0,Kasper,Marco Kasper,DET,F,92.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8477456.0,Compher,J.T. Compher,DET,F,37.0,3,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8479992.0,Rasmussen,Michael Rasmussen,DET,F,27.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8482078.0,Raymond,Lucas Raymond,DET,F,23.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8474141.0,Kane,Patrick Kane,DET,F,88.0,2,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8478891.0,Appleton,Mason Appleton,DET,F,22.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8481013.0,Berggren,Jonatan Berggren,DET,F,48.0,4,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8475279.0,Chiarot,Ben Chiarot,DET,D,8.0,1,,puckpedia,100.0,exact,matched_with_score_100.0
+8482762.0,Edvinsson,Simon Edvinsson,DET,D,77.0,2,,puckpedia,100.0,exact,matched_with_score_100.0
+8476979.0,Gustafsson,Erik Gustafsson,DET,D,56.0,3,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8481542.0,Seider,Moritz Seider,DET,D,53.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8481607.0,Johansson,Albert Johansson,DET,D,20.0,2,,puckpedia,100.0,exact,matched_with_score_100.0
+8480879.0,Bernard-Docker,Jacob Bernard-Docker,DET,D,25.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8484471.0,Emmitt Finnie,Emmitt Finnie,DET,F,58.0,1,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477946.0,Dylan Larkin,Dylan Larkin,DET,F,71.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482078.0,Lucas Raymond,Lucas Raymond,DET,F,23.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8479337.0,Alex DeBrincat,Alex DeBrincat,DET,F,93.0,2,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8483464.0,Marco Kasper,Marco Kasper,DET,F,92.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8474141.0,Patrick Kane,Patrick Kane,DET,F,88.0,2,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477429.0,Andrew Copp,Andrew Copp,DET,F,18.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477456.0,J.T. Compher,J.T. Compher,DET,F,37.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8484794.0,Michael Brandsegg-Nygård,Michael Brandsegg-Nygård,DET,F,28.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8481725.0,Elmer Soderblom,Elmer Soderblom,DET,F,85.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8479992.0,Michael Rasmussen,Michael Rasmussen,DET,F,27.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478891.0,Mason Appleton,Mason Appleton,DET,F,22.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8475279.0,Ben Chiarot,Ben Chiarot,DET,D,8.0,1,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8481542.0,Moritz Seider,Moritz Seider,DET,D,53.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482762.0,Simon Edvinsson,Simon Edvinsson,DET,D,77.0,2,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8481607.0,Albert Johansson,Albert Johansson,DET,D,20.0,2,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476979.0,Erik Gustafsson,Erik Gustafsson,DET,D,56.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480879.0,Jacob Bernard-Docker,Jacob Bernard-Docker,DET,D,25.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477934.0,Draisaitl,Leon Draisaitl,EDM,F,29.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8481617.0,Podkolzin,Vasily Podkolzin,EDM,F,92.0,2,,puckpedia,100.0,exact,matched_with_score_100.0
+8474641.0,Henrique,Adam Henrique,EDM,F,19.0,3,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8483455.0,Howard,Isaac Howard,EDM,F,53.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8478402.0,McDavid,Connor McDavid,EDM,F,97.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8476454.0,Nugent-Hopkins,Ryan Nugent-Hopkins,EDM,F,93.0,2,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8481491.0,Philp,Noah Philp,EDM,F,48.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8485493.0,Tomasek,David Tomasek,EDM,F,86.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8479365.0,Frederic,Trent Frederic,EDM,F,10.0,1,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8478233.0,Mangiapane,Andrew Mangiapane,EDM,F,88.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8483512.0,Savoie,Matt Savoie,EDM,F,22.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8477953.0,Kapanen,Kasperi Kapanen,EDM,F,42.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8475218.0,Ekholm,Mattias Ekholm,EDM,D,14.0,1,,puckpedia,100.0,exact,matched_with_score_100.0
+8477498.0,Nurse,Darnell Nurse,EDM,D,25.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8476967.0,Kulak,Brett Kulak,EDM,D,27.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8480803.0,Bouchard,Evan Bouchard,EDM,D,2.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8478013.0,Walman,Jake Walman,EDM,D,96.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8480831.0,Regula,Alec Regula,EDM,D,75.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8477934.0,Leon Draisaitl,Leon Draisaitl,EDM,F,29.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478402.0,Connor McDavid,Connor McDavid,EDM,F,97.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8479365.0,Trent Frederic,Trent Frederic,EDM,F,10.0,1,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8481617.0,Vasily Podkolzin,Vasily Podkolzin,EDM,F,92.0,2,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476454.0,Ryan Nugent-Hopkins,Ryan Nugent-Hopkins,EDM,F,93.0,2,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478233.0,Andrew Mangiapane,Andrew Mangiapane,EDM,F,88.0,2,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8483455.0,Isaac Howard,Isaac Howard,EDM,F,53.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8485493.0,David Tomasek,David Tomasek,EDM,F,86.0,3,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477953.0,Kasperi Kapanen,Kasperi Kapanen,EDM,F,42.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8474641.0,Adam Henrique,Adam Henrique,EDM,F,19.0,4,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8481491.0,Noah Philp,Noah Philp,EDM,F,48.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8483512.0,Matthew Savoie,Matt Savoie,EDM,F,22.0,4,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8475218.0,Mattias Ekholm,Mattias Ekholm,EDM,D,14.0,1,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480803.0,Evan Bouchard,Evan Bouchard,EDM,D,2.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477498.0,Darnell Nurse,Darnell Nurse,EDM,D,25.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478013.0,Jake Walman,Jake Walman,EDM,D,96.0,2,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476967.0,Brett Kulak,Brett Kulak,EDM,D,27.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480834.0,Ty Emberson,Ty Emberson,EDM,D,49.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477409.0,Verhaeghe,Carter Verhaeghe,FLA,F,23.0,1,,puckpedia,100.0,exact,matched_with_score_100.0
+8480185.0,Luostarinen,Eetu Luostarinen,FLA,F,27.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8480003.0,Boqvist,Jesper Boqvist,FLA,F,70.0,3,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8478421.0,Greer,A.J. Greer,FLA,F,10.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8477935.0,Bennett,Sam Bennett,FLA,F,9.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8482113.0,Lundell,Anton Lundell,FLA,F,15.0,2,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8478542.0,Rodrigues,Evan Rodrigues,FLA,F,17.0,3,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8479316.0,Kunin,Luke Kunin,FLA,F,71.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8477933.0,Reinhart,Sam Reinhart,FLA,F,13.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8473419.0,Marchand,Brad Marchand,FLA,F,63.0,2,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8482713.0,Samoskevich,Mackie Samoskevich,FLA,F,11.0,3,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8479981.0,Gadjovich,Jonah Gadjovich,FLA,F,12.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8478055.0,Forsling,Gustav Forsling,FLA,D,42.0,1,,puckpedia,100.0,exact,matched_with_score_100.0
+8478859.0,Mikkola,Niko Mikkola,FLA,D,77.0,2,,puckpedia,100.0,exact,matched_with_score_100.0
+8475179.0,Kulikov,Dmitry Kulikov,FLA,D,7.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8477932.0,Ekblad,Aaron Ekblad,FLA,D,5.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8477495.0,Jones,Seth Jones,FLA,D,3.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8473507.0,Petry,Jeff Petry,FLA,D,2.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8477409.0,Carter Verhaeghe,Carter Verhaeghe,FLA,F,23.0,1,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477935.0,Sam Bennett,Sam Bennett,FLA,F,9.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477933.0,Sam Reinhart,Sam Reinhart,FLA,F,13.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480185.0,Eetu Luostarinen,Eetu Luostarinen,FLA,F,27.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482113.0,Anton Lundell,Anton Lundell,FLA,F,15.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8473419.0,Brad Marchand,Brad Marchand,FLA,F,63.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480003.0,Jesper Boqvist,Jesper Boqvist,FLA,F,70.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478542.0,Evan Rodrigues,Evan Rodrigues,FLA,F,17.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482713.0,Mackie Samoskevich,Mackie Samoskevich,FLA,F,11.0,3,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8479981.0,Jonah Gadjovich,Jonah Gadjovich,FLA,F,12.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8479316.0,Luke Kunin,Luke Kunin,FLA,F,71.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478421.0,A.J. Greer,A.J. Greer,FLA,F,10.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478055.0,Gustav Forsling,Gustav Forsling,FLA,D,42.0,1,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477932.0,Aaron Ekblad,Aaron Ekblad,FLA,D,5.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478859.0,Niko Mikkola,Niko Mikkola,FLA,D,77.0,2,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477495.0,Seth Jones,Seth Jones,FLA,D,3.0,2,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8475179.0,Dmitry Kulikov,Dmitry Kulikov,FLA,D,7.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8473507.0,Jeff Petry,Jeff Petry,FLA,D,2.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8483808.0,Kuzmenko,Andrei Kuzmenko,LAK,F,96.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8477942.0,Fiala,Kevin Fiala,LAK,F,22.0,2,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8477998.0,Foegele,Warren Foegele,LAK,F,37.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8482408.0,Malott,Jeff Malott,LAK,F,39.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8471685.0,Kopitar,Anze Kopitar,LAK,F,11.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8482124.0,Byfield,Quinton Byfield,LAK,F,55.0,2,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8476479.0,Danault,Phillip Danault,LAK,F,24.0,3,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8481532.0,Turcotte,Alex Turcotte,LAK,F,15.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8477960.0,Kempe,Adrian Kempe,LAK,F,9.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8482155.0,Laferriere,Alex Laferriere,LAK,F,14.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8479675.0,Moore,Trevor Moore,LAK,F,12.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8476469.0,Armia,Joel Armia,LAK,F,40.0,4,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8479998.0,Anderson,Mikey Anderson,LAK,D,44.0,1,,puckpedia,100.0,exact,matched_with_score_100.0
+8476441.0,Edmundson,Joel Edmundson,LAK,D,6.0,2,,puckpedia,100.0,exact,matched_with_score_100.0
+8475208.0,Dumoulin,Brian Dumoulin,LAK,D,2.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8474563.0,Doughty,Drew Doughty,LAK,D,8.0,1,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8476879.0,Ceci,Cody Ceci,LAK,D,5.0,2,,puckpedia,100.0,exact,matched_with_score_100.0
+8482730.0,Clarke,Brandt Clarke,LAK,D,92.0,3,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8483808.0,Andrei Kuzmenko,Andrei Kuzmenko,LAK,F,96.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8471685.0,Anze Kopitar,Anze Kopitar,LAK,F,11.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477960.0,Adrian Kempe,Adrian Kempe,LAK,F,9.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477942.0,Kevin Fiala,Kevin Fiala,LAK,F,22.0,2,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482124.0,Quinton Byfield,Quinton Byfield,LAK,F,55.0,2,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482155.0,Alex Laferriere,Alex Laferriere,LAK,F,14.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8479675.0,Trevor Moore,Trevor Moore,LAK,F,12.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476479.0,Phillip Danault,Phillip Danault,LAK,F,24.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477998.0,Warren Foegele,Warren Foegele,LAK,F,37.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482408.0,Jeff Malott,Jeff Malott,LAK,F,39.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8481532.0,Alex Turcotte,Alex Turcotte,LAK,F,15.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476469.0,Joel Armia,Joel Armia,LAK,F,40.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8479998.0,Mikey Anderson,Mikey Anderson,LAK,D,44.0,1,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8474563.0,Drew Doughty,Drew Doughty,LAK,D,8.0,1,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8475208.0,Brian Dumoulin,Brian Dumoulin,LAK,D,2.0,2,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482730.0,Brandt Clarke,Brandt Clarke,LAK,D,92.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476441.0,Joel Edmundson,Joel Edmundson,LAK,D,6.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476879.0,Cody Ceci,Cody Ceci,LAK,D,5.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478864.0,Kaprizov,Kirill Kaprizov,MIN,F,97.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8483499.0,Öhgren,Liam Ohgren,MIN,F,28.0,2,,puckpedia,100.0,exact,matched_with_score_100.0
+8475149.0,Johansson,Marcus Johansson,MIN,F,90.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8478508.0,Trenin,Yakov Trenin,MIN,F,13.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8482079.0,Rossi,Marco Rossi,MIN,F,23.0,1,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8478493.0,Eriksson Ek,Joel Eriksson Ek,MIN,F,14.0,2,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8477451.0,Hartman,Ryan Hartman,MIN,F,38.0,3,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8481477.0,Sturm,Nico Sturm,MIN,F,78.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8481557.0,Boldy,Matt Boldy,MIN,F,12.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8475765.0,Tarasenko,Vladimir Tarasenko,MIN,F,91.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8475220.0,Foligno,Marcus Foligno,MIN,F,17.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8483525.0,Yurov,Danila Yurov,MIN,F,22.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8478136.0,Middleton,Jake Middleton,MIN,D,5.0,1,,puckpedia,100.0,exact,matched_with_score_100.0
+8484798.0,Buium,Zeev Buium,MIN,D,8.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8483460.0,Jiricek,David Jiricek,MIN,D,55.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8482122.0,Faber,Brock Faber,MIN,D,7.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8474716.0,Spurgeon,Jared Spurgeon,MIN,D,46.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8474567.0,Bogosian,Zach Bogosian,MIN,D,24.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8478864.0,Kirill Kaprizov,Kirill Kaprizov,MIN,F,97.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482079.0,Marco Rossi,Marco Rossi,MIN,F,23.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8481557.0,Matt Boldy,Matt Boldy,MIN,F,12.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8483499.0,Liam Ohgren,Liam Ohgren,MIN,F,28.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478493.0,Joel Eriksson Ek,Joel Eriksson Ek,MIN,F,14.0,2,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8475765.0,Vladimir Tarasenko,Vladimir Tarasenko,MIN,F,91.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8483525.0,Danila Yurov,Danila Yurov,MIN,F,22.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477451.0,Ryan Hartman,Ryan Hartman,MIN,F,38.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8475149.0,Marcus Johansson,Marcus Johansson,MIN,F,,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8475220.0,Marcus Foligno,Marcus Foligno,MIN,F,17.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8481477.0,Nico Sturm,Nico Sturm,MIN,F,78.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478508.0,Yakov Trenin,Yakov Trenin,MIN,F,13.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478136.0,Jacob Middleton,Jake Middleton,MIN,D,5.0,1,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482122.0,Brock Faber,Brock Faber,MIN,D,7.0,1,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8484798.0,Zeev Buium,Zeev Buium,MIN,D,8.0,2,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8474716.0,Jared Spurgeon,Jared Spurgeon,MIN,D,46.0,2,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8474567.0,Zach Bogosian,Zach Bogosian,MIN,D,24.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8483460.0,David Jiricek,David Jiricek,MIN,D,,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8481540.0,Caufield,Cole Caufield,MTL,F,13.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8482737.0,Bolduc,Zack Bolduc,MTL,F,76.0,2,,puckpedia,100.0,exact,matched_with_score_100.0
+8481618.0,Newhook,Alex Newhook,MTL,F,15.0,3,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8476981.0,Anderson,Josh Anderson,MTL,F,17.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8480018.0,Suzuki,Nick Suzuki,MTL,F,14.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8481523.0,Dach,Kirby Dach,MTL,F,77.0,2,,puckpedia,100.0,exact,matched_with_score_100.0
+8482775.0,Kapanen,Oliver Kapanen,MTL,F,91.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8478133.0,Evans,Jake Evans,MTL,F,71.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8483515.0,Slafkovský,Juraj Slafkovský,MTL,F,20.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8475848.0,Gallagher,Brendan Gallagher,MTL,F,11.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8484984.0,Demidov,Ivan Demidov,MTL,F,93.0,3,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8479339.0,Laine,Patrik Laine,MTL,F,92.0,4,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8476875.0,Matheson,Mike Matheson,MTL,D,8.0,1,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8482087.0,Guhle,Kaiden Guhle,MTL,D,21.0,2,,puckpedia,100.0,exact,matched_with_score_100.0
+8482964.0,Xhekaj,Arber Xhekaj,MTL,D,72.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8480865.0,Dobson,Noah Dobson,MTL,D,53.0,1,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8483457.0,Hutson,Lane Hutson,MTL,D,48.0,2,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8478851.0,Carrier,Alexandre Carrier,MTL,D,45.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8481540.0,Cole Caufield,Cole Caufield,MTL,F,13.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480018.0,Nick Suzuki,Nick Suzuki,MTL,F,14.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8483515.0,Juraj Slafkovsky,Juraj Slafkovský,MTL,F,20.0,1,PP1,dailyfaceoff,90.0,fuzzy,matched_with_score_90.0
+8479339.0,Patrik Laine,Patrik Laine,MTL,F,92.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8481523.0,Kirby Dach,Kirby Dach,MTL,F,77.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8484984.0,Ivan Demidov,Ivan Demidov,MTL,F,93.0,2,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482737.0,Zack Bolduc,Zack Bolduc,MTL,F,76.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8481618.0,Alex Newhook,Alex Newhook,MTL,F,15.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482775.0,Oliver Kapanen,Oliver Kapanen,MTL,F,91.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8475848.0,Brendan Gallagher,Brendan Gallagher,MTL,F,11.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478133.0,Jake Evans,Jake Evans,MTL,F,71.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476981.0,Josh Anderson,Josh Anderson,MTL,F,17.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476875.0,Mike Matheson,Mike Matheson,MTL,D,8.0,1,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480865.0,Noah Dobson,Noah Dobson,MTL,D,53.0,1,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482087.0,Kaiden Guhle,Kaiden Guhle,MTL,D,21.0,2,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8483457.0,Lane Hutson,Lane Hutson,MTL,D,48.0,2,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482964.0,Arber Xhekaj,Arber Xhekaj,MTL,D,72.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478851.0,Alexandre Carrier,Alexandre Carrier,MTL,D,45.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8474149.0,Dadonov,Evgenii Dadonov,NJD,F,33.0,1,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8478414.0,Meier,Timo Meier,NJD,F,28.0,2,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8476292.0,Palat,Ondrej Palat,NJD,F,18.0,3,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8481032.0,Cotter,Paul Cotter,NJD,F,47.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8481559.0,Hughes,Jack Hughes,NJD,F,86.0,1,"PP1, PP2",puckpedia,100.0,exact,matched_with_score_100.0
+8480002.0,Hischier,Nico Hischier,NJD,F,13.0,2,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8479996.0,Glass,Cody Glass,NJD,F,12.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+,Glendening,,NJD,F,14.0,4,,puckpedia,0.0,no_match,no_match_above_85
+8479407.0,Bratt,Jesper Bratt,NJD,F,63.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8482110.0,Mercer,Dawson Mercer,NJD,F,91.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8477015.0,Brown,Connor Brown,NJD,F,16.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8481721.0,Gritsyuk,Arseny Gritsyuk,NJD,F,81.0,4,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8478399.0,Siegenthaler,Jonas Siegenthaler,NJD,D,71.0,1,,puckpedia,100.0,exact,matched_with_score_100.0
+8482684.0,Hughes,Luke Hughes,NJD,D,43.0,2,"PP1, PP2",puckpedia,100.0,exact,matched_with_score_100.0
+8475455.0,Dillon,Brenden Dillon,NJD,D,5.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8476462.0,Hamilton,Dougie Hamilton,NJD,D,7.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8477488.0,Pesce,Brett Pesce,NJD,D,22.0,2,,puckpedia,100.0,exact,matched_with_score_100.0
+8483495.0,Nemec,Simon Nemec,NJD,D,17.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8474149.0,Evgenii Dadonov,Evgenii Dadonov,NJD,F,33.0,1,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8481559.0,Jack Hughes,Jack Hughes,NJD,F,86.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8479407.0,Jesper Bratt,Jesper Bratt,NJD,F,63.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478414.0,Timo Meier,Timo Meier,NJD,F,28.0,2,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480002.0,Nico Hischier,Nico Hischier,NJD,F,13.0,2,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482110.0,Dawson Mercer,Dawson Mercer,NJD,F,91.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476292.0,Ondrej Palat,Ondrej Palat,NJD,F,18.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8479996.0,Cody Glass,Cody Glass,NJD,F,12.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477015.0,Connor Brown,Connor Brown,NJD,F,16.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8481032.0,Paul Cotter,Paul Cotter,NJD,F,47.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477996.0,Juho Lammikko,Juho Lammikko,NJD,F,83.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8481721.0,Arseny Gritsyuk,Arseny Gritsyuk,NJD,F,81.0,4,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478399.0,Jonas Siegenthaler,Jonas Siegenthaler,NJD,D,71.0,1,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476462.0,Dougie Hamilton,Dougie Hamilton,NJD,D,7.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482684.0,Luke Hughes,Luke Hughes,NJD,D,43.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477488.0,Brett Pesce,Brett Pesce,NJD,D,22.0,2,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8475455.0,Brenden Dillon,Brenden Dillon,NJD,D,5.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8483495.0,Simon Nemec,Simon Nemec,NJD,D,17.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476887.0,Filip Forsberg,Filip Forsberg,NSH,F,9.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8475158.0,Ryan O'Reilly,Ryan O'Reilly,NSH,F,90.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8485405.0,Brady Martin,Brady Martin,NSH,F,,1,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8474564.0,Steven Stamkos,Steven Stamkos,NSH,F,91.0,2,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482768.0,Fedor Svechkov,Fedor Svechkov,NSH,F,40.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8483465.0,Joakim Kemell,Joakim Kemell,NSH,F,,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478047.0,Michael Bunting,Michael Bunting,NSH,F,58.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8475287.0,Erik Haula,Erik Haula,NSH,F,56.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476539.0,Jonathan Marchessault,Jonathan Marchessault,NSH,F,81.0,3,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482062.0,Cole Smith,Cole Smith,NSH,F,36.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477446.0,Michael McCarron,Michael McCarron,NSH,F,47.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482103.0,Ozzy Wiesblatt,Ozzy Wiesblatt,NSH,F,2024.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482482.0,Adam Wilsby,Adam Wilsby,NSH,D,83.0,1,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8474600.0,Roman Josi,Roman Josi,NSH,D,59.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476869.0,Brady Skjei,Brady Skjei,NSH,D,76.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480246.0,Nick Perbix,Nick Perbix,NSH,D,48.0,2,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8481056.0,Spencer Stastney,Spencer Stastney,NSH,D,,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482111.0,Justin Barron,Justin Barron,NSH,D,20.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477407.0,Duclair,Anthony Duclair,NYI,F,11.0,1,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8475314.0,Lee,Anders Lee,NYI,F,27.0,2,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8485702.0,Shabanov,Max Shabanov,NYI,F,49.0,3,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8482476.0,Heineman,Emil Heineman,NYI,F,51.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8477500.0,Horvat,Bo Horvat,NYI,F,14.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8478445.0,Barzal,Mathew Barzal,NYI,F,13.0,2,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8476419.0,Pageau,Jean-Gabriel Pageau,NYI,F,44.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8475231.0,Cizikas,Casey Cizikas,NYI,F,53.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8477494.0,Drouin,Jonathan Drouin,NYI,F,29.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8475151.0,Palmieri,Kyle Palmieri,NYI,F,21.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8481601.0,Holmstrom,Simon Holmstrom,NYI,F,10.0,3,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8484958.0,Tsyplakov,Maxim Tsyplakov,NYI,F,7.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8476917.0,Pelech,Adam Pelech,NYI,D,3.0,1,,puckpedia,100.0,exact,matched_with_score_100.0
+8481014.0,Romanov,Alexander Romanov,NYI,D,28.0,2,,puckpedia,100.0,exact,matched_with_score_100.0
+8485366.0,Schaefer,Matthew Schaefer,NYI,D,48.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8477506.0,Pulock,Ryan Pulock,NYI,D,6.0,1,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8477950.0,DeAngelo,Tony DeAngelo,NYI,D,77.0,2,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8476429.0,Mayfield,Scott Mayfield,NYI,D,24.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8477494.0,Jonathan Drouin,Jonathan Drouin,NYI,F,29.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477500.0,Bo Horvat,Bo Horvat,NYI,F,14.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482476.0,Emil Heineman,Emil Heineman,NYI,F,51.0,1,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8475314.0,Anders Lee,Anders Lee,NYI,F,27.0,2,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478445.0,Mathew Barzal,Mathew Barzal,NYI,F,13.0,2,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8475151.0,Kyle Palmieri,Kyle Palmieri,NYI,F,21.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8485702.0,Maxim Shabanov,Max Shabanov,NYI,F,49.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476419.0,Jean-Gabriel Pageau,Jean-Gabriel Pageau,NYI,F,44.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8481601.0,Simon Holmstrom,Simon Holmstrom,NYI,F,10.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477407.0,Anthony Duclair,Anthony Duclair,NYI,F,11.0,4,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8475231.0,Casey Cizikas,Casey Cizikas,NYI,F,53.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8484958.0,Maxim Tsyplakov,Maxim Tsyplakov,NYI,F,7.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8481014.0,Alexander Romanov,Alexander Romanov,NYI,D,28.0,1,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477950.0,Tony DeAngelo,Tony DeAngelo,NYI,D,77.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476917.0,Adam Pelech,Adam Pelech,NYI,D,3.0,2,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477506.0,Ryan Pulock,Ryan Pulock,NYI,D,6.0,2,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8485366.0,Matthew Schaefer,Matthew Schaefer,NYI,D,48.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476429.0,Scott Mayfield,Scott Mayfield,NYI,D,24.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478550.0,Panarin,Artemi Panarin,NYR,F,10.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8482157.0,Cuylle,Will Cuylle,NYR,F,50.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8482132.0,Berard,Brett Berard,NYR,F,65.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8481726.0,Edstrom,Adam Edstrom,NYR,F,84.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8476389.0,Trocheck,Vincent Trocheck,NYR,F,16.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8476468.0,Miller,J.T. Miller,NYR,F,8.0,2,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8481704.0,Parssinen,Juuso Parssinen,NYR,F,71.0,3,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8475842.0,Carrick,Sam Carrick,NYR,F,39.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8482109.0,Lafreniere,Alexis Lafrenière,NYR,F,13.0,1,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8476459.0,Zibanejad,Mika Zibanejad,NYR,F,93.0,2,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8479390.0,Raddysh,Taylor Raddysh,NYR,F,14.0,3,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8482460.0,Rempe,Matt Rempe,NYR,F,73.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8478882.0,Gavrikov,Vladislav Gavrikov,NYR,D,44.0,1,,puckpedia,100.0,exact,matched_with_score_100.0
+8477369.0,Soucy,Carson Soucy,NYR,D,24.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8480001.0,Vaakanainen,Urho Vaakanainen,NYR,D,18.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8479323.0,Fox,Adam Fox,NYR,D,23.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8478840.0,Borgen,Will Borgen,NYR,D,17.0,2,,puckpedia,100.0,exact,matched_with_score_100.0
+8482073.0,Schneider,Braden Schneider,NYR,D,4.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8482157.0,Will Cuylle,Will Cuylle,NYR,F,50.0,1,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476468.0,J.T. Miller,J.T. Miller,NYR,F,8.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476459.0,Mika Zibanejad,Mika Zibanejad,NYR,F,93.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478550.0,Artemi Panarin,Artemi Panarin,NYR,F,10.0,2,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476389.0,Vincent Trocheck,Vincent Trocheck,NYR,F,16.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482109.0,Alexis Lafrenière,Alexis Lafrenière,NYR,F,13.0,2,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482132.0,Brett Berard,Brett Berard,NYR,F,65.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8481704.0,Juuso Parssinen,Juuso Parssinen,NYR,F,71.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8479390.0,Taylor Raddysh,Taylor Raddysh,NYR,F,14.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8481726.0,Adam Edstrom,Adam Edstrom,NYR,F,84.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8475842.0,Sam Carrick,Sam Carrick,NYR,F,39.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482460.0,Matt Rempe,Matt Rempe,NYR,F,73.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478882.0,Vladislav Gavrikov,Vladislav Gavrikov,NYR,D,44.0,1,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8479323.0,Adam Fox,Adam Fox,NYR,D,23.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477369.0,Carson Soucy,Carson Soucy,NYR,D,24.0,2,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478840.0,Will Borgen,Will Borgen,NYR,D,17.0,2,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480001.0,Urho Vaakanainen,Urho Vaakanainen,NYR,D,18.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482073.0,Braden Schneider,Braden Schneider,NYR,D,4.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480801.0,Tkachuk,Brady Tkachuk,OTT,F,7.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8474102.0,Perron,David Perron,OTT,F,57.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8482092.0,Greig,Ridly Greig,OTT,F,71.0,3,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8476393.0,Cousins,Nick Cousins,OTT,F,21.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8482116.0,Stutzle,Tim Stützle,OTT,F,18.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8481528.0,Cozens,Dylan Cozens,OTT,F,24.0,2,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8481596.0,Pinto,Shane Pinto,OTT,F,12.0,3,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8474189.0,Eller,Lars Eller,OTT,F,89.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8473512.0,Giroux,Claude Giroux,OTT,F,28.0,1,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8480188.0,Zetterlund,Fabian Zetterlund,OTT,F,20.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8478020.0,Amadio,Michael Amadio,OTT,F,22.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8479772.0,MacEwen,Zack MacEwen,OTT,F,17.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8482105.0,Sanderson,Jake Sanderson,OTT,D,85.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8478469.0,Chabot,Thomas Chabot,OTT,D,72.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8482095.0,Kleven,Tyler Kleven,OTT,D,43.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8482245.0,Zub,Artem Zub,OTT,D,2.0,1,,puckpedia,100.0,exact,matched_with_score_100.0
+8475324.0,Jensen,Nick Jensen,OTT,D,3.0,2,,puckpedia,100.0,exact,matched_with_score_100.0
+8481606.0,Spence,Jordan Spence,OTT,D,10.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8480801.0,Brady Tkachuk,Brady Tkachuk,OTT,F,7.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482116.0,Tim Stützle,Tim Stützle,OTT,F,18.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8473512.0,Claude Giroux,Claude Giroux,OTT,F,28.0,1,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8474102.0,David Perron,David Perron,OTT,F,57.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8481528.0,Dylan Cozens,Dylan Cozens,OTT,F,24.0,2,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480188.0,Fabian Zetterlund,Fabian Zetterlund,OTT,F,20.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482092.0,Ridly Greig,Ridly Greig,OTT,F,71.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8481596.0,Shane Pinto,Shane Pinto,OTT,F,12.0,3,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478020.0,Michael Amadio,Michael Amadio,OTT,F,22.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476393.0,Nick Cousins,Nick Cousins,OTT,F,21.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8474189.0,Lars Eller,Lars Eller,OTT,F,89.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8479772.0,Zack MacEwen,Zack MacEwen,OTT,F,17.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482105.0,Jake Sanderson,Jake Sanderson,OTT,D,85.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482245.0,Artem Zub,Artem Zub,OTT,D,2.0,1,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478469.0,Thomas Chabot,Thomas Chabot,OTT,D,72.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8475324.0,Nick Jensen,Nick Jensen,OTT,D,3.0,2,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8481606.0,Jordan Spence,Jordan Spence,OTT,D,10.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8484759.0,Carter Yakemchuk,Carter Yakemchuk,OTT,D,2024.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8483733.0,Grebenkin,Nikita Grebenkin,PHI,F,29.0,1,,puckpedia,100.0,exact,matched_with_score_100.0
+8480015.0,Tippett,Owen Tippett,PHI,F,74.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8482159.0,Foerster,Tyson Foerster,PHI,F,71.0,3,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8477903.0,Hathaway,Garnet Hathaway,PHI,F,19.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8476461.0,Couturier,Sean Couturier,PHI,F,14.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8481533.0,Zegras,Trevor Zegras,PHI,F,46.0,2,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8480220.0,Cates,Noah Cates,PHI,F,27.0,3,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8477989.0,Dvorak,Christian Dvorak,PHI,F,22.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8478439.0,Konecny,Travis Konecny,PHI,F,11.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8484387.0,Michkov,Matvei Michkov,PHI,F,39.0,2,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8481553.0,Brink,Bobby Brink,PHI,F,10.0,3,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8475235.0,Deslauriers,Nicolas Deslauriers,PHI,F,44.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8481546.0,York,Cam York,PHI,D,8.0,1,,puckpedia,100.0,exact,matched_with_score_100.0
+8476372.0,Seeler,Nick Seeler,PHI,D,24.0,2,,puckpedia,100.0,exact,matched_with_score_100.0
+8480874.0,Ginning,Adam Ginning,PHI,D,13.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8477948.0,Sanheim,Travis Sanheim,PHI,D,6.0,1,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8482142.0,Drysdale,Jamie Drysdale,PHI,D,9.0,2,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8481178.0,Zamula,Egor Zamula,PHI,D,5.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8480015.0,Owen Tippett,Owen Tippett,PHI,F,74.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8481533.0,Trevor Zegras,Trevor Zegras,PHI,F,46.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8484387.0,Matvei Michkov,Matvei Michkov,PHI,F,39.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8483733.0,Nikita Grebenkin,Nikita Grebenkin,PHI,F,71.0,2,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476461.0,Sean Couturier,Sean Couturier,PHI,F,14.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478439.0,Travis Konecny,Travis Konecny,PHI,F,11.0,2,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482159.0,Tyson Foerster,Tyson Foerster,PHI,F,71.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480220.0,Noah Cates,Noah Cates,PHI,F,27.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8481553.0,Bobby Brink,Bobby Brink,PHI,F,10.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8475235.0,Nicolas Deslauriers,Nicolas Deslauriers,PHI,F,44.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477989.0,Christian Dvorak,Christian Dvorak,PHI,F,22.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477903.0,Garnet Hathaway,Garnet Hathaway,PHI,F,19.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8481546.0,Cam York,Cam York,PHI,D,8.0,1,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477948.0,Travis Sanheim,Travis Sanheim,PHI,D,6.0,1,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476372.0,Nick Seeler,Nick Seeler,PHI,D,24.0,2,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482142.0,Jamie Drysdale,Jamie Drysdale,PHI,D,9.0,2,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480874.0,Adam Ginning,Adam Ginning,PHI,D,,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8481178.0,Egor Zamula,Egor Zamula,PHI,D,5.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482758.0,Koivunen,Ville Koivunen,PIT,F,41.0,1,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8477511.0,Mantha,Anthony Mantha,PIT,F,39.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8485414.0,Kindel,Ben Kindel,PIT,F,81.0,3,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8480980.0,Dewar,Connor Dewar,PIT,F,19.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8471675.0,Crosby,Sidney Crosby,PIT,F,87.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8471215.0,Malkin,Evgeni Malkin,PIT,F,71.0,2,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8478438.0,Novak,Tommy Novak,PIT,F,18.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8481481.0,Lizotte,Blake Lizotte,PIT,F,46.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8476483.0,Rakell,Rickard Rakell,PIT,F,67.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8479638.0,Brazeau,Justin Brazeau,PIT,F,15.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8481577.0,Tomasino,Philip Tomasino,PIT,F,53.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8478569.0,Acciari,Noel Acciari,PIT,F,55.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8478452.0,Jones,Caleb Jones,PIT,D,82.0,1,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8478450.0,Wotherspoon,Parker Wotherspoon,PIT,D,28.0,2,,puckpedia,100.0,exact,matched_with_score_100.0
+8477435.0,Graves,Ryan Graves,PIT,D,27.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8471724.0,Letang,Kris Letang,PIT,D,58.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8474578.0,Karlsson,Erik Karlsson,PIT,D,65.0,2,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8477365.0,Clifton,Connor Clifton,PIT,D,75.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8476483.0,Rickard Rakell,Rickard Rakell,PIT,F,67.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8471675.0,Sidney Crosby,Sidney Crosby,PIT,F,87.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8475810.0,Bryan Rust,Bryan Rust,PIT,F,17.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482758.0,Ville Koivunen,Ville Koivunen,PIT,F,41.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8471215.0,Evgeni Malkin,Evgeni Malkin,PIT,F,71.0,2,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477511.0,Anthony Mantha,Anthony Mantha,PIT,F,39.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480842.0,Filip Hallander,Filip Hallander,PIT,F,,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478438.0,Tommy Novak,Tommy Novak,PIT,F,18.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8481577.0,Philip Tomasino,Philip Tomasino,PIT,F,53.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480980.0,Connor Dewar,Connor Dewar,PIT,F,19.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8481481.0,Blake Lizotte,Blake Lizotte,PIT,F,46.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8479638.0,Justin Brazeau,Justin Brazeau,PIT,F,16.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478450.0,Parker Wotherspoon,Parker Wotherspoon,PIT,D,28.0,1,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8474578.0,Erik Karlsson,Erik Karlsson,PIT,D,65.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8471724.0,Kris Letang,Kris Letang,PIT,D,58.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476856.0,Matt Dumba,Mathew Dumba,PIT,D,24.0,2,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8483503.0,Owen Pickering,Owen Pickering,PIT,D,38.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8484839.0,Harrison Brunicke,Harrison Brunicke,PIT,D,2024.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477955.0,McCann,Jared McCann,SEA,F,19.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8478975.0,Marchment,Mason Marchment,SEA,F,27.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8475768.0,Schwartz,Jaden Schwartz,SEA,F,17.0,3,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8481789.0,Kartye,Tye Kartye,SEA,F,12.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8482665.0,Beniers,Matty Beniers,SEA,F,10.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8476905.0,Stephenson,Chandler Stephenson,SEA,F,9.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8483524.0,Wright,Shane Wright,SEA,F,51.0,3,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8477919.0,Gaudreau,Frederick Gaudreau,SEA,F,89.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8483497.0,Nyman,Jani Nyman,SEA,F,38.0,1,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8480009.0,Tolvanen,Eeli Tolvanen,SEA,F,20.0,2,,puckpedia,100.0,exact,matched_with_score_100.0
+8474586.0,Eberle,Jordan Eberle,SEA,F,7.0,3,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8477401.0,Hayden,John Hayden,SEA,F,15.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8478407.0,Dunn,Vince Dunn,SEA,D,29.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8479324.0,Lindgren,Ryan Lindgren,SEA,D,55.0,2,,puckpedia,100.0,exact,matched_with_score_100.0
+8476467.0,Oleksiak,Jamie Oleksiak,SEA,D,24.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8476457.0,Larsson,Adam Larsson,SEA,D,6.0,1,,puckpedia,100.0,exact,matched_with_score_100.0
+8477986.0,Montour,Brandon Montour,SEA,D,62.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8479372.0,Mahura,Joshua Mahura,SEA,D,28.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8477955.0,Jared McCann,Jared McCann,SEA,F,19.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482665.0,Matty Beniers,Matty Beniers,SEA,F,10.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8474586.0,Jordan Eberle,Jordan Eberle,SEA,F,7.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8475768.0,Jaden Schwartz,Jaden Schwartz,SEA,F,17.0,2,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8483524.0,Shane Wright,Shane Wright,SEA,F,51.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482751.0,Ryan Winterton,Ryan Winterton,SEA,F,,2,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478975.0,Mason Marchment,Mason Marchment,SEA,F,27.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476905.0,Chandler Stephenson,Chandler Stephenson,SEA,F,9.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480009.0,Eeli Tolvanen,Eeli Tolvanen,SEA,F,20.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8481789.0,Tye Kartye,Tye Kartye,SEA,F,12.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477919.0,Frederick Gaudreau,Frederick Gaudreau,SEA,F,89.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8483497.0,Jani Nyman,Jani Nyman,SEA,F,38.0,4,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478407.0,Vince Dunn,Vince Dunn,SEA,D,29.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476457.0,Adam Larsson,Adam Larsson,SEA,D,6.0,1,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476467.0,Jamie Oleksiak,Jamie Oleksiak,SEA,D,24.0,2,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477986.0,Brandon Montour,Brandon Montour,SEA,D,62.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8479324.0,Ryan Lindgren,Ryan Lindgren,SEA,D,55.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8479985.0,Cale Fleury,Cale Fleury,SEA,D,,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482667.0,Eklund,William Eklund,SJS,F,72.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8484911.0,Graf,Collin Graf,SJS,F,51.0,2,,puckpedia,100.0,exact,matched_with_score_100.0
+8475784.0,Skinner,Jeff Skinner,SJS,F,53.0,3,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8476624.0,Goodrow,Barclay Goodrow,SJS,F,23.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8484801.0,Celebrini,Macklin Celebrini,SJS,F,71.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8485402.0,Misa,Michael Misa,SJS,F,77.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8477505.0,Wennberg,Alexander Wennberg,SJS,F,21.0,3,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8478874.0,Gaudette,Adam Gaudette,SJS,F,81.0,4,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8475726.0,Toffoli,Tyler Toffoli,SJS,F,73.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8484227.0,Smith,Will Smith,SJS,F,2.0,2,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8480798.0,Kurashev,Philipp Kurashev,SJS,F,96.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8471817.0,Reaves,Ryan Reaves,SJS,F,75.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8479983.0,Ferraro,Mario Ferraro,SJS,D,38.0,1,,puckpedia,100.0,exact,matched_with_score_100.0
+8475181.0,Leddy,Nick Leddy,SJS,D,4.0,2,,puckpedia,100.0,exact,matched_with_score_100.0
+8482166.0,Mukhamadullin,Shakir Mukhamadullin,SJS,D,85.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8480043.0,Liljegren,Timothy Liljegren,SJS,D,37.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8475906.0,Klingberg,John Klingberg,SJS,D,3.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8475200.0,Orlov,Dmitry Orlov,SJS,D,9.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8475784.0,Jeff Skinner,Jeff Skinner,SJS,F,53.0,1,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8484801.0,Macklin Celebrini,Macklin Celebrini,SJS,F,71.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8484227.0,Will Smith,Will Smith,SJS,F,2.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482667.0,William Eklund,William Eklund,SJS,F,72.0,2,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477505.0,Alex Wennberg,Alexander Wennberg,SJS,F,21.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8475726.0,Tyler Toffoli,Tyler Toffoli,SJS,F,73.0,2,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480798.0,Philipp Kurashev,Philipp Kurashev,SJS,F,96.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8485402.0,Michael Misa,Michael Misa,SJS,F,77.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8484911.0,Collin Graf,Collin Graf,SJS,F,51.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476624.0,Barclay Goodrow,Barclay Goodrow,SJS,F,23.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478874.0,Adam Gaudette,Adam Gaudette,SJS,F,81.0,4,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480848.0,Ty Dellandrea,Ty Dellandrea,SJS,F,10.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8479983.0,Mario Ferraro,Mario Ferraro,SJS,D,38.0,1,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480043.0,Timothy Liljegren,Timothy Liljegren,SJS,D,37.0,1,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8475181.0,Nick Leddy,Nick Leddy,SJS,D,4.0,2,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8475906.0,John Klingberg,John Klingberg,SJS,D,3.0,2,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482166.0,Shakir Mukhamadullin,Shakir Mukhamadullin,SJS,D,85.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8475200.0,Dmitry Orlov,Dmitry Orlov,SJS,D,9.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477402.0,Buchnevich,Pavel Buchnevich,STL,F,89.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8482077.0,Holloway,Dylan Holloway,STL,F,81.0,2,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8482089.0,Neighbours,Jake Neighbours,STL,F,63.0,3,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8480281.0,Toropchenko,Alexey Toropchenko,STL,F,13.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8480023.0,Thomas,Robert Thomas,STL,F,18.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8475170.0,Schenn,Brayden Schenn,STL,F,10.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8480459.0,Suter,Pius Suter,STL,F,22.0,3,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8476897.0,Sundqvist,Oskar Sundqvist,STL,F,70.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8483516.0,Snuggerud,Jimmy Snuggerud,STL,F,21.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8479385.0,Kyrou,Jordan Kyrou,STL,F,25.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8475760.0,Bjugstad,Nick Bjugstad,STL,F,77.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8477573.0,Walker,Nathan Walker,STL,F,26.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8475764.0,Fowler,Cam Fowler,STL,D,17.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8481598.0,Broberg,Philip Broberg,STL,D,6.0,2,,puckpedia,100.0,exact,matched_with_score_100.0
+8481006.0,Tucker,Tyler Tucker,STL,D,75.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8476892.0,Parayko,Colton Parayko,STL,D,55.0,1,,puckpedia,100.0,exact,matched_with_score_100.0
+8475753.0,Faulk,Justin Faulk,STL,D,72.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8482733.0,Mailloux,Logan Mailloux,STL,D,23.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8477402.0,Pavel Buchnevich,Pavel Buchnevich,STL,F,89.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480023.0,Robert Thomas,Robert Thomas,STL,F,18.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8483516.0,Jimmy Snuggerud,Jimmy Snuggerud,STL,F,21.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482077.0,Dylan Holloway,Dylan Holloway,STL,F,81.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480459.0,Pius Suter,Pius Suter,STL,F,22.0,2,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8479385.0,Jordan Kyrou,Jordan Kyrou,STL,F,25.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482089.0,Jake Neighbours,Jake Neighbours,STL,F,63.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8475170.0,Brayden Schenn,Brayden Schenn,STL,F,10.0,3,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478472.0,Mathieu Joseph,Mathieu Joseph,STL,F,71.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480281.0,Alexey Toropchenko,Alexey Toropchenko,STL,F,13.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8475760.0,Nick Bjugstad,Nick Bjugstad,STL,F,77.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480074.0,Alexandre Texier,Alexandre Texier,STL,F,,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8475764.0,Cam Fowler,Cam Fowler,STL,D,17.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476892.0,Colton Parayko,Colton Parayko,STL,D,55.0,1,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8481598.0,Philip Broberg,Philip Broberg,STL,D,6.0,2,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8475753.0,Justin Faulk,Justin Faulk,STL,D,72.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8481006.0,Tyler Tucker,Tyler Tucker,STL,D,75.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482733.0,Logan Mailloux,Logan Mailloux,STL,D,23.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477404.0,Guentzel,Jake Guentzel,TBL,F,59.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8479542.0,Hagel,Brandon Hagel,TBL,F,38.0,2,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8477416.0,Bjorkstrand,Oliver Bjorkstrand,TBL,F,22.0,3,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8476878.0,Girgensons,Zemgus Girgensons,TBL,F,28.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8478010.0,Point,Brayden Point,TBL,F,21.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8478519.0,Cirelli,Anthony Cirelli,TBL,F,71.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8476826.0,Gourde,Yanni Gourde,TBL,F,37.0,3,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8482090.0,Finley,Jack Finley,TBL,F,62.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8476453.0,Kucherov,Nikita Kucherov,TBL,F,86.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8482201.0,Goncalves,Gage Goncalves,TBL,F,93.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8482070.0,Chaffee,Mitchell Chaffee,TBL,F,41.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8483447.0,Geekie,Conor Geekie,TBL,F,14.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8475167.0,Hedman,Victor Hedman,TBL,D,77.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8474151.0,McDonagh,Ryan McDonagh,TBL,D,27.0,2,,puckpedia,100.0,exact,matched_with_score_100.0
+8482929.0,Lilleberg,Emil Lilleberg,TBL,D,78.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8482655.0,Moser,J.J. Moser,TBL,D,90.0,1,,puckpedia,100.0,exact,matched_with_score_100.0
+8478416.0,Cernak,Erik Cernak,TBL,D,81.0,2,,puckpedia,100.0,exact,matched_with_score_100.0
+8478178.0,Raddysh,Darren Raddysh,TBL,D,43.0,3,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8477404.0,Jake Guentzel,Jake Guentzel,TBL,F,59.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478010.0,Brayden Point,Brayden Point,TBL,F,21.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476453.0,Nikita Kucherov,Nikita Kucherov,TBL,F,86.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8479542.0,Brandon Hagel,Brandon Hagel,TBL,F,38.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478519.0,Anthony Cirelli,Anthony Cirelli,TBL,F,71.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482201.0,Gage Goncalves,Gage Goncalves,TBL,F,93.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477416.0,Oliver Bjorkstrand,Oliver Bjorkstrand,TBL,F,22.0,3,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476826.0,Yanni Gourde,Yanni Gourde,TBL,F,37.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482070.0,Mitchell Chaffee,Mitchell Chaffee,TBL,F,41.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480995.0,Pontus Holmberg,Pontus Holmberg,TBL,F,29.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482090.0,Jack Finley,Jack Finley,TBL,F,62.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476878.0,Zemgus Girgensons,Zemgus Girgensons,TBL,F,28.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8475167.0,Victor Hedman,Victor Hedman,TBL,D,77.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482655.0,J.J. Moser,J.J. Moser,TBL,D,90.0,1,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8474151.0,Ryan McDonagh,Ryan McDonagh,TBL,D,27.0,2,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478416.0,Erik Cernak,Erik Cernak,TBL,D,81.0,2,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482929.0,Emil Lilleberg,Emil Lilleberg,TBL,D,78.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478178.0,Darren Raddysh,Darren Raddysh,TBL,D,43.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482720.0,Knies,Matthew Knies,TOR,F,23.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8482259.0,McMann,Bobby McMann,TOR,F,74.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8478057.0,Joshua,Dakota Joshua,TOR,F,81.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8478904.0,Lorentz,Steven Lorentz,TOR,F,18.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8479318.0,Matthews,Auston Matthews,TOR,F,34.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8475166.0,Tavares,John Tavares,TOR,F,91.0,2,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8478462.0,Roy,Nicolas Roy,TOR,F,55.0,3,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8480144.0,Kampf,David Kampf,TOR,F,64.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8477503.0,Domi,Max Domi,TOR,F,11.0,1,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8477939.0,Nylander,William Nylander,TOR,F,88.0,2,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8481711.0,Maccelli,Matias Maccelli,TOR,F,63.0,3,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8484158.0,Cowan,Easton Cowan,TOR,F,53.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8476931.0,McCabe,Jake McCabe,TOR,D,22.0,1,,puckpedia,100.0,exact,matched_with_score_100.0
+8476853.0,Rielly,Morgan Rielly,TOR,D,44.0,2,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8481122.0,Benoit,Simon Benoit,TOR,D,2.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8475690.0,Tanev,Chris Tanev,TOR,D,8.0,1,,puckpedia,100.0,exact,matched_with_score_100.0
+8478443.0,Carlo,Brandon Carlo,TOR,D,25.0,2,,puckpedia,100.0,exact,matched_with_score_100.0
+8475171.0,Ekman-Larsson,Oliver Ekman-Larsson,TOR,D,95.0,3,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8482720.0,Matthew Knies,Matthew Knies,TOR,F,23.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8479318.0,Auston Matthews,Auston Matthews,TOR,F,34.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477503.0,Max Domi,Max Domi,TOR,F,11.0,1,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482259.0,Bobby McMann,Bobby McMann,TOR,F,74.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8475166.0,John Tavares,John Tavares,TOR,F,91.0,2,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477939.0,William Nylander,William Nylander,TOR,F,88.0,2,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8481711.0,Matias Maccelli,Matias Maccelli,TOR,F,63.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478462.0,Nicolas Roy,Nicolas Roy,TOR,F,55.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478057.0,Dakota Joshua,Dakota Joshua,TOR,F,81.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478904.0,Steven Lorentz,Steven Lorentz,TOR,F,18.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480144.0,David Kampf,David Kampf,TOR,F,64.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8484158.0,Easton Cowan,Easton Cowan,TOR,F,,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476931.0,Jake McCabe,Jake McCabe,TOR,D,22.0,1,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8475690.0,Chris Tanev,Chris Tanev,TOR,D,8.0,1,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476853.0,Morgan Rielly,Morgan Rielly,TOR,D,44.0,2,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478443.0,Brandon Carlo,Brandon Carlo,TOR,D,25.0,2,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8475171.0,Oliver Ekman-Larsson,Oliver Ekman-Larsson,TOR,D,95.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8481122.0,Simon Benoit,Simon Benoit,TOR,D,2.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482699.0,Guenther,Dylan Guenther,UTA,F,11.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8479343.0,Keller,Clayton Keller,UTA,F,9.0,2,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8478474.0,Crouse,Lawson Crouse,UTA,F,67.0,3,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8477070.0,O'Brien,Liam O'Brien,UTA,F,38.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8483431.0,Cooley,Logan Cooley,UTA,F,92.0,1,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8480849.0,Hayton,Barrett Hayton,UTA,F,27.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8480855.0,McBain,Jack McBain,UTA,F,22.0,3,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8478831.0,Stenlund,Kevin Stenlund,UTA,F,82.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8482175.0,Peterka,JJ Peterka,UTA,F,77.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8477951.0,Schmaltz,Nick Schmaltz,UTA,F,8.0,2,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8479619.0,Carcone,Michael Carcone,UTA,F,53.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8479293.0,Tanev,Brandon Tanev,UTA,F,13.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8479410.0,Sergachev,Mikhail Sergachev,UTA,D,98.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8474013.0,Cole,Ian Cole,UTA,D,28.0,2,,puckpedia,100.0,exact,matched_with_score_100.0
+8476874.0,Maatta,Olli Määttä,UTA,D,2.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8478507.0,Marino,John Marino,UTA,D,6.0,1,,puckpedia,100.0,exact,matched_with_score_100.0
+8480434.0,Durzi,Sean Durzi,UTA,D,50.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8477220.0,Schmidt,Nate Schmidt,UTA,D,88.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8482699.0,Dylan Guenther,Dylan Guenther,UTA,F,11.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8483431.0,Logan Cooley,Logan Cooley,UTA,F,92.0,1,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482175.0,JJ Peterka,JJ Peterka,UTA,F,77.0,1,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8479343.0,Clayton Keller,Clayton Keller,UTA,F,9.0,2,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480849.0,Barrett Hayton,Barrett Hayton,UTA,F,27.0,2,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477951.0,Nick Schmaltz,Nick Schmaltz,UTA,F,8.0,2,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478474.0,Lawson Crouse,Lawson Crouse,UTA,F,67.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480855.0,Jack McBain,Jack McBain,UTA,F,22.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8479619.0,Michael Carcone,Michael Carcone,UTA,F,53.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8479977.0,Kailer Yamamoto,Kailer Yamamoto,UTA,F,56.0,4,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478831.0,Kevin Stenlund,Kevin Stenlund,UTA,F,82.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8479293.0,Brandon Tanev,Brandon Tanev,UTA,F,13.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8479410.0,Mikhail Sergachev,Mikhail Sergachev,UTA,D,98.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478507.0,John Marino,John Marino,UTA,D,6.0,1,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8474013.0,Ian Cole,Ian Cole,UTA,D,28.0,2,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480434.0,Sean Durzi,Sean Durzi,UTA,D,50.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477220.0,Nate Schmidt,Nate Schmidt,UTA,D,88.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476874.0,Olli Maatta,Olli Määttä,UTA,D,2.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478498.0,DeBrusk,Jake DeBrusk,VAN,F,74.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8475169.0,Kane,Evander Kane,VAN,F,91.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8482055.0,O'Connor,Drew O'Connor,VAN,F,18.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8482691.0,Räty,Aatu Raty,VAN,F,54.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8480012.0,Pettersson,Elias Pettersson,VAN,F,40.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8480078.0,Chytil,Filip Chytil,VAN,F,72.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8485385.0,Cootes,Braeden Cootes,VAN,F,80.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8476927.0,Blueger,Teddy Blueger,VAN,F,53.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8478444.0,Boeser,Brock Boeser,VAN,F,6.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8478856.0,Garland,Conor Garland,VAN,F,8.0,2,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8480748.0,Sherwood,Kiefer Sherwood,VAN,F,44.0,3,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8483476.0,Lekkerimaki,Jonathan Lekkerimäki,VAN,F,23.0,4,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8480800.0,Hughes,Quinn Hughes,VAN,D,43.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8483678.0,Pettersson,Elias Pettersson,VAN,D,29.0,2,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8483678.0,Pettersson,Elias Pettersson,VAN,D,25.0,3,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8479425.0,Hronek,Filip Hronek,VAN,D,17.0,1,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8474574.0,Myers,Tyler Myers,VAN,D,57.0,2,,puckpedia,100.0,exact,matched_with_score_100.0
+8475762.0,Forbort,Derek Forbort,VAN,D,27.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8478498.0,Jake DeBrusk,Jake DeBrusk,VAN,F,74.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480012.0,Elias Pettersson,Elias Pettersson,VAN,F,40.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478444.0,Brock Boeser,Brock Boeser,VAN,F,6.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8475169.0,Evander Kane,Evander Kane,VAN,F,91.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480078.0,Filip Chytil,Filip Chytil,VAN,F,72.0,2,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8483476.0,Jonathan Lekkerimaki,Jonathan Lekkerimäki,VAN,F,23.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480748.0,Kiefer Sherwood,Kiefer Sherwood,VAN,F,44.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476927.0,Teddy Blueger,Teddy Blueger,VAN,F,53.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478856.0,Conor Garland,Conor Garland,VAN,F,8.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482055.0,Drew O'Connor,Drew O'Connor,VAN,F,18.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482691.0,Aatu Raty,Aatu Raty,VAN,F,54.0,4,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8481024.0,Linus Karlsson,Linus Karlsson,VAN,F,94.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480800.0,Quinn Hughes,Quinn Hughes,VAN,D,43.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8479425.0,Filip Hronek,Filip Hronek,VAN,D,17.0,1,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8483678.0,Marcus Pettersson,Elias Pettersson,VAN,D,29.0,2,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8474574.0,Tyler Myers,Tyler Myers,VAN,D,57.0,2,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8475762.0,Derek Forbort,Derek Forbort,VAN,D,27.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8483678.0,Elias Nils Pettersson,Elias Pettersson,VAN,D,25.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477964.0,Barbashev,Ivan Barbashev,VGK,F,49.0,1,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8475191.0,Smith,Reilly Smith,VGK,F,19.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8476438.0,Saad,Brandon Saad,VGK,F,20.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8479353.0,Howden,Brett Howden,VGK,F,21.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8478403.0,Eichel,Jack Eichel,VGK,F,9.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8476448.0,Karlsson,William Karlsson,VGK,F,71.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8476881.0,Hertl,Tomas Hertl,VGK,F,48.0,3,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8476925.0,Sissons,Colton Sissons,VGK,F,10.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8478483.0,Marner,Mitch Marner,VGK,F,93.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8475913.0,Stone,Mark Stone,VGK,F,61.0,2,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8481604.0,Dorofeyev,Pavel Dorofeyev,VGK,F,16.0,3,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8478434.0,Kolesar,Keegan Kolesar,VGK,F,55.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8475188.0,McNabb,Brayden McNabb,VGK,D,3.0,1,,puckpedia,100.0,exact,matched_with_score_100.0
+8478396.0,Hanifin,Noah Hanifin,VGK,D,15.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8478468.0,Lauzon,Jeremy Lauzon,VGK,D,5.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8477447.0,Theodore,Shea Theodore,VGK,D,27.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8480727.0,Whitecloud,Zach Whitecloud,VGK,D,2.0,2,,puckpedia,100.0,exact,matched_with_score_100.0
+8481527.0,Korczak,Kaedan Korczak,VGK,D,6.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8477964.0,Ivan Barbashev,Ivan Barbashev,VGK,F,49.0,1,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478403.0,Jack Eichel,Jack Eichel,VGK,F,9.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478483.0,Mitch Marner,Mitch Marner,VGK,F,93.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8475191.0,Reilly Smith,Reilly Smith,VGK,F,19.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476448.0,William Karlsson,William Karlsson,VGK,F,71.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8475913.0,Mark Stone,Mark Stone,VGK,F,61.0,2,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476438.0,Brandon Saad,Brandon Saad,VGK,F,20.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476881.0,Tomas Hertl,Tomas Hertl,VGK,F,48.0,3,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8481604.0,Pavel Dorofeyev,Pavel Dorofeyev,VGK,F,16.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8479353.0,Brett Howden,Brett Howden,VGK,F,21.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476925.0,Colton Sissons,Colton Sissons,VGK,F,10.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478434.0,Keegan Kolesar,Keegan Kolesar,VGK,F,55.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8475188.0,Brayden McNabb,Brayden McNabb,VGK,D,3.0,1,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477447.0,Shea Theodore,Shea Theodore,VGK,D,27.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478396.0,Noah Hanifin,Noah Hanifin,VGK,D,15.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480727.0,Zach Whitecloud,Zach Whitecloud,VGK,D,2.0,2,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478468.0,Jeremy Lauzon,Jeremy Lauzon,VGK,D,5.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8481527.0,Kaedan Korczak,Kaedan Korczak,VGK,D,6.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478398.0,Connor,Kyle Connor,WPG,F,81.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8482149.0,Perfetti,Cole Perfetti,WPG,F,91.0,2,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8475799.0,Niederreiter,Nino Niederreiter,WPG,F,62.0,3,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8476871.0,Pearson,Tanner Pearson,WPG,F,70.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8476460.0,Scheifele,Mark Scheifele,WPG,F,55.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8473604.0,Toews,Jonathan Toews,WPG,F,19.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8476480.0,Namestnikov,Vladislav Namestnikov,WPG,F,7.0,3,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8480289.0,Barron,Morgan Barron,WPG,F,36.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8480014.0,Vilardi,Gabriel Vilardi,WPG,F,13.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8474679.0,Nyquist,Gustav Nyquist,WPG,F,14.0,2,,puckpedia,100.0,exact,matched_with_score_100.0
+8480113.0,Iafallo,Alex Iafallo,WPG,F,9.0,3,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8481043.0,Koepke,Cole Koepke,WPG,F,45.0,4,,puckpedia,100.0,exact,matched_with_score_100.0
+8477504.0,Morrissey,Josh Morrissey,WPG,D,44.0,1,PP1,puckpedia,100.0,exact,matched_with_score_100.0
+8479378.0,Stanley,Logan Stanley,WPG,D,64.0,2,,puckpedia,100.0,exact,matched_with_score_100.0
+8477938.0,Fleury,Haydn Fleury,WPG,D,24.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8476331.0,Demelo,Dylan DeMelo,WPG,D,2.0,1,,puckpedia,100.0,exact,matched_with_score_100.0
+8480145.0,Pionk,Neal Pionk,WPG,D,4.0,2,PP2,puckpedia,100.0,exact,matched_with_score_100.0
+8474568.0,Schenn,Luke Schenn,WPG,D,5.0,3,,puckpedia,100.0,exact,matched_with_score_100.0
+8478398.0,Kyle Connor,Kyle Connor,WPG,F,81.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476460.0,Mark Scheifele,Mark Scheifele,WPG,F,55.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480014.0,Gabriel Vilardi,Gabriel Vilardi,WPG,F,13.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482149.0,Cole Perfetti,Cole Perfetti,WPG,F,91.0,2,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8473604.0,Jonathan Toews,Jonathan Toews,WPG,F,19.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8474679.0,Gustav Nyquist,Gustav Nyquist,WPG,F,14.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8475799.0,Nino Niederreiter,Nino Niederreiter,WPG,F,62.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476480.0,Vladislav Namestnikov,Vladislav Namestnikov,WPG,F,7.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480113.0,Alex Iafallo,Alex Iafallo,WPG,F,9.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476871.0,Tanner Pearson,Tanner Pearson,WPG,F,70.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480289.0,Morgan Barron,Morgan Barron,WPG,F,36.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8481043.0,Cole Koepke,Cole Koepke,WPG,F,45.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477504.0,Josh Morrissey,Josh Morrissey,WPG,D,44.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476331.0,Dylan DeMelo,Dylan DeMelo,WPG,D,2.0,1,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477938.0,Haydn Fleury,Haydn Fleury,WPG,D,24.0,2,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480145.0,Neal Pionk,Neal Pionk,WPG,D,4.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8479378.0,Logan Stanley,Logan Stanley,WPG,D,64.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8474568.0,Luke Schenn,Luke Schenn,WPG,D,5.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8481656.0,Aliaksei Protas,Aliaksei Protas,WSH,F,21.0,1,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478440.0,Dylan Strome,Dylan Strome,WSH,F,17.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8471214.0,Alex Ovechkin,Alex Ovechkin,WSH,F,8.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8481580.0,Connor McMichael,Connor McMichael,WSH,F,24.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8479400.0,Pierre-Luc Dubois,Pierre-Luc Dubois,WSH,F,80.0,2,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8476880.0,Tom Wilson,Tom Wilson,WSH,F,43.0,2,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478463.0,Anthony Beauvillier,Anthony Beauvillier,WSH,F,72.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+,Hendrix Lapierre,,WSH,F,29.0,3,,dailyfaceoff,0.0,no_match,no_match_above_85
+8484186.0,Ryan Leonard,Ryan Leonard,WSH,F,9.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8479520.0,Brandon Duhaime,Brandon Duhaime,WSH,F,22.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8475343.0,Nic Dowd,Nic Dowd,WSH,F,26.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8482088.0,Justin Sourdif,Justin Sourdif,WSH,F,34.0,4,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480796.0,Martin Fehervary,Martin Fehérváry,WSH,D,42.0,1,,dailyfaceoff,88.88888888888889,fuzzy,matched_with_score_88.88888888888889
+8474590.0,John Carlson,John Carlson,WSH,D,74.0,1,PP1,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8480873.0,Rasmus Sandin,Rasmus Sandin,WSH,D,38.0,2,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8478911.0,Matt Roy,Matt Roy,WSH,D,3.0,2,,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8479345.0,Jakob Chychrun,Jakob Chychrun,WSH,D,6.0,3,PP2,dailyfaceoff,100.0,exact,matched_with_score_100.0
+8477845.0,Trevor van Riemsdyk,Trevor van Riemsdyk,WSH,D,57.0,3,,dailyfaceoff,100.0,exact,matched_with_score_100.0

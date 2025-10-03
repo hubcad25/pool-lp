@@ -1,0 +1,2 @@
+player_id,player_name,skeleton_full_name,team,position,jersey_number,line,pp_unit,source,match_confidence,match_method,match_note
+8480796.0,Martin Fehervary,Martin Fehérváry,WSH,D,42.0,1,,dailyfaceoff,88.88888888888889,fuzzy,matched_with_score_88.88888888888889

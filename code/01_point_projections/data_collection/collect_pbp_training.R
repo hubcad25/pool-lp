@@ -1,5 +1,5 @@
 ## Script: Collecter données MoneyPuck pour entraînement des modèles RF
-## Saisons: 2020-2025 (5 saisons)
+## Saisons: 2007-2024 (18 saisons)
 ## Output: Dataset d'entraînement avec top variables simplifiées
 
 # Packages ----------------------------------------------------------------
@@ -8,7 +8,7 @@ library(tidyr)
 library(purrr)
 
 # Configuration -----------------------------------------------------------
-seasons <- 2020:2024  # 2020 = saison 2020-21, 2024 = saison 2024-25
+seasons <- 2007:2024  # 2007 = saison 2007-08, 2024 = saison 2024-25
 output_dir <- "data/01_point_projections/processed"
 
 # Créer dossier si nécessaire
@@ -87,40 +87,159 @@ data_combined <- data_all %>%
   left_join(data_5on4, by = c("player_id", "season")) %>%
   replace_na(list(evtoi = 0, pptoi = 0))
 
-# 4. Calculer features normalisées per 60 et à 82 GP ---------------------
-cat("Calcul des features normalisées per 60 et à 82 GP...\n")
+# 4. Calculer TOI per game (stats observées) ---------------------------------
+cat("Calcul des TOI per game...\n")
 
-data_features <- data_combined %>%
+data_with_rates <- data_combined %>%
   mutate(
-    # TOI per game (en minutes)
-    icetime_per_gp = icetime_total / games_played,
+    # TOI per game (en secondes)
     evtoi_per_gp = evtoi / games_played,
-    pptoi_per_gp = pptoi / games_played,
+    pptoi_per_gp = pptoi / games_played
+  ) %>%
+  # Remplacer Inf et NaN par 0
+  mutate(across(where(is.numeric), ~replace(., is.infinite(.) | is.nan(.), 0)))
 
-    # Volumes per 60 minutes (calculés AVANT normalisation, car déjà normalisés par temps)
-    high_danger_shots_per60 = (high_danger_shots / icetime_total) * 60,
-    medium_danger_shots_per60 = (medium_danger_shots / icetime_total) * 60,
-    shot_attempts_per60 = (shot_attempts / icetime_total) * 60,
-    x_goals_per60 = (x_goals / icetime_total) * 60,
-    goals_per60 = (goals / icetime_total) * 60,
-    assists_per60 = (assists / icetime_total) * 60
-  ) %>%
+# 5. Normalisation régressive à 82 GP -------------------------------------
+cat("Normalisation régressive à 82 GP...\n")
+
+# Calculer moyennes de population par position pour tous les totaux
+cat("  Calcul des moyennes de population par position...\n")
+
+population_means_f <- data_with_rates %>%
+  filter(position %in% c("C", "L", "R"), games_played >= 10) %>%
+  summarise(
+    mean_goals = mean(goals, na.rm = TRUE),
+    mean_assists = mean(assists, na.rm = TRUE),
+    mean_high_danger_shots = mean(high_danger_shots, na.rm = TRUE),
+    mean_medium_danger_shots = mean(medium_danger_shots, na.rm = TRUE),
+    mean_low_danger_shots = mean(low_danger_shots, na.rm = TRUE),
+    mean_high_danger_goals = mean(high_danger_goals, na.rm = TRUE),
+    mean_medium_danger_goals = mean(medium_danger_goals, na.rm = TRUE),
+    mean_low_danger_goals = mean(low_danger_goals, na.rm = TRUE),
+    mean_shots_on_goal = mean(shots_on_goal, na.rm = TRUE),
+    mean_shot_attempts = mean(shot_attempts, na.rm = TRUE),
+    mean_x_goals = mean(x_goals, na.rm = TRUE)
+  )
+
+population_means_d <- data_with_rates %>%
+  filter(position == "D", games_played >= 10) %>%
+  summarise(
+    mean_goals = mean(goals, na.rm = TRUE),
+    mean_assists = mean(assists, na.rm = TRUE),
+    mean_high_danger_shots = mean(high_danger_shots, na.rm = TRUE),
+    mean_medium_danger_shots = mean(medium_danger_shots, na.rm = TRUE),
+    mean_low_danger_shots = mean(low_danger_shots, na.rm = TRUE),
+    mean_high_danger_goals = mean(high_danger_goals, na.rm = TRUE),
+    mean_medium_danger_goals = mean(medium_danger_goals, na.rm = TRUE),
+    mean_low_danger_goals = mean(low_danger_goals, na.rm = TRUE),
+    mean_shots_on_goal = mean(shots_on_goal, na.rm = TRUE),
+    mean_shot_attempts = mean(shot_attempts, na.rm = TRUE),
+    mean_x_goals = mean(x_goals, na.rm = TRUE)
+  )
+
+cat("  Moyennes F - goals:", round(population_means_f$mean_goals, 2),
+    "| assists:", round(population_means_f$mean_assists, 2), "\n")
+cat("  Moyennes D - goals:", round(population_means_d$mean_goals, 2),
+    "| assists:", round(population_means_d$mean_assists, 2), "\n")
+
+# Fonction de normalisation régressive
+normalize_with_regression <- function(observed, games_played, pop_mean) {
+  # Weight basé sur nombre de matchs joués
+  weight <- games_played / 82
+
+  # Pace observé et pace population
+  pace_observed <- observed / games_played
+  pace_population <- pop_mean / 82
+
+  # Pace ajusté (régression vers moyenne)
+  pace_adjusted <- weight * pace_observed + (1 - weight) * pace_population
+
+  # Projection 82 GP: stats observées + pace ajusté × matchs restants
+  projection <- observed + pace_adjusted * (82 - games_played)
+
+  return(projection)
+}
+
+# Appliquer normalisation régressive par position
+cat("  Application de la normalisation régressive...\n")
+
+data_features <- data_with_rates %>%
   mutate(
-    # Normaliser TOUS les totaux à 82 GP (saison complète)
-    goals = ifelse(games_played > 0, goals * 82 / games_played, 0),
-    assists = ifelse(games_played > 0, assists * 82 / games_played, 0),
-    high_danger_shots = ifelse(games_played > 0, high_danger_shots * 82 / games_played, 0),
-    medium_danger_shots = ifelse(games_played > 0, medium_danger_shots * 82 / games_played, 0),
-    low_danger_shots = ifelse(games_played > 0, low_danger_shots * 82 / games_played, 0),
-    high_danger_goals = ifelse(games_played > 0, high_danger_goals * 82 / games_played, 0),
-    medium_danger_goals = ifelse(games_played > 0, medium_danger_goals * 82 / games_played, 0),
-    low_danger_goals = ifelse(games_played > 0, low_danger_goals * 82 / games_played, 0),
-    shots_on_goal = ifelse(games_played > 0, shots_on_goal * 82 / games_played, 0),
-    shot_attempts = ifelse(games_played > 0, shot_attempts * 82 / games_played, 0),
-    x_goals = ifelse(games_played > 0, x_goals * 82 / games_played, 0)
+    # Déterminer moyennes de population selon position
+    is_forward = position %in% c("C", "L", "R"),
+
+    # Normaliser tous les totaux avec régression vers moyenne
+    goals = ifelse(games_played > 0 & games_played < 82,
+                   ifelse(is_forward,
+                          normalize_with_regression(goals, games_played, population_means_f$mean_goals),
+                          normalize_with_regression(goals, games_played, population_means_d$mean_goals)),
+                   goals),
+
+    assists = ifelse(games_played > 0 & games_played < 82,
+                     ifelse(is_forward,
+                            normalize_with_regression(assists, games_played, population_means_f$mean_assists),
+                            normalize_with_regression(assists, games_played, population_means_d$mean_assists)),
+                     assists),
+
+    high_danger_shots = ifelse(games_played > 0 & games_played < 82,
+                               ifelse(is_forward,
+                                      normalize_with_regression(high_danger_shots, games_played, population_means_f$mean_high_danger_shots),
+                                      normalize_with_regression(high_danger_shots, games_played, population_means_d$mean_high_danger_shots)),
+                               high_danger_shots),
+
+    medium_danger_shots = ifelse(games_played > 0 & games_played < 82,
+                                 ifelse(is_forward,
+                                        normalize_with_regression(medium_danger_shots, games_played, population_means_f$mean_medium_danger_shots),
+                                        normalize_with_regression(medium_danger_shots, games_played, population_means_d$mean_medium_danger_shots)),
+                                 medium_danger_shots),
+
+    low_danger_shots = ifelse(games_played > 0 & games_played < 82,
+                              ifelse(is_forward,
+                                     normalize_with_regression(low_danger_shots, games_played, population_means_f$mean_low_danger_shots),
+                                     normalize_with_regression(low_danger_shots, games_played, population_means_d$mean_low_danger_shots)),
+                              low_danger_shots),
+
+    high_danger_goals = ifelse(games_played > 0 & games_played < 82,
+                               ifelse(is_forward,
+                                      normalize_with_regression(high_danger_goals, games_played, population_means_f$mean_high_danger_goals),
+                                      normalize_with_regression(high_danger_goals, games_played, population_means_d$mean_high_danger_goals)),
+                               high_danger_goals),
+
+    medium_danger_goals = ifelse(games_played > 0 & games_played < 82,
+                                 ifelse(is_forward,
+                                        normalize_with_regression(medium_danger_goals, games_played, population_means_f$mean_medium_danger_goals),
+                                        normalize_with_regression(medium_danger_goals, games_played, population_means_d$mean_medium_danger_goals)),
+                                 medium_danger_goals),
+
+    low_danger_goals = ifelse(games_played > 0 & games_played < 82,
+                              ifelse(is_forward,
+                                     normalize_with_regression(low_danger_goals, games_played, population_means_f$mean_low_danger_goals),
+                                     normalize_with_regression(low_danger_goals, games_played, population_means_d$mean_low_danger_goals)),
+                              low_danger_goals),
+
+    shots_on_goal = ifelse(games_played > 0 & games_played < 82,
+                           ifelse(is_forward,
+                                  normalize_with_regression(shots_on_goal, games_played, population_means_f$mean_shots_on_goal),
+                                  normalize_with_regression(shots_on_goal, games_played, population_means_d$mean_shots_on_goal)),
+                           shots_on_goal),
+
+    shot_attempts = ifelse(games_played > 0 & games_played < 82,
+                           ifelse(is_forward,
+                                  normalize_with_regression(shot_attempts, games_played, population_means_f$mean_shot_attempts),
+                                  normalize_with_regression(shot_attempts, games_played, population_means_d$mean_shot_attempts)),
+                           shot_attempts),
+
+    x_goals = ifelse(games_played > 0 & games_played < 82,
+                     ifelse(is_forward,
+                            normalize_with_regression(x_goals, games_played, population_means_f$mean_x_goals),
+                            normalize_with_regression(x_goals, games_played, population_means_d$mean_x_goals)),
+                     x_goals)
   ) %>%
+  select(-is_forward) %>%
+  # Remplacer valeurs aberrantes
+  mutate(across(where(is.numeric), ~replace(., is.infinite(.) | is.nan(.), 0))) %>%
+  # Recalculer conversion rates avec totaux normalisés
   mutate(
-    # Conversion rates (APRÈS normalisation pour être cohérent)
     conversion_high_danger = ifelse(high_danger_shots > 0,
                                     high_danger_goals / high_danger_shots, 0),
     conversion_medium = ifelse(medium_danger_shots > 0,
@@ -131,7 +250,7 @@ data_features <- data_combined %>%
   # Remplacer Inf et NaN par 0
   mutate(across(where(is.numeric), ~replace(., is.infinite(.) | is.nan(.), 0)))
 
-# 5. Calculer wpm_g et wpm_a (moyenne pondérée des saisons précédentes) ---
+# 6. Calculer wpm_g et wpm_a (moyenne pondérée des saisons précédentes) ---
 cat("Calcul de wpm_g et wpm_a...\n")
 
 # Fonction pour calculer moyenne pondérée
@@ -157,14 +276,14 @@ calculate_wpm <- function(data, var, weights = c(0.5, 0.3, 0.2)) {
     ungroup()
 }
 
-# Calculer wpm pour goals et assists (normalisés à 82 GP)
+# Calculer wpm pour goals et assists (normalisés régressivement à 82 GP)
 data_with_wpm <- data_features %>%
   calculate_wpm("goals") %>%
   rename(wpm_g = wpm) %>%
   calculate_wpm("assists") %>%
   rename(wpm_a = wpm)
 
-# 6. Sélectionner variables finales ---------------------------------------
+# 7. Sélectionner variables finales ---------------------------------------
 cat("Sélection des variables finales...\n")
 
 training_data <- data_with_wpm %>%
@@ -178,16 +297,12 @@ training_data <- data_with_wpm %>%
     # Features principales
     wpm_g, wpm_a,
     evtoi_per_gp, pptoi_per_gp,
-    high_danger_shots_per60, medium_danger_shots_per60,
-    conversion_high_danger, conversion_overall,
-    x_goals_per60, shot_attempts_per60,
+    high_danger_shots, medium_danger_shots,  # Totaux normalisés à 82 GP
+    shot_attempts, x_goals,                  # Totaux normalisés à 82 GP
 
-    # Features secondaires
-    conversion_medium,
-    goals_per60, assists_per60  # Pour référence
+    # Conversion rates (calculées avec totaux normalisés)
+    conversion_high_danger, conversion_medium, conversion_overall
   ) %>%
-  # Filtrer seulement joueurs avec au moins 10 GP
-  filter(games_played >= 10) %>%
   # Filtrer les positions valides
   filter(position %in% c("C", "L", "R", "D"))
 
@@ -200,7 +315,7 @@ cat("  Positions:", paste(table(training_data$position), collapse = ", "), "\n")
 # 7. Sauvegarder ----------------------------------------------------------
 cat("\nSauvegarde...\n")
 
-output_file <- file.path(output_dir, "training_data_2020_2024.rds")
+output_file <- file.path(output_dir, "training_data.rds")
 saveRDS(training_data, output_file)
 
 cat("Dataset sauvegardé:", output_file, "\n")

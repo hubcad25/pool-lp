@@ -7,19 +7,22 @@ library(dplyr)
 
 # Configuration -----------------------------------------------------------
 input_dir <- "data/01_point_projections/processed"
-projection_dir <- "data/01_point_projections/projection"
-output_file <- file.path(projection_dir, "projections_2026.rds")
+output_file <- "data/01_point_projections/projection/projections_2026.rds"
 
 # Charger données ---------------------------------------------------------
 cat("Chargement des données...\n")
 
-# Charger projections existantes ou skeleton de base
-if (file.exists(output_file)) {
-  cat("  Chargement des projections existantes...\n")
-  projections <- readRDS(output_file)
+# Charger projections (depuis mémoire si sourcé par run_all.R, sinon depuis fichier)
+if (!exists("projections")) {
+  if (file.exists(output_file)) {
+    cat("  Chargement des projections depuis fichier...\n")
+    projections <- readRDS(output_file)
+  } else {
+    cat("  Chargement du skeleton...\n")
+    projections <- readRDS("data/01_point_projections/projection/skeleton_2026.rds")
+  }
 } else {
-  cat("  Chargement du skeleton (première projection)...\n")
-  projections <- readRDS(file.path(projection_dir, "skeleton_2026.rds"))
+  cat("  Utilisation des projections en mémoire...\n")
 }
 
 historical_f <- readRDS(file.path(input_dir, "training_data_F.rds"))
@@ -52,9 +55,14 @@ calculate_conversion_2026 <- function(data) {
       names_sep = "_"
     )
 
-  # Calculer weighted means
+  # Calculer weighted means avec poids adaptatifs
   data_wide %>%
     mutate(
+      # Identifier saisons avec données (> 0)
+      has_2024 = !is.na(conversion_high_danger_2024) & conversion_high_danger_2024 > 0,
+      has_2023 = !is.na(conversion_high_danger_2023) & conversion_high_danger_2023 > 0,
+      has_2022 = !is.na(conversion_high_danger_2022) & conversion_high_danger_2022 > 0,
+
       # Remplacer NA par 0
       conversion_high_danger_2024 = ifelse(is.na(conversion_high_danger_2024), 0, conversion_high_danger_2024),
       conversion_high_danger_2023 = ifelse(is.na(conversion_high_danger_2023), 0, conversion_high_danger_2023),
@@ -68,18 +76,27 @@ calculate_conversion_2026 <- function(data) {
       conversion_overall_2023 = ifelse(is.na(conversion_overall_2023), 0, conversion_overall_2023),
       conversion_overall_2022 = ifelse(is.na(conversion_overall_2022), 0, conversion_overall_2022),
 
-      # Calculer weighted means pour 2026
-      conversion_high_danger = 0.5 * conversion_high_danger_2024 +
-                                0.3 * conversion_high_danger_2023 +
-                                0.2 * conversion_high_danger_2022,
+      # Calculer weighted means pour 2026 avec poids adaptatifs
+      conversion_high_danger = case_when(
+        has_2024 & has_2023 & has_2022 ~ 0.5 * conversion_high_danger_2024 + 0.3 * conversion_high_danger_2023 + 0.2 * conversion_high_danger_2022,
+        has_2024 & has_2023 ~ 0.6 * conversion_high_danger_2024 + 0.4 * conversion_high_danger_2023,
+        has_2024 ~ 1.0 * conversion_high_danger_2024,
+        TRUE ~ 0
+      ),
 
-      conversion_medium = 0.5 * conversion_medium_2024 +
-                           0.3 * conversion_medium_2023 +
-                           0.2 * conversion_medium_2022,
+      conversion_medium = case_when(
+        has_2024 & has_2023 & has_2022 ~ 0.5 * conversion_medium_2024 + 0.3 * conversion_medium_2023 + 0.2 * conversion_medium_2022,
+        has_2024 & has_2023 ~ 0.6 * conversion_medium_2024 + 0.4 * conversion_medium_2023,
+        has_2024 ~ 1.0 * conversion_medium_2024,
+        TRUE ~ 0
+      ),
 
-      conversion_overall = 0.5 * conversion_overall_2024 +
-                            0.3 * conversion_overall_2023 +
-                            0.2 * conversion_overall_2022
+      conversion_overall = case_when(
+        has_2024 & has_2023 & has_2022 ~ 0.5 * conversion_overall_2024 + 0.3 * conversion_overall_2023 + 0.2 * conversion_overall_2022,
+        has_2024 & has_2023 ~ 0.6 * conversion_overall_2024 + 0.4 * conversion_overall_2023,
+        has_2024 ~ 1.0 * conversion_overall_2024,
+        TRUE ~ 0
+      )
     ) %>%
     select(player_id, conversion_high_danger, conversion_medium, conversion_overall)
 }
@@ -164,11 +181,7 @@ summary_stats <- projections %>%
 
 print(summary_stats)
 
-# Sauvegarder -------------------------------------------------------------
-saveRDS(projections, output_file)
-
-cat("\n✓ Projections sauvegardées:", output_file, "\n")
-cat("  Variables ajoutées: conversion_high_danger, conversion_medium, conversion_overall\n")
+cat("\n✓ Variables ajoutées: conversion_high_danger, conversion_medium, conversion_overall\n")
 
 # Aperçu ------------------------------------------------------------------
 cat("\nTop 10 conversion_high_danger projetés:\n")

@@ -1,0 +1,283 @@
+---
+title: "Comparaison modèles RF vs Bayésien"
+subtitle: "Projections de points 2025-26"
+format:
+  html:
+    code-fold: true
+    toc: true
+    theme: cosmo
+execute:
+  warning: false
+  message: false
+---
+
+# Objectif
+
+Comparer deux approches de modélisation pour projeter les points des joueurs:
+
+1. **Random Forest**: Modèle ensembliste, rapide, sans intervalles de confiance
+2. **Modèle bayésien**: Régression avec priors, intervalles de confiance, plus lent
+
+**Données:**
+- Train: 2020-2023
+- Validation: 2024
+- Features: 11 variables (wpm_g, wpm_a, TOI, danger shots, conversions, xG, etc.)
+
+# Chargement des résultats
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+library(patchwork)
+
+# Charger résultats
+rf_results <- readRDS("../../data/01_point_projections/models/rf_training_results.rds")
+bayes_results <- readRDS("../../data/01_point_projections/models/bayes_training_results.rds")
+```
+
+# Performance globale
+
+## Comparaison RMSE
+
+```{r}
+#| label: fig-rmse
+#| fig-cap: "RMSE en validation: plus bas = meilleur"
+#| fig-width: 10
+#| fig-height: 5
+
+# Extraire métriques
+rf_metrics <- data.frame(
+  model = c("goals_F", "assists_F", "goals_D", "assists_D"),
+  method = "Random Forest",
+  train_rmse = sapply(rf_results, function(x) x$train_rmse),
+  valid_rmse = sapply(rf_results, function(x) x$valid_rmse),
+  train_r2 = sapply(rf_results, function(x) x$train_r2),
+  valid_r2 = sapply(rf_results, function(x) x$valid_r2)
+)
+
+bayes_metrics <- data.frame(
+  model = c("goals_F", "assists_F", "goals_D", "assists_D"),
+  method = "Bayésien",
+  train_rmse = sapply(bayes_results, function(x) x$train_rmse),
+  valid_rmse = sapply(bayes_results, function(x) x$valid_rmse),
+  train_r2 = sapply(bayes_results, function(x) x$train_r2),
+  valid_r2 = sapply(bayes_results, function(x) x$valid_r2)
+)
+
+all_metrics <- bind_rows(rf_metrics, bayes_metrics) %>%
+  mutate(
+    position = ifelse(grepl("_F$", model), "Forwards", "Defensemen"),
+    stat = ifelse(grepl("^goals", model), "Buts", "Passes")
+  )
+
+# Plot RMSE
+ggplot(all_metrics, aes(x = stat, y = valid_rmse, fill = method)) +
+  geom_col(position = "dodge") +
+  facet_wrap(~position) +
+  labs(
+    title = "RMSE en validation par position",
+    x = NULL,
+    y = "RMSE",
+    fill = "Méthode"
+  ) +
+  theme_minimal() +
+  scale_fill_brewer(palette = "Set2")
+```
+
+## Comparaison R²
+
+```{r}
+#| label: fig-r2
+#| fig-cap: "R² en validation: plus haut = meilleur"
+#| fig-width: 10
+#| fig-height: 5
+
+ggplot(all_metrics, aes(x = stat, y = valid_r2, fill = method)) +
+  geom_col(position = "dodge") +
+  facet_wrap(~position) +
+  labs(
+    title = "R² en validation par position",
+    x = NULL,
+    y = "R²",
+    fill = "Méthode"
+  ) +
+  theme_minimal() +
+  scale_fill_brewer(palette = "Set2") +
+  ylim(0, 1)
+```
+
+## Tableau récapitulatif
+
+```{r}
+all_metrics %>%
+  select(position, stat, method, valid_rmse, valid_r2) %>%
+  arrange(position, stat, method) %>%
+  mutate(
+    valid_rmse = round(valid_rmse, 2),
+    valid_r2 = round(valid_r2, 3)
+  ) %>%
+  knitr::kable(
+    col.names = c("Position", "Stat", "Méthode", "RMSE", "R²"),
+    caption = "Performance en validation (2024)"
+  )
+```
+
+# Intervalles de confiance (Bayésien)
+
+Un avantage clé du modèle bayésien: **intervalles de confiance** pour quantifier l'incertitude.
+
+```{r}
+#| label: fig-coverage
+#| fig-cap: "Couverture des IC 95%: cible = 95%"
+#| fig-width: 8
+#| fig-height: 4
+
+coverage_df <- data.frame(
+  model = c("goals_F", "assists_F", "goals_D", "assists_D"),
+  coverage = sapply(bayes_results, function(x) x$coverage * 100),
+  position = c("Forwards", "Forwards", "Defensemen", "Defensemen"),
+  stat = c("Buts", "Passes", "Buts", "Passes")
+)
+
+ggplot(coverage_df, aes(x = stat, y = coverage, fill = position)) +
+  geom_col(position = "dodge") +
+  geom_hline(yintercept = 95, linetype = "dashed", color = "red") +
+  labs(
+    title = "Couverture des intervalles de confiance à 95%",
+    subtitle = "Pourcentage de vraies valeurs dans l'IC",
+    x = NULL,
+    y = "Couverture (%)",
+    fill = "Position"
+  ) +
+  theme_minimal() +
+  scale_fill_brewer(palette = "Set1") +
+  ylim(0, 100)
+```
+
+**Interprétation:**
+- Couverture de 92.9-96.2% → Excellente calibration
+- Proche de 95% attendu → Les IC sont fiables
+
+# Overfitting
+
+Comparer performance train vs validation pour détecter l'overfitting.
+
+```{r}
+#| label: fig-overfit
+#| fig-cap: "Écart train-validation: Random Forest surajuste plus"
+#| fig-width: 10
+#| fig-height: 5
+
+overfit_data <- all_metrics %>%
+  mutate(
+    overfit = train_r2 - valid_r2,
+    model_name = paste(position, stat, sep = " - ")
+  )
+
+ggplot(overfit_data, aes(x = model_name, y = overfit, fill = method)) +
+  geom_col(position = "dodge") +
+  labs(
+    title = "Surajustement (R² train - R² valid)",
+    subtitle = "Plus haut = plus d'overfitting",
+    x = NULL,
+    y = "Écart R² (train - valid)",
+    fill = "Méthode"
+  ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_fill_brewer(palette = "Set2")
+```
+
+**Observations:**
+- RF a un R² train de 0.96-0.98 (quasi parfait sur train)
+- Bayésien a un R² train de 0.65-0.75 (plus modeste)
+- RF surajuste plus, mais **performe mieux en validation**
+
+# Variables importantes (RF)
+
+```{r}
+#| label: fig-importance
+#| fig-cap: "Top 5 variables par modèle (RF)"
+#| fig-width: 10
+#| fig-height: 8
+
+library(randomForest)
+
+# Charger modèles RF
+models <- list(
+  goals_F = readRDS("../../data/01_point_projections/models/rf_goals_F.rds"),
+  assists_F = readRDS("../../data/01_point_projections/models/rf_assists_F.rds"),
+  goals_D = readRDS("../../data/01_point_projections/models/rf_goals_D.rds"),
+  assists_D = readRDS("../../data/01_point_projections/models/rf_assists_D.rds")
+)
+
+# Extraire importance
+importance_list <- lapply(names(models), function(name) {
+  imp <- importance(models[[name]]) %>%
+    as.data.frame() %>%
+    tibble::rownames_to_column("variable") %>%
+    arrange(desc(IncNodePurity)) %>%
+    head(5) %>%
+    mutate(
+      model = name,
+      position = ifelse(grepl("_F$", name), "Forwards", "Defensemen"),
+      stat = ifelse(grepl("^goals", name), "Buts", "Passes")
+    )
+  return(imp)
+})
+
+importance_df <- bind_rows(importance_list)
+
+ggplot(importance_df, aes(x = reorder(variable, IncNodePurity), y = IncNodePurity, fill = stat)) +
+  geom_col() +
+  coord_flip() +
+  facet_wrap(~position + stat, scales = "free_y", ncol = 2) +
+  labs(
+    title = "Top 5 variables importantes (IncNodePurity)",
+    x = NULL,
+    y = "Importance",
+    fill = "Stat"
+  ) +
+  theme_minimal() +
+  scale_fill_brewer(palette = "Set1")
+```
+
+# Conclusions
+
+## Random Forest
+
+**Avantages:**
+- Meilleure performance (RMSE, R²)
+- Capture bien les non-linéarités
+- Rapide à entraîner
+
+**Inconvénients:**
+- Pas d'intervalles de confiance
+- Surajustement (train R² très élevé)
+- Boîte noire
+
+## Bayésien
+
+**Avantages:**
+- Intervalles de confiance fiables (couverture ~95%)
+- Moins de surajustement
+- Interprétable (coefficients)
+
+**Inconvénients:**
+- Performance légèrement inférieure
+- Plus lent à entraîner
+- Moins flexible (linéaire)
+
+## Recommandation
+
+**Pour les projections du pool:**
+
+1. **Utiliser RF pour les prédictions ponctuelles** (meilleur R²)
+2. **Utiliser Bayésien pour quantifier l'incertitude** (IC pour évaluer le risque)
+3. **Ensemble:** Moyenner les deux approches pour robustesse
+
+**Prochaines étapes:**
+- Tester l'ensemble (moyenne RF + Bayésien)
+- Ajouter d'autres modèles externes (MoneyPuck, Dom Luszczyszyn, etc.)
+- Créer script de projection pour 2025-26

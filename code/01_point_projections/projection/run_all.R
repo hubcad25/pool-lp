@@ -31,8 +31,9 @@ scripts <- c(
   "01_project_wpm_historical.R",
   "02_project_toi.R",
   "03_project_shots.R",
-  "04_project_conversion.R"
-  #"05_predict_points.R"  # Prédictions goals/assists avec modèles bayésiens
+  "04_project_conversion.R",
+  "05_predict_points.R",  # Prédictions goals/assists avec modèles bayésiens
+  "06_match_cap_hits.R"
 )
 
 # Exécuter chaque script --------------------------------------------------

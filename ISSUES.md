@@ -45,3 +45,12 @@ Ajuster la **projection** des WPM pour 2026 selon l'âge et les courbes d'âge t
 5. Ces WPM ajustés sont ensuite passés au modèle bayésien
 
 **Statut:** À planifier
+
+## #3: Améliorer le modèle
+
+Il faudrait moins de poids au wpm_g et wpm_a dans le modèle. Ça biaise trop selon les résultats passés.
+
+## #4: Joueurs avec noms dupliqués
+
+Comme Elias Petersson et Sebastian Aho
+

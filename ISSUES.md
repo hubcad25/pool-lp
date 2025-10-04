@@ -49,8 +49,12 @@ Ajuster la **projection** des WPM pour 2026 selon l'âge et les courbes d'âge t
 ## #3: Améliorer le modèle
 
 Il faudrait moins de poids au wpm_g et wpm_a dans le modèle. Ça biaise trop selon les résultats passés.
+Aussi, il faudrait que le wpm prenne en compte non seulement le temps (0.5 pour l'an passé, 0.3 avant etc.) mais aussi le nombre de matchs du joueur cette saison. Même si on normalise les scores pour les joueurs avec moins de matchs une saison, on devrait baisser le poids de ces saisons dans le calcul des wpm pour le modèle ET dans les projections.
 
 ## #4: Joueurs avec noms dupliqués
 
 Comme Elias Petersson et Sebastian Aho
 
+## #5: Agréger avec d'autres prédictions de points
+
+Incorporer la prédiction de sites de fantasy et tout

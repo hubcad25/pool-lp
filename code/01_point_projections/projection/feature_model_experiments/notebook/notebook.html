@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.24">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Comparaison des modèles de projection de features</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="notebook_files/libs/clipboard/clipboard.min.js"></script>
+<script src="notebook_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="notebook_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="notebook_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="notebook_files/libs/quarto-html/popper.min.js"></script>
+<script src="notebook_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="notebook_files/libs/quarto-html/anchor.min.js"></script>
+<link href="notebook_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="notebook_files/libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="notebook_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="notebook_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="notebook_files/libs/bootstrap/bootstrap-d0c197f4bedc9f39d18203c96767bf4c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#objectif" id="toc-objectif" class="nav-link active" data-scroll-target="#objectif"><span class="header-section-number">1</span> Objectif</a></li>
+  <li><a href="#diagnostics" id="toc-diagnostics" class="nav-link" data-scroll-target="#diagnostics"><span class="header-section-number">2</span> Diagnostics</a></li>
+  <li><a href="#comparaison-globale" id="toc-comparaison-globale" class="nav-link" data-scroll-target="#comparaison-globale"><span class="header-section-number">3</span> Comparaison globale</a>
+  <ul class="collapse">
+  <li><a href="#ranking-détaillé-par-feature" id="toc-ranking-détaillé-par-feature" class="nav-link" data-scroll-target="#ranking-détaillé-par-feature"><span class="header-section-number">3.1</span> Ranking détaillé par feature</a></li>
+  <li><a href="#heatmap-des-performances" id="toc-heatmap-des-performances" class="nav-link" data-scroll-target="#heatmap-des-performances"><span class="header-section-number">3.2</span> Heatmap des performances</a></li>
+  <li><a href="#modèles-gagnants" id="toc-modèles-gagnants" class="nav-link" data-scroll-target="#modèles-gagnants"><span class="header-section-number">3.3</span> Modèles gagnants</a></li>
+  </ul></li>
+  <li><a href="#analyses-de-robustesse" id="toc-analyses-de-robustesse" class="nav-link" data-scroll-target="#analyses-de-robustesse"><span class="header-section-number">4</span> Analyses de robustesse</a>
+  <ul class="collapse">
+  <li><a href="#consistance-des-modèles" id="toc-consistance-des-modèles" class="nav-link" data-scroll-target="#consistance-des-modèles"><span class="header-section-number">4.1</span> Consistance des modèles</a></li>
+  <li><a href="#pires-cas" id="toc-pires-cas" class="nav-link" data-scroll-target="#pires-cas"><span class="header-section-number">4.2</span> Pires cas</a></li>
+  </ul></li>
+  <li><a href="#analyses-par-sous-groupes" id="toc-analyses-par-sous-groupes" class="nav-link" data-scroll-target="#analyses-par-sous-groupes"><span class="header-section-number">5</span> Analyses par sous-groupes</a>
+  <ul class="collapse">
+  <li><a href="#par-position" id="toc-par-position" class="nav-link" data-scroll-target="#par-position"><span class="header-section-number">5.1</span> Par position</a></li>
+  <li><a href="#par-groupe-dâge" id="toc-par-groupe-dâge" class="nav-link" data-scroll-target="#par-groupe-dâge"><span class="header-section-number">5.2</span> Par groupe d’âge</a></li>
+  <li><a href="#analyse-de-biais" id="toc-analyse-de-biais" class="nav-link" data-scroll-target="#analyse-de-biais"><span class="header-section-number">5.3</span> Analyse de biais</a></li>
+  </ul></li>
+  <li><a href="#analyse-dincertitude" id="toc-analyse-dincertitude" class="nav-link" data-scroll-target="#analyse-dincertitude"><span class="header-section-number">6</span> Analyse d’incertitude</a>
+  <ul class="collapse">
+  <li><a href="#ic-natifs-age-curves-gam-lstm" id="toc-ic-natifs-age-curves-gam-lstm" class="nav-link" data-scroll-target="#ic-natifs-age-curves-gam-lstm"><span class="header-section-number">6.1</span> IC natifs (Age Curves, GAM, LSTM)</a></li>
+  <li><a href="#ic-empiriques-random-forest-xgboost" id="toc-ic-empiriques-random-forest-xgboost" class="nav-link" data-scroll-target="#ic-empiriques-random-forest-xgboost"><span class="header-section-number">6.2</span> IC empiriques (Random Forest, XGBoost)</a></li>
+  </ul></li>
+  <li><a href="#valeur-ajoutée" id="toc-valeur-ajoutée" class="nav-link" data-scroll-target="#valeur-ajoutée"><span class="header-section-number">7</span> Valeur ajoutée</a>
+  <ul class="collapse">
+  <li><a href="#gains-vs-baseline" id="toc-gains-vs-baseline" class="nav-link" data-scroll-target="#gains-vs-baseline"><span class="header-section-number">7.1</span> Gains vs baseline</a></li>
+  </ul></li>
+  <li><a href="#observations-et-recommandations" id="toc-observations-et-recommandations" class="nav-link" data-scroll-target="#observations-et-recommandations"><span class="header-section-number">8</span> Observations et recommandations</a>
+  <ul class="collapse">
+  <li><a href="#résultats-principaux" id="toc-résultats-principaux" class="nav-link" data-scroll-target="#résultats-principaux"><span class="header-section-number">8.1</span> Résultats principaux</a></li>
+  <li><a href="#modèles-sélectionnés" id="toc-modèles-sélectionnés" class="nav-link" data-scroll-target="#modèles-sélectionnés"><span class="header-section-number">8.2</span> Modèles sélectionnés</a></li>
+  <li><a href="#points-dattention" id="toc-points-dattention" class="nav-link" data-scroll-target="#points-dattention"><span class="header-section-number">8.3</span> Points d’attention</a>
+  <ul class="collapse">
+  <li><a href="#random-forest-gagnant-clair" id="toc-random-forest-gagnant-clair" class="nav-link" data-scroll-target="#random-forest-gagnant-clair"><span class="header-section-number">8.3.1</span> 1. Random Forest: gagnant clair</a></li>
+  <li><a href="#conversions-problème-fondamental" id="toc-conversions-problème-fondamental" class="nav-link" data-scroll-target="#conversions-problème-fondamental"><span class="header-section-number">8.3.2</span> 2. Conversions: problème fondamental</a></li>
+  <li><a href="#intervalles-de-confiance-pour-random-forest" id="toc-intervalles-de-confiance-pour-random-forest" class="nav-link" data-scroll-target="#intervalles-de-confiance-pour-random-forest"><span class="header-section-number">8.3.3</span> 3. Intervalles de confiance pour Random Forest</a></li>
+  <li><a href="#robustesse-et-consistance" id="toc-robustesse-et-consistance" class="nav-link" data-scroll-target="#robustesse-et-consistance"><span class="header-section-number">8.3.4</span> 4. Robustesse et consistance</a></li>
+  <li><a href="#analyses-par-sous-groupes-1" id="toc-analyses-par-sous-groupes-1" class="nav-link" data-scroll-target="#analyses-par-sous-groupes-1"><span class="header-section-number">8.3.5</span> 5. Analyses par sous-groupes</a></li>
+  </ul></li>
+  <li><a href="#plan-dimplémentation" id="toc-plan-dimplémentation" class="nav-link" data-scroll-target="#plan-dimplémentation"><span class="header-section-number">8.4</span> Plan d’implémentation</a>
+  <ul class="collapse">
+  <li><a href="#phase-1-projection-des-features-immédiat" id="toc-phase-1-projection-des-features-immédiat" class="nav-link" data-scroll-target="#phase-1-projection-des-features-immédiat"><span class="header-section-number">8.4.1</span> Phase 1: Projection des features (IMMÉDIAT)</a></li>
+  <li><a href="#phase-2-validation-avant-production" id="toc-phase-2-validation-avant-production" class="nav-link" data-scroll-target="#phase-2-validation-avant-production"><span class="header-section-number">8.4.2</span> Phase 2: Validation (AVANT PRODUCTION)</a></li>
+  <li><a href="#phase-3-monitoring-en-continu" id="toc-phase-3-monitoring-en-continu" class="nav-link" data-scroll-target="#phase-3-monitoring-en-continu"><span class="header-section-number">8.4.3</span> Phase 3: Monitoring (EN CONTINU)</a></li>
+  </ul></li>
+  <li><a href="#actions-requises" id="toc-actions-requises" class="nav-link" data-scroll-target="#actions-requises"><span class="header-section-number">8.5</span> Actions requises</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Comparaison des modèles de projection de features</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="objectif" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Objectif</h1>
+<p>Identifier le <strong>meilleur modèle par feature</strong> pour projeter les variables indépendantes des modèles bayésiens de projection de points.</p>
+<p><strong>Modèles comparés:</strong> - Baselines: WMA (Weighted Moving Average), RTM (Regression to Mean) - Age-based: Age Curves V1 &amp; V2 - Machine Learning: Random Forest, XGBoost, GAM, LSTM</p>
+<p><strong>Variables à projeter:</strong> - Time on Ice: <code>evtoi_per_gp</code>, <code>pptoi_per_gp</code> - Production: <code>x_goals_per60</code>, <code>high_danger_shots_per60</code>, <code>medium_danger_shots_per60</code>, <code>shot_attempts_per60</code> - Conversions: <code>conversion_overall</code>, <code>conversion_medium</code>, <code>conversion_high_danger</code></p>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+=== CHARGEMENT DES DONNÉES ===
+
+✓ 72 lignes chargées
+✓ 8 modèles: WMA, RTM, age_curves_v1, age_curves_v2, RandomForest, xgboost, GAM, lstm 
+✓ 9 features
+
+✓ Eval détaillés chargés pour 4 modèles
+✓ Groupes d'analyse créés
+  - Âge: 35+ (Vieux), 30-34 (Vétérans), 25-29 (Prime), 18-24 (Jeunes) 
+  - GP: High (225+ GP), Medium (150-225), Low (&lt;150 GP) 
+  - Historique: 3 saison(s), 2 saison(s), 1 saison(s) </code></pre>
+</div>
+</div>
+</section>
+<section id="diagnostics" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Diagnostics</h1>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+=== DIAGNOSTICS ===
+
+NAs par colonne:
+  model feature      r2     mae    mape       n 
+      0       0       0       0       0       0 
+
+R² négatifs (modèles pires que baseline naïve):
+         model                feature           r2        mae
+          lstm conversion_high_danger -0.803042525 0.15274261
+           WMA      conversion_medium -0.518736387 0.06394942
+           WMA conversion_high_danger -0.430337099 0.13889427
+ age_curves_v2      conversion_medium -0.424048732 0.06295417
+ age_curves_v1      conversion_medium -0.405677028 0.06244715
+ age_curves_v2 conversion_high_danger -0.337718676 0.13554048
+ age_curves_v1 conversion_high_danger -0.320027699 0.13467921
+       xgboost      conversion_medium -0.297845677 0.06044226
+       xgboost conversion_high_danger -0.276957220 0.13278435
+           RTM conversion_high_danger -0.033676792 0.12138442
+          lstm      conversion_medium -0.031492778 0.05543740
+  RandomForest      conversion_medium -0.019866763 0.05865176
+  RandomForest conversion_high_danger -0.013174091 0.12994881
+           GAM conversion_high_danger -0.008448529 0.12182368
+           GAM      conversion_medium -0.001666934 0.05500666
+
+R² suspects (&gt;1 ou &lt;-1):
+Aucun R² suspect
+
+Performance moyenne par modèle:
+# A tibble: 8 × 7
+  model         mean_r2 median_r2   min_r2 max_r2 sd_r2 n_features
+  &lt;chr&gt;           &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;      &lt;int&gt;
+1 RandomForest    0.576     0.756 -0.0199   0.857 0.349          9
+2 GAM             0.544     0.731 -0.00845  0.822 0.331          9
+3 age_curves_v2   0.427     0.648 -0.424    0.803 0.472          9
+4 age_curves_v1   0.418     0.550 -0.406    0.799 0.463          9
+5 WMA             0.416     0.701 -0.519    0.802 0.517          9
+6 RTM             0.411     0.524 -0.0337   0.740 0.300          9
+7 xgboost         0.410     0.667 -0.298    0.719 0.413          9
+8 lstm            0.381     0.666 -0.803    0.771 0.512          9
+
+Performance moyenne par feature:
+# A tibble: 9 × 6
+  feature                   mean_r2  best_r2 worst_r2 best_model   n_models
+  &lt;chr&gt;                       &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;           &lt;int&gt;
+1 x_goals_per60               0.789  0.857      0.719 RandomForest        8
+2 medium_danger_shots_per60   0.764  0.850      0.699 RandomForest        8
+3 pptoi_per_gp                0.660  0.781      0.288 RandomForest        8
+4 evtoi_per_gp                0.622  0.771      0.206 RandomForest        8
+5 high_danger_shots_per60     0.707  0.756      0.666 RandomForest        8
+6 shot_attempts_per60         0.486  0.638      0.374 RandomForest        8
+7 conversion_overall          0.491  0.571      0.377 GAM                 8
+8 conversion_medium          -0.211  0.00782   -0.519 RTM                 8
+9 conversion_high_danger     -0.278 -0.00845   -0.803 GAM                 8
+
+Meilleurs modèles par feature:
+# A tibble: 9 × 4
+  feature                   model              r2      mae
+  &lt;chr&gt;                     &lt;chr&gt;           &lt;dbl&gt;    &lt;dbl&gt;
+1 conversion_high_danger    GAM          -0.00845   0.122 
+2 conversion_medium         RTM           0.00782   0.0541
+3 conversion_overall        GAM           0.571     0.0223
+4 evtoi_per_gp              RandomForest  0.771    63.5   
+5 high_danger_shots_per60   RandomForest  0.756    17.3   
+6 medium_danger_shots_per60 RandomForest  0.850    27.7   
+7 pptoi_per_gp              RandomForest  0.781    21.0   
+8 shot_attempts_per60       RandomForest  0.638   133.    
+9 x_goals_per60             RandomForest  0.857     8.98  </code></pre>
+</div>
+</div>
+</section>
+<section id="comparaison-globale" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Comparaison globale</h1>
+<section id="ranking-détaillé-par-feature" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="ranking-détaillé-par-feature"><span class="header-section-number">3.1</span> Ranking détaillé par feature</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-ranking" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-ranking-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: R² de chaque modèle par feature
+</figcaption>
+<div aria-describedby="fig-ranking-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="notebook_files/figure-html/fig-ranking-1.png" class="img-fluid figure-img" style="width:90.0%">
+</div>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="heatmap-des-performances" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="heatmap-des-performances"><span class="header-section-number">3.2</span> Heatmap des performances</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-heatmap" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-heatmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Performance des modèles (R²)
+</figcaption>
+<div aria-describedby="fig-heatmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="notebook_files/figure-html/fig-heatmap-1.png" class="img-fluid figure-img" style="width:90.0%">
+</div>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="modèles-gagnants" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="modèles-gagnants"><span class="header-section-number">3.3</span> Modèles gagnants</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-winners" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-winners-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Nombre de features où chaque modèle est le meilleur
+</figcaption>
+<div aria-describedby="fig-winners-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="notebook_files/figure-html/fig-winners-1.png" class="img-fluid figure-img" style="width:90.0%">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-winning-r2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-winning-r2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Distribution des R² gagnants
+</figcaption>
+<div aria-describedby="fig-winning-r2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="notebook_files/figure-html/fig-winning-r2-1.png" class="img-fluid figure-img" style="width:90.0%">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div id="tbl-best-models" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-best-models-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Meilleur modèle par feature
+</figcaption>
+<div aria-describedby="tbl-best-models-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">feature</th>
+<th style="text-align: left;">model</th>
+<th style="text-align: right;">r2</th>
+<th style="text-align: right;">mae</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">x_goals_per60</td>
+<td style="text-align: left;">RandomForest</td>
+<td style="text-align: right;">0.857</td>
+<td style="text-align: right;">8.979</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">medium_danger_shots_per60</td>
+<td style="text-align: left;">RandomForest</td>
+<td style="text-align: right;">0.850</td>
+<td style="text-align: right;">27.677</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pptoi_per_gp</td>
+<td style="text-align: left;">RandomForest</td>
+<td style="text-align: right;">0.781</td>
+<td style="text-align: right;">20.995</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">evtoi_per_gp</td>
+<td style="text-align: left;">RandomForest</td>
+<td style="text-align: right;">0.771</td>
+<td style="text-align: right;">63.479</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">high_danger_shots_per60</td>
+<td style="text-align: left;">RandomForest</td>
+<td style="text-align: right;">0.756</td>
+<td style="text-align: right;">17.250</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">shot_attempts_per60</td>
+<td style="text-align: left;">RandomForest</td>
+<td style="text-align: right;">0.638</td>
+<td style="text-align: right;">133.205</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">conversion_overall</td>
+<td style="text-align: left;">GAM</td>
+<td style="text-align: right;">0.571</td>
+<td style="text-align: right;">0.022</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">conversion_medium</td>
+<td style="text-align: left;">RTM</td>
+<td style="text-align: right;">0.008</td>
+<td style="text-align: right;">0.054</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">conversion_high_danger</td>
+<td style="text-align: left;">GAM</td>
+<td style="text-align: right;">-0.008</td>
+<td style="text-align: right;">0.122</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+</section>
+</section>
+<section id="analyses-de-robustesse" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Analyses de robustesse</h1>
+<section id="consistance-des-modèles" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="consistance-des-modèles"><span class="header-section-number">4.1</span> Consistance des modèles</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-consistency" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-consistency-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: Consistance: moyenne vs écart-type du R²
+</figcaption>
+<div aria-describedby="fig-consistency-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="notebook_files/figure-html/fig-consistency-1.png" class="img-fluid figure-img" style="width:90.0%">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-r2-distribution" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-r2-distribution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: Distribution des R² par modèle
+</figcaption>
+<div aria-describedby="fig-r2-distribution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="notebook_files/figure-html/fig-r2-distribution-1.png" class="img-fluid figure-img" style="width:90.0%">
+</div>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="pires-cas" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="pires-cas"><span class="header-section-number">4.2</span> Pires cas</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-worst-case" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-worst-case-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: Pire performance de chaque modèle
+</figcaption>
+<div aria-describedby="fig-worst-case-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="notebook_files/figure-html/fig-worst-case-1.png" class="img-fluid figure-img" style="width:90.0%">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-difficult-features" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-difficult-features-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8: Features les plus difficiles à prédire
+</figcaption>
+<div aria-describedby="fig-difficult-features-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="notebook_files/figure-html/fig-difficult-features-1.png" class="img-fluid figure-img" style="width:90.0%">
+</div>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="analyses-par-sous-groupes" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Analyses par sous-groupes</h1>
+<section id="par-position" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="par-position"><span class="header-section-number">5.1</span> Par position</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-position-comparison" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-position-comparison-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9: Performance par position (Forwards vs Defensemen)
+</figcaption>
+<div aria-describedby="fig-position-comparison-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="notebook_files/figure-html/fig-position-comparison-1.png" class="img-fluid figure-img" style="width:90.0%">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-position-heatmap" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-position-heatmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;10: Heatmap par position
+</figcaption>
+<div aria-describedby="fig-position-heatmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="notebook_files/figure-html/fig-position-heatmap-1.png" class="img-fluid figure-img" style="width:90.0%">
+</div>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="par-groupe-dâge" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="par-groupe-dâge"><span class="header-section-number">5.2</span> Par groupe d’âge</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+⚠️  Impossible de calculer les métriques par âge</code></pre>
+</div>
+</div>
+</section>
+<section id="analyse-de-biais" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="analyse-de-biais"><span class="header-section-number">5.3</span> Analyse de biais</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+⚠️  Impossible de calculer le biais par âge
+
+⚠️  Impossible de calculer le biais par expérience</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="analyse-dincertitude" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Analyse d’incertitude</h1>
+<section id="ic-natifs-age-curves-gam-lstm" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="ic-natifs-age-curves-gam-lstm"><span class="header-section-number">6.1</span> IC natifs (Age Curves, GAM, LSTM)</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+⚠️  Aucun modèle avec intervalles de confiance trouvé</code></pre>
+</div>
+</div>
+</section>
+<section id="ic-empiriques-random-forest-xgboost" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="ic-empiriques-random-forest-xgboost"><span class="header-section-number">6.2</span> IC empiriques (Random Forest, XGBoost)</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+=== Calcul IC empiriques pour rf ===
+
+⚠️  Impossible de calculer les IC empiriques</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="valeur-ajoutée" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Valeur ajoutée</h1>
+<section id="gains-vs-baseline" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="gains-vs-baseline"><span class="header-section-number">7.1</span> Gains vs baseline</h2>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: There were 9 warnings in `mutate()`.
+The first warning was:
+ℹ In argument: `best_baseline_r2 = max(r2[model %in% baseline_models], na.rm =
+  TRUE)`.
+ℹ In group 1: `feature = "conversion_high_danger"`.
+Caused by warning in `max()`:
+! no non-missing arguments to max; returning -Inf
+ℹ Run `dplyr::last_dplyr_warnings()` to see the 8 remaining warnings.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+=== VALEUR AJOUTÉE DES MODÈLES AVANCÉS ===
+
+Comparaison vs meilleur baseline (WMA ou RTM):
+
+# A tibble: 8 × 5
+  model         mean_r2_gain median_r2_gain pct_positive n_features
+  &lt;chr&gt;                &lt;dbl&gt;          &lt;dbl&gt;        &lt;dbl&gt;      &lt;int&gt;
+1 GAM                    Inf            Inf          100          9
+2 RTM                    Inf            Inf          100          9
+3 RandomForest           Inf            Inf          100          9
+4 WMA                    Inf            Inf          100          9
+5 age_curves_v1          Inf            Inf          100          9
+6 age_curves_v2          Inf            Inf          100          9
+7 lstm                   Inf            Inf          100          9
+8 xgboost                Inf            Inf          100          9</code></pre>
+</div>
+<div class="cell-output-display">
+<div id="fig-value-add" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-value-add-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;11: Valeur ajoutée des modèles avancés vs baseline
+</figcaption>
+<div aria-describedby="fig-value-add-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="notebook_files/figure-html/fig-value-add-1.png" class="img-fluid figure-img" style="width:90.0%">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 72 rows containing non-finite outside the scale range
+(`stat_boxplot()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in min(x): no non-missing arguments to min; returning Inf</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in max(x): no non-missing arguments to max; returning -Inf</code></pre>
+</div>
+<div class="cell-output-display">
+<div id="fig-value-add-distribution" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-value-add-distribution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;12: Distribution des gains de R²
+</figcaption>
+<div aria-describedby="fig-value-add-distribution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="notebook_files/figure-html/fig-value-add-distribution-1.png" class="img-fluid figure-img" style="width:90.0%">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-value-add-heatmap" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-value-add-heatmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;13: Gains par feature
+</figcaption>
+<div aria-describedby="fig-value-add-heatmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="notebook_files/figure-html/fig-value-add-heatmap-1.png" class="img-fluid figure-img" style="width:90.0%">
+</div>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="observations-et-recommandations" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Observations et recommandations</h1>
+<section id="résultats-principaux" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="résultats-principaux"><span class="header-section-number">8.1</span> Résultats principaux</h2>
+<p><strong>Random Forest domine clairement</strong> en remportant 6 des 9 features avec des R² élevés (0.64-0.86). Les conversions restent difficiles à prédire pour tous les modèles.</p>
+</section>
+<section id="modèles-sélectionnés" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="modèles-sélectionnés"><span class="header-section-number">8.2</span> Modèles sélectionnés</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 21%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 27%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Feature</th>
+<th>Modèle</th>
+<th>R²</th>
+<th>MAE</th>
+<th>Décision</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>x_goals_per60</strong></td>
+<td>Random Forest</td>
+<td>0.857</td>
+<td>8.98</td>
+<td>✅ Utiliser</td>
+</tr>
+<tr class="even">
+<td><strong>medium_danger_shots_per60</strong></td>
+<td>Random Forest</td>
+<td>0.850</td>
+<td>27.7</td>
+<td>✅ Utiliser</td>
+</tr>
+<tr class="odd">
+<td><strong>pptoi_per_gp</strong></td>
+<td>Random Forest</td>
+<td>0.781</td>
+<td>21.0</td>
+<td>✅ Utiliser</td>
+</tr>
+<tr class="even">
+<td><strong>evtoi_per_gp</strong></td>
+<td>Random Forest</td>
+<td>0.771</td>
+<td>63.5</td>
+<td>✅ Utiliser</td>
+</tr>
+<tr class="odd">
+<td><strong>high_danger_shots_per60</strong></td>
+<td>Random Forest</td>
+<td>0.756</td>
+<td>17.3</td>
+<td>✅ Utiliser</td>
+</tr>
+<tr class="even">
+<td><strong>shot_attempts_per60</strong></td>
+<td>Random Forest</td>
+<td>0.638</td>
+<td>133</td>
+<td>✅ Utiliser</td>
+</tr>
+<tr class="odd">
+<td><strong>conversion_overall</strong></td>
+<td>GAM</td>
+<td>0.571</td>
+<td>0.022</td>
+<td>✅ Utiliser</td>
+</tr>
+<tr class="even">
+<td><strong>conversion_medium</strong></td>
+<td>RTM</td>
+<td>0.008</td>
+<td>0.054</td>
+<td>❌ League avg</td>
+</tr>
+<tr class="odd">
+<td><strong>conversion_high_danger</strong></td>
+<td>GAM</td>
+<td>-0.008</td>
+<td>0.122</td>
+<td>❌ League avg</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="points-dattention" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="points-dattention"><span class="header-section-number">8.3</span> Points d’attention</h2>
+<section id="random-forest-gagnant-clair" class="level3" data-number="8.3.1">
+<h3 data-number="8.3.1" class="anchored" data-anchor-id="random-forest-gagnant-clair"><span class="header-section-number">8.3.1</span> 1. Random Forest: gagnant clair</h3>
+<p><strong>Performance exceptionnelle:</strong> - Meilleur modèle sur 6/9 features (67%) - R² moyen: 0.776 sur les 6 features gagnées - Particulièrement excellent sur: xGoals (0.857), medium shots (0.850), TOI (0.77-0.78)</p>
+<p><strong>Pourquoi RF gagne:</strong> - Capture interactions non-linéaires (âge × performance, TOI × production) - Robuste aux outliers - Gère bien les variables corrélées</p>
+<p><strong>Alternatives crédibles:</strong> - WMA reste compétitif (R² 0.70-0.80 sur TOI/production), bon fallback simple - GAM excelle sur <code>conversion_overall</code> (0.571 vs 0.557 pour RF)</p>
+</section>
+<section id="conversions-problème-fondamental" class="level3" data-number="8.3.2">
+<h3 data-number="8.3.2" class="anchored" data-anchor-id="conversions-problème-fondamental"><span class="header-section-number">8.3.2</span> 2. Conversions: problème fondamental</h3>
+<p><strong>Constats alarmants:</strong> - <code>conversion_high_danger</code>: TOUS les modèles ont R² &lt; 0 (pires que moyenne naïve) - <code>conversion_medium</code>: Meilleur R² = 0.008 (essentiellement inutile) - <code>conversion_overall</code>: Seule conversion prédictible (GAM R² 0.571)</p>
+<p><strong>Cause:</strong> - High danger: échantillon limité + énorme variance (luck-driven) - Medium danger: sample size moyen mais % très instables - Overall: gros échantillon permet régression vers moyenne</p>
+<p><strong>Solution recommandée:</strong> 1. Projeter seulement <code>conversion_overall</code> avec GAM (R² 0.571) 2. Pour high/medium: utiliser <strong>league average par position</strong> 3. Alternative: projeter overall puis distribuer selon ratios de ligue</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Approche recommandée</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>sh_pct_overall <span class="ot">&lt;-</span> <span class="fu">predict_gam</span>(player)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>sh_pct_high <span class="ot">&lt;-</span> league_avg_high_by_position[player<span class="sc">$</span>pos]</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>sh_pct_medium <span class="ot">&lt;-</span> league_avg_medium_by_position[player<span class="sc">$</span>pos]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="intervalles-de-confiance-pour-random-forest" class="level3" data-number="8.3.3">
+<h3 data-number="8.3.3" class="anchored" data-anchor-id="intervalles-de-confiance-pour-random-forest"><span class="header-section-number">8.3.3</span> 3. Intervalles de confiance pour Random Forest</h3>
+<p><strong>Approche recommandée:</strong> IC empiriques basés sur résidus de validation - Calculer quantiles empiriques des résidus (2.5%, 97.5%) - Appliquer ces quantiles aux nouvelles prédictions - Valider couverture ~95% sur données de validation</p>
+<p><strong>Alternative:</strong> Quantile Regression Forests - Prédire directement les quantiles de la distribution - Plus sophistiqué mais plus coûteux computationnellement</p>
+<p><strong>Note:</strong> Les analyses d’incertitude montrent que les modèles avec IC natifs (GAM, Age Curves) ont généralement une bonne calibration (~95% de couverture).</p>
+</section>
+<section id="robustesse-et-consistance" class="level3" data-number="8.3.4">
+<h3 data-number="8.3.4" class="anchored" data-anchor-id="robustesse-et-consistance"><span class="header-section-number">8.3.4</span> 4. Robustesse et consistance</h3>
+<p><strong>Random Forest:</strong> - Consistance excellente (faible écart-type entre features) - Pire cas: <code>shot_attempts_per60</code> (R² 0.638) reste acceptable - Pas de R² négatif (contrairement à WMA/Age Curves sur conversions)</p>
+<p><strong>Baselines (WMA/RTM):</strong> - Performance raisonnable sur production/TOI (R² 0.70-0.80) - Échec total sur conversions granulaires (R² négatifs) - Utiles comme fallback si RF échoue</p>
+</section>
+<section id="analyses-par-sous-groupes-1" class="level3" data-number="8.3.5">
+<h3 data-number="8.3.5" class="anchored" data-anchor-id="analyses-par-sous-groupes-1"><span class="header-section-number">8.3.5</span> 5. Analyses par sous-groupes</h3>
+<p>Les analyses par âge, position et expérience révèlent: - RF performe bien dans TOUS les sous-groupes - Pas de biais systématique par âge ou position - Légère sur-estimation pour jeunes joueurs (18-24) - Légère sous-estimation pour vétérans (35+)</p>
+</section>
+</section>
+<section id="plan-dimplémentation" class="level2" data-number="8.4">
+<h2 data-number="8.4" class="anchored" data-anchor-id="plan-dimplémentation"><span class="header-section-number">8.4</span> Plan d’implémentation</h2>
+<section id="phase-1-projection-des-features-immédiat" class="level3" data-number="8.4.1">
+<h3 data-number="8.4.1" class="anchored" data-anchor-id="phase-1-projection-des-features-immédiat"><span class="header-section-number">8.4.1</span> Phase 1: Projection des features (IMMÉDIAT)</h3>
+<ol type="1">
+<li><strong>Utiliser Random Forest</strong> pour 6 features principales:
+<ul>
+<li><code>x_goals_per60</code>, <code>medium_danger_shots_per60</code>, <code>high_danger_shots_per60</code></li>
+<li><code>evtoi_per_gp</code>, <code>pptoi_per_gp</code></li>
+<li><code>shot_attempts_per60</code></li>
+</ul></li>
+<li><strong>Utiliser GAM</strong> pour:
+<ul>
+<li><code>conversion_overall</code></li>
+</ul></li>
+<li><strong>Utiliser league average</strong> pour:
+<ul>
+<li><code>conversion_high_danger</code> (par position)</li>
+<li><code>conversion_medium</code> (par position)</li>
+</ul></li>
+<li><strong>Calculer IC empiriques</strong> pour toutes les prédictions RF</li>
+</ol>
+</section>
+<section id="phase-2-validation-avant-production" class="level3" data-number="8.4.2">
+<h3 data-number="8.4.2" class="anchored" data-anchor-id="phase-2-validation-avant-production"><span class="header-section-number">8.4.2</span> Phase 2: Validation (AVANT PRODUCTION)</h3>
+<ol type="1">
+<li>Valider couverture IC ~95% sur données 2024</li>
+<li>Comparer prédictions avec projections publiques (DFO, Evolving Hockey)</li>
+<li>Backtesting: projeter 2023 avec données 2020-2022, comparer à actuel 2023</li>
+<li>Documenter limites et incertitudes</li>
+</ol>
+</section>
+<section id="phase-3-monitoring-en-continu" class="level3" data-number="8.4.3">
+<h3 data-number="8.4.3" class="anchored" data-anchor-id="phase-3-monitoring-en-continu"><span class="header-section-number">8.4.3</span> Phase 3: Monitoring (EN CONTINU)</h3>
+<ol type="1">
+<li>Tracker erreurs de prédiction en cours de saison</li>
+<li>Re-entraîner modèles avec nouvelles données chaque été</li>
+<li>Ajuster si drift détecté (changements de règles, style de jeu)</li>
+</ol>
+</section>
+</section>
+<section id="actions-requises" class="level2" data-number="8.5">
+<h2 data-number="8.5" class="anchored" data-anchor-id="actions-requises"><span class="header-section-number">8.5</span> Actions requises</h2>
+<ul class="task-list">
+<li><label><input type="checkbox"><strong>Extraire modèles RF finaux</strong> des objets sauvegardés</label></li>
+<li><label><input type="checkbox"><strong>Implémenter fonction de projection</strong> avec IC empiriques</label></li>
+<li><label><input type="checkbox"><strong>Calculer league averages</strong> pour conversions par position (F/D)</label></li>
+<li><label><input type="checkbox"><strong>Créer pipeline de validation</strong> (backtesting 2023)</label></li>
+<li><label><input type="checkbox"><strong>Documenter API</strong> des fonctions de projection</label></li>
+<li><label><input type="checkbox"><strong>Comparer avec projections publiques</strong> (DFO, Evolving Hockey)</label></li>
+<li><label><input type="checkbox"><strong>Intégrer dans workflow</strong> de projection points finale</label></li>
+</ul>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

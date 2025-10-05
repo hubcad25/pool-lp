@@ -283,13 +283,75 @@ data_with_wpm <- data_features %>%
   calculate_wpm("assists") %>%
   rename(wpm_a = wpm)
 
-# 7. Sélectionner variables finales ---------------------------------------
-cat("Sélection des variables finales...\n")
+# 7. Ajouter âge via API NHL ---------------------------------------------
+cat("Récupération des birthdates via API NHL...\n")
 
-training_data <- data_with_wpm %>%
+library(httr)
+library(jsonlite)
+
+# Fonction pour récupérer birthdate d'un joueur
+get_birthdate <- function(player_id) {
+  url <- paste0("https://api-web.nhle.com/v1/player/", player_id, "/landing")
+
+  tryCatch({
+    response <- GET(url)
+    if (status_code(response) == 200) {
+      data <- fromJSON(content(response, "text", encoding = "UTF-8"))
+      return(data$birthDate)
+    } else {
+      return(NA)
+    }
+  }, error = function(e) {
+    return(NA)
+  })
+}
+
+# Obtenir player_ids uniques
+unique_players <- data_with_wpm %>%
+  distinct(player_id, name)
+
+cat("  Récupération pour", nrow(unique_players), "joueurs uniques...\n")
+
+# Récupérer birthdates en parallèle
+library(parallel)
+num_cores <- max(1, detectCores() - 1)  # Laisser 1 core libre
+cat("  Utilisation de", num_cores, "cores\n")
+
+birthdates_list <- mclapply(unique_players$player_id, function(pid) {
+  data.frame(
+    player_id = pid,
+    birthdate = get_birthdate(pid)
+  )
+}, mc.cores = num_cores)
+
+birthdates <- do.call(rbind, birthdates_list)
+
+# Calculer birth_year
+birthdates <- birthdates %>%
+  mutate(
+    birth_year = as.integer(substr(birthdate, 1, 4))
+  )
+
+cat("  ✓ Birthdates récupérées:", sum(!is.na(birthdates$birth_year)), "/",
+    nrow(birthdates), "\n")
+
+# Joindre avec données et calculer âge
+data_with_age <- data_with_wpm %>%
+  left_join(birthdates %>% select(player_id, birth_year), by = "player_id") %>%
+  mutate(
+    age = season - birth_year
+  )
+
+cat("  Range d'âge:", min(data_with_age$age, na.rm = TRUE), "-",
+    max(data_with_age$age, na.rm = TRUE), "ans\n")
+
+# 8. Sélectionner variables finales ---------------------------------------
+cat("\nSélection des variables finales...\n")
+
+training_data <- data_with_age %>%
   select(
     # Identifiants
-    player_id, season, name, team, position,
+    player_id, season, name, team, position, age,
 
     # Targets
     goals, assists, games_played,
@@ -312,7 +374,7 @@ cat("  Colonnes:", ncol(training_data), "\n")
 cat("  Saisons:", paste(unique(training_data$season), collapse = ", "), "\n")
 cat("  Positions:", paste(table(training_data$position), collapse = ", "), "\n")
 
-# 7. Sauvegarder ----------------------------------------------------------
+# 9. Sauvegarder ----------------------------------------------------------
 cat("\nSauvegarde...\n")
 
 output_file <- file.path(output_dir, "training_data.rds")
@@ -320,7 +382,7 @@ saveRDS(training_data, output_file)
 
 cat("Dataset sauvegardé:", output_file, "\n")
 
-# 8. Créer datasets par position ------------------------------------------
+# 10. Créer datasets par position ------------------------------------------
 cat("\nCréation datasets par position...\n")
 
 # Forwards

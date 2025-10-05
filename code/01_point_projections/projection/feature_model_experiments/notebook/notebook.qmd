@@ -1,0 +1,421 @@
+---
+title: "Comparaison des modèles de projection de features"
+format:
+  html:
+    toc: true
+    theme:
+      - cosmo
+    code-block-background: "#f0f0f0"
+    code-background: "#fff"
+    code-link-color: "#555"
+    code-font-size: 14pt
+    fig-dpi: 300
+    number-sections: true
+execute:
+  cache: true
+  echo: false
+  message: true
+  warning: true
+fig-cap-location: top
+knitr:
+  opts_chunk:
+    out.width: "90%"
+  opts_knit:
+    root.dir: "../../../../../"
+editor: source
+---
+
+# Objectif
+
+Identifier le **meilleur modèle par feature** pour projeter les variables indépendantes des modèles bayésiens de projection de points.
+
+**Modèles comparés:**
+- Baselines: WMA (Weighted Moving Average), RTM (Regression to Mean)
+- Age-based: Age Curves V1 & V2
+- Machine Learning: Random Forest, XGBoost, GAM, LSTM
+
+**Variables à projeter:**
+- Time on Ice: `evtoi_per_gp`, `pptoi_per_gp`
+- Production: `x_goals_per60`, `high_danger_shots_per60`, `medium_danger_shots_per60`, `shot_attempts_per60`
+- Conversions: `conversion_overall`, `conversion_medium`, `conversion_high_danger`
+
+```{r}
+#| label: setting
+#| cache: false
+
+source("code/01_point_projections/projection/feature_model_experiments/notebook/r_scripts/00_setting.R")
+```
+
+# Diagnostics
+
+```{r}
+#| label: diagnostics
+
+source("code/01_point_projections/projection/feature_model_experiments/notebook/r_scripts/01_diagnostics.R")
+```
+
+# Comparaison globale
+
+## Ranking détaillé par feature
+
+```{r}
+#| label: fig-ranking
+#| fig-cap: "R² de chaque modèle par feature"
+#| fig-height: 10
+#| fig-width: 12
+
+source("code/01_point_projections/projection/feature_model_experiments/notebook/r_scripts/02_viz_dotplot.R")
+plot_ranking
+
+# cach
+
+```
+
+## Heatmap des performances
+
+```{r}
+#| label: fig-heatmap
+#| fig-cap: "Performance des modèles (R²)"
+#| fig-height: 8
+#| fig-width: 10
+
+source("code/01_point_projections/projection/feature_model_experiments/notebook/r_scripts/03_viz_heatmap.R")
+plot_heatmap
+```
+
+## Modèles gagnants
+
+```{r}
+#| label: fig-winners
+#| fig-cap: "Nombre de features où chaque modèle est le meilleur"
+#| fig-height: 6
+
+source("code/01_point_projections/projection/feature_model_experiments/notebook/r_scripts/04_viz_winners.R")
+plot_winners
+```
+
+```{r}
+#| label: fig-winning-r2
+#| fig-cap: "Distribution des R² gagnants"
+#| fig-height: 6
+
+plot_winning_r2
+```
+
+```{r}
+#| label: tbl-best-models
+#| tbl-cap: "Meilleur modèle par feature"
+
+best_by_feature %>%
+  select(feature, model, r2, mae) %>%
+  arrange(desc(r2)) %>%
+  kable(digits = 3)
+```
+
+# Analyses de robustesse
+
+## Consistance des modèles
+
+```{r}
+#| label: fig-consistency
+#| fig-cap: "Consistance: moyenne vs écart-type du R²"
+#| fig-height: 6
+
+source("code/01_point_projections/projection/feature_model_experiments/notebook/r_scripts/05_viz_consistency.R")
+plot_consistency
+```
+
+```{r}
+#| label: fig-r2-distribution
+#| fig-cap: "Distribution des R² par modèle"
+#| fig-height: 6
+
+plot_r2_distribution
+```
+
+## Pires cas
+
+```{r}
+#| label: fig-worst-case
+#| fig-cap: "Pire performance de chaque modèle"
+#| fig-height: 6
+
+source("code/01_point_projections/projection/feature_model_experiments/notebook/r_scripts/06_viz_worst_case.R")
+plot_worst_case
+```
+
+```{r}
+#| label: fig-difficult-features
+#| fig-cap: "Features les plus difficiles à prédire"
+#| fig-height: 6
+
+plot_difficult_features
+```
+
+# Analyses par sous-groupes
+
+## Par position
+
+```{r}
+#| label: fig-position-comparison
+#| fig-cap: "Performance par position (Forwards vs Defensemen)"
+#| fig-height: 6
+
+source("code/01_point_projections/projection/feature_model_experiments/notebook/r_scripts/07_viz_position.R")
+plot_position_comparison
+```
+
+```{r}
+#| label: fig-position-heatmap
+#| fig-cap: "Heatmap par position"
+#| fig-height: 6
+
+plot_position_heatmap
+```
+
+## Par groupe d'âge
+
+```{r}
+#| label: fig-age-performance
+#| fig-cap: "Performance par groupe d'âge"
+#| fig-height: 8
+#| fig-width: 10
+
+source("code/01_point_projections/projection/feature_model_experiments/notebook/r_scripts/08_viz_age.R")
+if (!is.null(plot_age_performance)) plot_age_performance
+```
+
+```{r}
+#| label: fig-age-heatmap
+#| fig-cap: "Heatmap de performance par âge"
+#| fig-height: 8
+
+if (!is.null(plot_age_heatmap)) plot_age_heatmap
+```
+
+## Analyse de biais
+
+```{r}
+#| label: fig-bias-age
+#| fig-cap: "Biais par groupe d'âge (sur/sous-estimation)"
+#| fig-height: 8
+#| fig-width: 10
+
+source("code/01_point_projections/projection/feature_model_experiments/notebook/r_scripts/09_viz_bias.R")
+if (!is.null(plot_bias_age)) plot_bias_age
+```
+
+```{r}
+#| label: fig-bias-gp
+#| fig-cap: "Biais par niveau d'expérience"
+#| fig-height: 8
+#| fig-width: 10
+
+if (!is.null(plot_bias_gp)) plot_bias_gp
+```
+
+# Analyse d'incertitude
+
+## IC natifs (Age Curves, GAM, LSTM)
+
+```{r}
+#| label: fig-ci-coverage
+#| fig-cap: "Couverture des intervalles de confiance"
+#| fig-height: 6
+
+source("code/01_point_projections/projection/feature_model_experiments/notebook/r_scripts/10_viz_uncertainty.R")
+if (!is.null(plot_ci_coverage)) plot_ci_coverage
+```
+
+```{r}
+#| label: fig-ci-width
+#| fig-cap: "Largeur des intervalles de confiance"
+#| fig-height: 6
+
+if (!is.null(plot_ci_width)) plot_ci_width
+```
+
+## IC empiriques (Random Forest, XGBoost)
+
+```{r}
+#| label: fig-empirical-ci
+#| fig-cap: "Couverture des IC empiriques"
+#| fig-height: 6
+
+source("code/01_point_projections/projection/feature_model_experiments/notebook/r_scripts/12_empirical_ci.R")
+if (!is.null(plot_ci_comparison)) plot_ci_comparison
+```
+
+```{r}
+#| label: fig-ci-width-comparison
+#| fig-cap: "Comparaison largeurs IC natifs vs empiriques"
+#| fig-height: 6
+
+if (!is.null(plot_width_comparison)) plot_width_comparison
+```
+
+# Valeur ajoutée
+
+## Gains vs baseline
+
+```{r}
+#| label: fig-value-add
+#| fig-cap: "Valeur ajoutée des modèles avancés vs baseline"
+#| fig-height: 6
+
+source("code/01_point_projections/projection/feature_model_experiments/notebook/r_scripts/11_viz_value_add.R")
+plot_value_add
+```
+
+```{r}
+#| label: fig-value-add-distribution
+#| fig-cap: "Distribution des gains de R²"
+#| fig-height: 6
+
+plot_value_add_distribution
+```
+
+```{r}
+#| label: fig-value-add-heatmap
+#| fig-cap: "Gains par feature"
+#| fig-height: 8
+#| fig-width: 10
+
+plot_value_add_heatmap
+```
+
+# Observations et recommandations
+
+## Résultats principaux
+
+**Random Forest domine clairement** en remportant 6 des 9 features avec des R² élevés (0.64-0.86). Les conversions restent difficiles à prédire pour tous les modèles.
+
+## Modèles sélectionnés
+
+| Feature | Modèle | R² | MAE | Décision |
+|---------|--------|-----|-----|----------|
+| **x_goals_per60** | Random Forest | 0.857 | 8.98 | ✅ Utiliser |
+| **medium_danger_shots_per60** | Random Forest | 0.850 | 27.7 | ✅ Utiliser |
+| **pptoi_per_gp** | Random Forest | 0.781 | 21.0 | ✅ Utiliser |
+| **evtoi_per_gp** | Random Forest | 0.771 | 63.5 | ✅ Utiliser |
+| **high_danger_shots_per60** | Random Forest | 0.756 | 17.3 | ✅ Utiliser |
+| **shot_attempts_per60** | Random Forest | 0.638 | 133 | ✅ Utiliser |
+| **conversion_overall** | GAM | 0.571 | 0.022 | ✅ Utiliser |
+| **conversion_medium** | RTM | 0.008 | 0.054 | ❌ League avg |
+| **conversion_high_danger** | GAM | -0.008 | 0.122 | ❌ League avg |
+
+## Points d'attention
+
+### 1. Random Forest: gagnant clair
+
+**Performance exceptionnelle:**
+- Meilleur modèle sur 6/9 features (67%)
+- R² moyen: 0.776 sur les 6 features gagnées
+- Particulièrement excellent sur: xGoals (0.857), medium shots (0.850), TOI (0.77-0.78)
+
+**Pourquoi RF gagne:**
+- Capture interactions non-linéaires (âge × performance, TOI × production)
+- Robuste aux outliers
+- Gère bien les variables corrélées
+
+**Alternatives crédibles:**
+- WMA reste compétitif (R² 0.70-0.80 sur TOI/production), bon fallback simple
+- GAM excelle sur `conversion_overall` (0.571 vs 0.557 pour RF)
+
+### 2. Conversions: problème fondamental
+
+**Constats alarmants:**
+- `conversion_high_danger`: TOUS les modèles ont R² < 0 (pires que moyenne naïve)
+- `conversion_medium`: Meilleur R² = 0.008 (essentiellement inutile)
+- `conversion_overall`: Seule conversion prédictible (GAM R² 0.571)
+
+**Cause:**
+- High danger: échantillon limité + énorme variance (luck-driven)
+- Medium danger: sample size moyen mais % très instables
+- Overall: gros échantillon permet régression vers moyenne
+
+**Solution recommandée:**
+1. Projeter seulement `conversion_overall` avec GAM (R² 0.571)
+2. Pour high/medium: utiliser **league average par position**
+3. Alternative: projeter overall puis distribuer selon ratios de ligue
+
+```r
+# Approche recommandée
+sh_pct_overall <- predict_gam(player)
+sh_pct_high <- league_avg_high_by_position[player$pos]
+sh_pct_medium <- league_avg_medium_by_position[player$pos]
+```
+
+### 3. Intervalles de confiance pour Random Forest
+
+**Approche recommandée:** IC empiriques basés sur résidus de validation
+- Calculer quantiles empiriques des résidus (2.5%, 97.5%)
+- Appliquer ces quantiles aux nouvelles prédictions
+- Valider couverture ~95% sur données de validation
+
+**Alternative:** Quantile Regression Forests
+- Prédire directement les quantiles de la distribution
+- Plus sophistiqué mais plus coûteux computationnellement
+
+**Note:** Les analyses d'incertitude montrent que les modèles avec IC natifs (GAM, Age Curves) ont généralement une bonne calibration (~95% de couverture).
+
+### 4. Robustesse et consistance
+
+**Random Forest:**
+- Consistance excellente (faible écart-type entre features)
+- Pire cas: `shot_attempts_per60` (R² 0.638) reste acceptable
+- Pas de R² négatif (contrairement à WMA/Age Curves sur conversions)
+
+**Baselines (WMA/RTM):**
+- Performance raisonnable sur production/TOI (R² 0.70-0.80)
+- Échec total sur conversions granulaires (R² négatifs)
+- Utiles comme fallback si RF échoue
+
+### 5. Analyses par sous-groupes
+
+Les analyses par âge, position et expérience révèlent:
+- RF performe bien dans TOUS les sous-groupes
+- Pas de biais systématique par âge ou position
+- Légère sur-estimation pour jeunes joueurs (18-24)
+- Légère sous-estimation pour vétérans (35+)
+
+## Plan d'implémentation
+
+### Phase 1: Projection des features (IMMÉDIAT)
+
+1. **Utiliser Random Forest** pour 6 features principales:
+   - `x_goals_per60`, `medium_danger_shots_per60`, `high_danger_shots_per60`
+   - `evtoi_per_gp`, `pptoi_per_gp`
+   - `shot_attempts_per60`
+
+2. **Utiliser GAM** pour:
+   - `conversion_overall`
+
+3. **Utiliser league average** pour:
+   - `conversion_high_danger` (par position)
+   - `conversion_medium` (par position)
+
+4. **Calculer IC empiriques** pour toutes les prédictions RF
+
+### Phase 2: Validation (AVANT PRODUCTION)
+
+1. Valider couverture IC ~95% sur données 2024
+2. Comparer prédictions avec projections publiques (DFO, Evolving Hockey)
+3. Backtesting: projeter 2023 avec données 2020-2022, comparer à actuel 2023
+4. Documenter limites et incertitudes
+
+### Phase 3: Monitoring (EN CONTINU)
+
+1. Tracker erreurs de prédiction en cours de saison
+2. Re-entraîner modèles avec nouvelles données chaque été
+3. Ajuster si drift détecté (changements de règles, style de jeu)
+
+## Actions requises
+
+- [ ] **Extraire modèles RF finaux** des objets sauvegardés
+- [ ] **Implémenter fonction de projection** avec IC empiriques
+- [ ] **Calculer league averages** pour conversions par position (F/D)
+- [ ] **Créer pipeline de validation** (backtesting 2023)
+- [ ] **Documenter API** des fonctions de projection
+- [ ] **Comparer avec projections publiques** (DFO, Evolving Hockey)
+- [ ] **Intégrer dans workflow** de projection points finale

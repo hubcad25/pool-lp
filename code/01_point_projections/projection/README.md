@@ -4,6 +4,73 @@
 
 Projeter les 11 variables indépendantes nécessaires pour utiliser les modèles bayésiens finaux et prédire les points de la saison 2025-26.
 
+## Décisions Finales - Modèles par Variable
+
+Après expérimentation exhaustive (voir `feature_model_experiments/`), voici les modèles retenus:
+
+| Variable | Modèle | R² Valid | Notes |
+|----------|--------|----------|-------|
+| `wpm_g` | Calcul direct | N/A | 0.5×t-1 + 0.3×t-2 + 0.2×t-3 |
+| `wpm_a` | Calcul direct | N/A | 0.5×t-1 + 0.3×t-2 + 0.2×t-3 |
+| `evtoi_per_gp` | **Random Forest** | 0.771 | Merger avec lineup projections |
+| `pptoi_per_gp` | **Random Forest** | 0.787 | Merger avec lineup projections |
+| `high_danger_shots_per60` | **Random Forest** | 0.756 | |
+| `medium_danger_shots_per60` | **Random Forest** | 0.850 | |
+| `x_goals_per60` | **Random Forest** | 0.857 | |
+| `shot_attempts_per60` | **Random Forest** | 0.638 | |
+| `conversion_high_danger` | **League Avg** | N/A | 0.302 (impossible à prédire) |
+| `conversion_medium` | **League Avg** | N/A | 0.124 (impossible à prédire) |
+| `conversion_overall` | **GAM** | 0.571 | |
+
+**Résumé:** Random Forest domine pour TOI et production. GAM pour conversion_overall. League average pour conversions HD/MD (trop volatiles).
+
+---
+
+## Intervalles de Confiance (Low/Mid/High)
+
+**Concept:** Propager l'incertitude des features à travers le modèle de points.
+
+### Approche par modèle:
+
+**Random Forest → Quantile Regression Forests**
+```r
+library(quantregForest)
+qrf <- quantregForest(X_train, y_train)
+
+pred_low  <- predict(qrf, X_new, what = 0.10)  # P10
+pred_mid  <- predict(qrf, X_new, what = 0.50)  # P50 (médiane)
+pred_high <- predict(qrf, X_new, what = 0.90)  # P90
+```
+
+**GAM → Prediction Intervals**
+```r
+pred <- predict(gam_model, newdata, se.fit = TRUE)
+pred_low  <- pred$fit - 1.645 * pred$se.fit  # P10
+pred_mid  <- pred$fit
+pred_high <- pred$fit + 1.645 * pred$se.fit  # P90
+```
+
+**League Average → Constante**
+```r
+# Même valeur pour low/mid/high
+conversion_hd_low = conversion_hd_mid = conversion_hd_high = 0.302
+```
+
+### Format du dataset final:
+
+Chaque joueur aura **3 lignes** (scénario pessimiste, moyen, optimiste):
+
+```
+player_id, scenario, evtoi_per_gp, pptoi_per_gp, ..., conversion_overall
+8470600,   low,      850,          25,           ..., 0.085
+8470600,   mid,      950,          35,           ..., 0.095
+8470600,   high,     1050,         45,           ..., 0.105
+```
+
+Ces 3 scénarios seront ensuite passés au modèle bayésien pour obtenir **3 prédictions de points** par joueur.
+
+---
+
 ## Workflow de projection
 
 ### Étape 0: Créer squelette des joueurs pour 2025-26
@@ -12,13 +79,17 @@ Projeter les 11 variables indépendantes nécessaires pour utiliser les modèles
 - Créer le dataset de base avec: `player_id`, `name`, `team`, `position`
 - Ce squelette servira de base pour projeter toutes les variables
 
-### Étape 1: Projeter chaque variable
-- Pour chaque des 11 variables, appliquer la stratégie définie ci-dessous
-- Joindre au squelette par `player_id`
+### Étape 1: Projeter chaque variable avec intervalles
+- Pour chaque des 11 variables, générer **3 projections** (low/mid/high)
+- Utiliser les modèles finaux (RF quantiles, GAM avec SE, league avg)
+- Créer dataset avec 3 lignes par joueur
 
 ### Étape 2: Prédire avec modèles bayésiens
-- Utiliser les 4 modèles finaux pour prédire goals et assists
-- Combiner: points = goals + assists (avec IC 95%)
+- Passer les 3 scénarios (low/mid/high) aux 4 modèles bayésiens
+- Obtenir **3 prédictions de points** par joueur:
+  - `points_low`: Scénario pessimiste (P10)
+  - `points_mid`: Scénario moyen (P50)
+  - `points_high`: Scénario optimiste (P90)
 
 ## Variables à projeter
 

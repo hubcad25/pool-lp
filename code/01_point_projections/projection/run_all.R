@@ -1,80 +1,96 @@
-## Script: Master pipeline pour construire projections_2026.rds
-## 1. Crée le squelette NHL 2025-26
-## 2. Source chaque script qui ajoute des variables au fichier projections_2026.rds
+## Script: Orchestrer le workflow complet de projection pour 2025-26
+## Génère 3 scénarios (low/mid/high) par joueur pour propager l'incertitude
 
 # Packages ----------------------------------------------------------------
 library(dplyr)
 
+cat("\n")
+cat("================================================================================\n")
+cat("   PROJECTION 2025-26 - Workflow Complet avec Intervalles de Confiance\n")
+cat("================================================================================\n")
+cat("\n")
+
 # Configuration -----------------------------------------------------------
-projection_dir <- "code/01_point_projections/projection"
-output_file <- "data/01_point_projections/projection/projections_2026.rds"
+start_time <- Sys.time()
 
-cat("========================================\n")
-cat("BUILD PROJECTIONS 2026\n")
-cat("========================================\n\n")
+# Étapes du workflow ------------------------------------------------------
+cat("Workflow:\n")
+cat("  1. Créer skeleton des joueurs 2025-26\n")
+cat("  2. Projeter wpm_g et wpm_a (weighted means avec GP adjustment)\n")
+cat("  3. Projeter features RF avec Quantile Random Forest (P10/P50/P90)\n")
+cat("  4. Projeter conversions avec GAM + league averages (P10/P50/P90)\n")
+cat("  5. Créer 3 scénarios par joueur (low/mid/high)\n")
+cat("  6. Prédire points avec modèles bayésiens (3 prédictions par joueur)\n")
+cat("\n")
 
-# 0. Créer le squelette (écrase le fichier existant) ---------------------
-cat("========================================\n")
-cat("ÉTAPE 0: Création du squelette NHL 2025-26\n")
-cat("========================================\n\n")
+# 1. Créer skeleton -------------------------------------------------------
+cat("================================================================================\n")
+cat("ÉTAPE 1: Créer skeleton des joueurs 2025-26\n")
+cat("================================================================================\n\n")
 
-skeleton_script <- file.path(projection_dir, "00_create_skeleton.R")
-if (file.exists(skeleton_script)) {
-  source(skeleton_script)
-  cat("\n✓ Squelette créé\n\n")
-} else {
-  stop("✗ Script 00_create_skeleton.R introuvable")
-}
+source("code/01_point_projections/projection/00_create_skeleton.R")
 
-# Scripts de projection (dans l'ordre) -----------------------------------
-scripts <- c(
-  "01_project_wpm_historical.R",
-  "02_project_toi.R",
-  "03_project_shots.R",
-  "04_project_conversion.R",
-  "05_predict_points.R",  # Prédictions goals/assists avec modèles bayésiens
-  "06_match_cap_hits.R"
-)
+# 2. Projeter wpm ---------------------------------------------------------
+cat("\n")
+cat("================================================================================\n")
+cat("ÉTAPE 2: Projeter wpm_g et wpm_a\n")
+cat("================================================================================\n\n")
 
-# Exécuter chaque script --------------------------------------------------
-for (i in seq_along(scripts)) {
-  script <- scripts[i]
-  script_path <- file.path(projection_dir, script)
+source("code/01_point_projections/projection/01_project_wpm.R")
 
-  cat("========================================\n")
-  cat(sprintf("ÉTAPE %d: %s\n", i, script))
-  cat("========================================\n\n")
+# 3. Projeter features RF -------------------------------------------------
+cat("\n")
+cat("================================================================================\n")
+cat("ÉTAPE 3: Projeter features RF avec Quantile Random Forest\n")
+cat("================================================================================\n\n")
 
-  if (!file.exists(script_path)) {
-    cat("✗ Script introuvable:", script_path, "\n\n")
-    next
-  }
+source("code/01_point_projections/projection/02_project_features_rf.R")
 
-  tryCatch({
-    source(script_path)
-    cat("\n✓ Étape complétée\n\n")
-  }, error = function(e) {
-    cat("✗ Erreur lors de l'exécution de", script, "\n")
-    cat("  Message:", conditionMessage(e), "\n\n")
-    stop("Build interrompu")
-  })
-}
+# 4. Projeter conversions -------------------------------------------------
+cat("\n")
+cat("================================================================================\n")
+cat("ÉTAPE 4: Projeter conversions\n")
+cat("================================================================================\n\n")
 
-# Sauvegarder projections finales ----------------------------------------
-cat("========================================\n")
-cat("SAUVEGARDE FINALE\n")
-cat("========================================\n\n")
+source("code/01_point_projections/projection/03_project_conversions.R")
 
-if (exists("projections")) {
-  saveRDS(projections, output_file)
-  cat("✓ Projections sauvegardées:", output_file, "\n")
-  cat("  Nombre de joueurs:", nrow(projections), "\n")
-  cat("  Variables disponibles:", paste(names(projections), collapse = ", "), "\n\n")
-} else {
-  stop("✗ Objet 'projections' introuvable en mémoire\n")
-}
+# 5. Créer scénarios ------------------------------------------------------
+cat("\n")
+cat("================================================================================\n")
+cat("ÉTAPE 5: Créer 3 scénarios par joueur (low/mid/high)\n")
+cat("================================================================================\n\n")
+
+source("code/01_point_projections/projection/04_create_scenarios.R")
+
+# 6. Prédire points -------------------------------------------------------
+cat("\n")
+cat("================================================================================\n")
+cat("ÉTAPE 6: Prédire points avec modèles bayésiens\n")
+cat("================================================================================\n\n")
+
+cat("Note: Cette étape utilisera le script 05_predict_points.R qui devra être\n")
+cat("      adapté pour prédire sur les 3 scénarios (low/mid/high)\n\n")
 
 # Résumé final ------------------------------------------------------------
-cat("========================================\n")
-cat("BUILD COMPLÉTÉ\n")
-cat("========================================\n\n")
+end_time <- Sys.time()
+elapsed_time <- round(difftime(end_time, start_time, units = "mins"), 2)
+
+cat("\n")
+cat("================================================================================\n")
+cat("   WORKFLOW TERMINÉ\n")
+cat("================================================================================\n\n")
+
+cat("Temps d'exécution total:", elapsed_time, "minutes\n\n")
+
+cat("Fichiers générés:\n")
+cat("  - data/01_point_projections/projection/skeleton_2026.rds\n")
+cat("  - data/01_point_projections/projection/quantile_projections/wpm_features.rds\n")
+cat("  - data/01_point_projections/projection/quantile_projections/rf_features.rds\n")
+cat("  - data/01_point_projections/projection/quantile_projections/conversion_features.rds\n")
+cat("  - data/01_point_projections/projection/projections_2026_scenarios.rds\n")
+cat("\n")
+
+cat("Prochaine étape:\n")
+cat("  Adapter 05_predict_points.R pour prédire sur les 3 scénarios\n")
+cat("  → Chaque joueur aura 3 prédictions de points (low/mid/high)\n")
+cat("\n")

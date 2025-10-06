@@ -74,6 +74,67 @@ The project is organized into three main components:
 
 **Note importante:** Les modèles ont été entraînés sur données 2020-2024 (incluant 2024-25). Pour projeter 2025-26, on doit projeter les variables indépendantes puisque la saison n'existe pas encore.
 
+#### 1.4 Rookie Model (`rookie_model/`)
+
+**Objectif:** Projeter les points des recrues qui n'ont pas 3 saisons d'historique NHL nécessaires pour le modèle principal.
+
+**Critère recrue:** < 25 GP dans les 3 dernières saisons (2022-2024)
+
+**Approche:**
+- Modèle bayésien séparé basé sur `rank_in_rookie_points` (1 = meilleur recrue, 15 = 15ème meilleur)
+- Entraîné sur top 15 recrues par position par saison (2010-2024)
+- Pas de variables biométriques (nuisent à la performance)
+- Formule sans intercept: `~ 0 + is_rank_1 + is_rank_2 + ... + is_rank_15`
+
+**Data Collection:**
+- Script: `collect_rookie_data.R`
+- Source: MoneyPuck API (données RAW, pas per-82 ajustées)
+- Données: 441 recrues (219 F, 222 D) sur 15 saisons
+- Identification recrues: < 25 GP historiques ET âge ≤ 27 ans
+
+**Modèles:**
+- 4 modèles séparés: `rookie_bayes_goals_F.rds`, `rookie_bayes_assists_F.rds`, `rookie_bayes_goals_D.rds`, `rookie_bayes_assists_D.rds`
+- Performance validation: R² 0.42 (goals), 0.64 (assists)
+- Calibration: IC 95% bien calibrés
+
+**Calder Trophy Integration:**
+- Script: `calder_adjustments.R`
+- Scraping votes Calder depuis NHL.com
+- Conversion votes → probabilités de rank (softmax)
+- Recrues non-Calder: rank par défaut basé sur GP projetés
+
+**Performance attendue:**
+- Rank 1 Forwards: ~60-65 pts (historique: 62.5 pts)
+- Rank 1 Defensemen: ~40-45 pts (historique: 42.2 pts)
+
+**Intégration au workflow global:**
+
+Le workflow principal (`projection/run_all.R`) intègre maintenant deux branches parallèles:
+
+1. **Étape 1a** (`00a_identify_rookies.R`): Séparer recrues vs vétérans
+   - Input: `skeleton_2026.rds`, données historiques
+   - Output: `rookies_2026.rds`, `veterans_2026.rds`
+
+2. **Étapes 2-5**: Projections vétérans (workflow normal)
+   - Les recrues sont naturellement filtrées (pas de wpm_g/wpm_a calculables)
+
+3. **Étape 6a** (`05_predict_points.R`): Prédire vétérans avec modèles principaux
+
+4. **Étape 6b** (`05b_predict_rookies.R`): Prédire recrues avec modèles recrues
+   - Matcher avec votes Calder
+   - Assigner ranks et probabilités
+   - Générer 3 scénarios (low/mid/high) à partir des IC 95%
+
+5. **Étape 6c** (`05c_merge_projections.R`): Fusionner vétérans + recrues
+   - Output: `projections_2026_merged.rds`
+   - Flag `is_rookie` pour identification
+
+6. **Étape 7** (`06_match_cap_hits.R`): Matcher cap hits sur dataset fusionné
+
+**Tests de validation:**
+- Test 3: Vérifier présence des recrues dans projections finales
+- Test 4: Vérifier ranges réalistes (F: 5-90 pts, D: 2-70 pts)
+
 ### 2. Initial Draft Optimization Model
 - TODO: Optimize initial player selection strategies
 - Balance between high-cost elite players and low-cost young players (e.g., players at $900k)

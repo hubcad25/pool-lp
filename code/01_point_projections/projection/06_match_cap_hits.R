@@ -8,7 +8,7 @@ library(stringdist)
 cat("\n=== Matching Cap Hits ===\n\n")
 
 # Configuration -----------------------------------------------------------
-input_file <- "data/01_point_projections/projection/projections_2026_with_points.rds"
+input_file <- "data/01_point_projections/projection/projections_2026_merged.rds"
 output_file <- "data/01_point_projections/projection/projections_2026_final.rds"
 cap_hits_file <- "data/01_point_projections/lineups/cap_hits.csv"
 report_file <- "data/01_point_projections/lineups/cap_matching_report.csv"

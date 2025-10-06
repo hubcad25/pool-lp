@@ -77,6 +77,22 @@ try:
     )
     df_filtered = df_filtered[(df_filtered['age'] >= age_range[0]) & (df_filtered['age'] <= age_range[1])]
 
+    # Filtre salaire (cap_hit)
+    min_cap = int(df_filtered['cap_hit'].min())
+    max_cap = int(df_filtered['cap_hit'].max())
+    cap_range = st.sidebar.slider(
+        "Salaire (M$)",
+        min_cap / 1e6, max_cap / 1e6,
+        (min_cap / 1e6, max_cap / 1e6),
+        step=0.5,
+        format="$%.1fM",
+        help="Filtrer par plage de salaire annuel"
+    )
+    df_filtered = df_filtered[
+        (df_filtered['cap_hit'] >= cap_range[0] * 1e6) &
+        (df_filtered['cap_hit'] <= cap_range[1] * 1e6)
+    ]
+
     # Filtre points minimum
     min_points = st.sidebar.number_input(
         "Points minimum",

@@ -1,0 +1,464 @@
+---
+title: "Analyse des Stratégies de Draft 2025-26"
+subtitle: "Optimisation multi-scénarios avec simulations Monte Carlo"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    theme: cosmo
+    code-fold: true
+    fig-width: 10
+    fig-height: 6
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+# Introduction
+
+Ce rapport présente l'analyse comparative de **10 stratégies de draft** pour la pool La Presse Masterpool 2025-26, couvrant un spectre de risque de **P40 (conservateur) à P85 (très agressif)**.
+
+**Objectif**: Trouver le **sweet spot optimal** entre floor (sécurité) et upside (potentiel).
+
+Les stratégies optimisent différents percentiles implicites de la distribution des projections:
+
+- **P40-P50**: Conservateur (priorité au floor)
+- **P55-P65**: Équilibré (balance risque/rendement)
+- **P70-P85**: Agressif (priorité à l'upside)
+
+Chaque stratégie a été simulée **5,000 fois** avec des probabilités réalistes (20% low / 60% mid / 20% high) pour estimer la distribution réelle des points attendus.
+
+```{r setup}
+library(tidyverse)
+library(jsonlite)
+library(knitr)
+library(scales)
+
+# Configuration ggplot
+theme_set(theme_minimal(base_size = 12))
+
+# Chemins
+rosters_dir <- "../../data/02_draft_optimization/rosters"
+sims_dir <- "../../data/02_draft_optimization/simulations"
+
+strategies <- c(
+  'p40', 'p45', 'p50', 'p55', 'p60',
+  'p65', 'p70', 'p75', 'p80', 'p85'
+)
+
+strategy_labels <- c(
+  'p40' = 'P40',
+  'p45' = 'P45',
+  'p50' = 'P50',
+  'p55' = 'P55',
+  'p60' = 'P60',
+  'p65' = 'P65',
+  'p70' = 'P70',
+  'p75' = 'P75',
+  'p80' = 'P80',
+  'p85' = 'P85'
+)
+
+# Charger données
+load_roster <- function(strategy) {
+  read_csv(file.path(rosters_dir, paste0("roster_", strategy, ".csv")),
+           show_col_types = FALSE)
+}
+
+load_simulations <- function(strategy) {
+  json_file <- file.path(sims_dir, paste0("sim_", strategy, ".json"))
+  data <- fromJSON(json_file)
+  tibble(
+    strategy = strategy,
+    points = data$simulations
+  )
+}
+
+# Charger toutes les données
+rosters <- map(strategies, load_roster) %>%
+  set_names(strategies)
+
+simulations <- map_dfr(strategies, load_simulations) %>%
+  mutate(strategy_label = strategy_labels[strategy])
+```
+
+# Résultats des Optimisations
+
+## Points Projetés par Scénario
+
+```{r}
+# Calculer stats optimisation
+opt_stats <- map_dfr(strategies, function(s) {
+  roster <- rosters[[s]]
+  tibble(
+    strategy = s,
+    strategy_label = strategy_labels[s],
+    LOW = sum(roster$pool_points_low),
+    MID = sum(roster$pool_points_mid),
+    HIGH = sum(roster$pool_points_high)
+  )
+}) %>%
+  mutate(Range = HIGH - LOW)
+
+kable(opt_stats %>% select(-strategy), digits = 1,
+      col.names = c("Stratégie", "LOW", "MID", "HIGH", "Range"))
+```
+
+```{r}
+#| label: fig-points-scenarios
+#| fig-cap: "Comparaison des stratégies par scénario"
+#| fig-height: 8
+#| fig-width: 10
+
+opt_stats_long <- opt_stats %>%
+  pivot_longer(cols = c(LOW, MID, HIGH),
+               names_to = "scenario",
+               values_to = "points") %>%
+  mutate(
+    scenario = factor(scenario, levels = c("LOW", "MID", "HIGH")),
+    strategy_label = factor(strategy_label, levels = strategy_labels)
+  )
+
+ggplot(opt_stats_long, aes(x = strategy_label, y = points, fill = strategy_label)) +
+  geom_col(width = 0.7) +
+  facet_wrap(~scenario, ncol = 1, scales = "free_y") +
+  scale_fill_viridis_d(option = "plasma") +
+  scale_y_continuous(labels = comma) +
+  labs(
+    x = NULL,
+    y = "Points Totaux",
+    title = "Comparaison des Stratégies par Scénario",
+    subtitle = "Facilite la comparaison entre stratégies pour chaque scénario"
+  ) +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1, size = 8),
+    legend.position = "none",
+    panel.grid.major.x = element_blank(),
+    strip.text = element_text(size = 12, face = "bold")
+  )
+```
+
+## Trade-off Risque/Rendement
+
+```{r}
+# Calculer stats simulations
+sim_stats <- simulations %>%
+  group_by(strategy, strategy_label) %>%
+  summarise(
+    esperance = mean(points),
+    std = sd(points),
+    p10 = quantile(points, 0.10),
+    p25 = quantile(points, 0.25),
+    p50 = quantile(points, 0.50),
+    p75 = quantile(points, 0.75),
+    p90 = quantile(points, 0.90),
+    .groups = "drop"
+  ) %>%
+  mutate(
+    cv = std / esperance,
+    sharpe = esperance / std
+  )
+```
+
+```{r}
+#| label: fig-risk-reward
+#| fig-cap: "Floor (P10) vs Espérance pour chaque stratégie"
+#| fig-height: 6
+#| fig-width: 10
+
+ggplot(sim_stats, aes(x = p10, y = esperance, color = strategy_label, label = strategy_label)) +
+  geom_point(size = 5, alpha = 0.7) +
+  geom_text(vjust = -1, size = 3.5, show.legend = FALSE) +
+  scale_color_brewer(palette = "Set1", name = "Stratégie") +
+  scale_x_continuous(labels = comma) +
+  scale_y_continuous(labels = comma) +
+  labs(
+    x = "Floor (P10)",
+    y = "Espérance (Moyenne)",
+    title = "Trade-off Risque vs Rendement"
+  ) +
+  theme(legend.position = "none")
+```
+
+# Simulations Monte Carlo
+
+## Distribution des Points
+
+```{r}
+#| label: fig-distributions
+#| fig-cap: "Distribution des points simulés (5,000 saisons)"
+#| fig-height: 6
+#| fig-width: 10
+
+ggplot(simulations, aes(x = points, fill = strategy_label)) +
+  geom_density(alpha = 0.5) +
+  scale_fill_brewer(palette = "Set1", name = "Stratégie") +
+  scale_x_continuous(labels = comma) +
+  labs(
+    x = "Points Totaux",
+    y = "Densité",
+    title = "Distribution des Points Simulés"
+  ) +
+  theme(legend.position = "top")
+```
+
+```{r}
+#| label: fig-boxplot
+#| fig-cap: "Comparaison des distributions (boxplot)"
+#| fig-height: 6
+#| fig-width: 10
+
+simulations %>%
+  mutate(strategy_label = factor(strategy_label, levels = strategy_labels)) %>%
+  ggplot(aes(x = strategy_label, y = points, fill = strategy_label)) +
+  geom_boxplot(alpha = 0.7, outlier.alpha = 0.3) +
+  scale_fill_brewer(palette = "Set1") +
+  scale_y_continuous(labels = comma) +
+  labs(
+    x = NULL,
+    y = "Points Totaux",
+    title = "Distribution des Points par Stratégie"
+  ) +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    legend.position = "none",
+    panel.grid.major.x = element_blank()
+  )
+```
+
+## Statistiques Descriptives
+
+```{r}
+sim_stats %>%
+  select(strategy_label, esperance, std, p10, p50, p90, cv) %>%
+  kable(digits = 1,
+        col.names = c("Stratégie", "Espérance", "Std Dev", "P10", "P50", "P90", "CV"))
+```
+
+## Analyse par Percentile
+
+Pour répondre à la question: **"Quel percentile de la distribution simulée devrait-on maximiser?"**
+
+```{r}
+# Calculer tous les percentiles pertinents
+percentiles <- simulations %>%
+  group_by(strategy, strategy_label) %>%
+  summarise(
+    p40 = quantile(points, 0.40),
+    p45 = quantile(points, 0.45),
+    p50 = quantile(points, 0.50),
+    p55 = quantile(points, 0.55),
+    p60 = quantile(points, 0.60),
+    p65 = quantile(points, 0.65),
+    p70 = quantile(points, 0.70),
+    p75 = quantile(points, 0.75),
+    p80 = quantile(points, 0.80),
+    p85 = quantile(points, 0.85),
+    .groups = "drop"
+  )
+
+# Identifier le gagnant pour chaque percentile
+percentile_winners <- percentiles %>%
+  pivot_longer(cols = starts_with("p"), names_to = "percentile", values_to = "value") %>%
+  group_by(percentile) %>%
+  slice_max(value, n = 1) %>%
+  ungroup()
+
+cat("\n**Stratégie gagnante par percentile:**\n\n")
+percentile_winners %>%
+  select(percentile, strategy_label, value) %>%
+  mutate(percentile = toupper(percentile)) %>%
+  kable(digits = 1,
+        col.names = c("Percentile", "Stratégie Gagnante", "Points"))
+```
+
+```{r}
+#| label: fig-percentile-comparison
+#| fig-cap: "Comparaison des stratégies à différents percentiles"
+#| fig-height: 7
+#| fig-width: 10
+
+percentiles %>%
+  pivot_longer(cols = starts_with("p"), names_to = "percentile", values_to = "value") %>%
+  mutate(percentile = factor(percentile, levels = paste0("p", c(40, 45, 50, 55, 60, 65, 70, 75, 80, 85)))) %>%
+  ggplot(aes(x = percentile, y = value, color = strategy_label, group = strategy_label)) +
+  geom_line(linewidth = 1) +
+  geom_point(size = 2.5) +
+  scale_color_viridis_d(name = "Stratégie", option = "plasma") +
+  scale_x_discrete(labels = c("P40", "P45", "P50", "P55", "P60", "P65", "P70", "P75", "P80", "P85")) +
+  scale_y_continuous(labels = comma) +
+  labs(
+    x = "Percentile de la Distribution Simulée",
+    y = "Points Totaux",
+    title = "Performance des Stratégies par Percentile",
+    subtitle = "Quel percentile devrait-on maximiser?"
+  ) +
+  theme(legend.position = "right")
+```
+
+# Comparaisons Head-to-Head
+
+## Matrice de Win Rates
+
+```{r}
+# Calculer matrice win rates
+calc_win_rate <- function(sims_a, sims_b) {
+  wins <- sum(sims_a > sims_b)
+  ties <- sum(sims_a == sims_b)
+  (wins + 0.5 * ties) / length(sims_a)
+}
+
+win_matrix <- expand_grid(
+  strat_a = strategies,
+  strat_b = strategies
+) %>%
+  rowwise() %>%
+  mutate(
+    win_rate = if_else(
+      strat_a == strat_b,
+      0.5,
+      calc_win_rate(
+        simulations %>% filter(strategy == strat_a) %>% pull(points),
+        simulations %>% filter(strategy == strat_b) %>% pull(points)
+      )
+    )
+  ) %>%
+  ungroup() %>%
+  mutate(
+    label_a = strategy_labels[strat_a],
+    label_b = strategy_labels[strat_b]
+  )
+```
+
+```{r}
+#| label: fig-winrate-heatmap
+#| fig-cap: "Matrice des win rates (% de fois que ligne bat colonne)"
+#| fig-height: 8
+#| fig-width: 10
+
+win_matrix %>%
+  mutate(
+    label_a = factor(label_a, levels = strategy_labels),
+    label_b = factor(label_b, levels = strategy_labels)
+  ) %>%
+  ggplot(aes(x = label_b, y = label_a, fill = win_rate)) +
+  geom_tile(color = "white", linewidth = 1) +
+  geom_text(aes(label = ifelse(strat_a == strat_b, "—",
+                                sprintf("%.1f%%", win_rate * 100))),
+            size = 4) +
+  scale_fill_gradient2(
+    low = "#d62728", mid = "#ffffe0", high = "#2ca02c",
+    midpoint = 0.5,
+    limits = c(0.35, 0.65),
+    labels = percent,
+    name = "Win Rate"
+  ) +
+  labs(
+    x = NULL,
+    y = NULL,
+    title = "Matrice de Win Rates",
+    subtitle = "% de fois que stratégie en ligne bat stratégie en colonne"
+  ) +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    panel.grid = element_blank()
+  )
+```
+
+## Classement Global
+
+```{r}
+# Calculer win rate moyen
+ranking <- win_matrix %>%
+  filter(strat_a != strat_b) %>%
+  group_by(strat_a, label_a) %>%
+  summarise(avg_win_rate = mean(win_rate), .groups = "drop") %>%
+  left_join(
+    sim_stats %>% select(strategy, esperance),
+    by = c("strat_a" = "strategy")
+  ) %>%
+  arrange(desc(avg_win_rate)) %>%
+  mutate(rang = row_number())
+
+kable(
+  ranking %>% select(rang, label_a, avg_win_rate, esperance),
+  digits = c(0, 0, 3, 1),
+  col.names = c("Rang", "Stratégie", "Win Rate Moyen", "Espérance"),
+  format.args = list(big.mark = " ")
+)
+```
+
+# Composition des Rosters
+
+## Joueurs Pivots
+
+Joueurs qui diffèrent entre les stratégies (n'apparaissent pas dans tous les rosters).
+
+```{r}
+# Identifier joueurs pivots
+all_players <- map_dfr(strategies, function(s) {
+  rosters[[s]] %>%
+    select(player_id, full_name, position, team, cap_hit) %>%
+    mutate(strategy = s)
+})
+
+pivots <- all_players %>%
+  group_by(player_id, full_name, position, team, cap_hit) %>%
+  summarise(
+    n_strategies = n(),
+    strategies = paste(strategy, collapse = ", "),
+    .groups = "drop"
+  ) %>%
+  filter(n_strategies < length(strategies)) %>%
+  arrange(desc(n_strategies)) %>%
+  head(15)
+
+if (nrow(pivots) > 0) {
+  cat(sprintf("\n**%d joueurs pivots identifiés:**\n\n", nrow(pivots)))
+
+  pivots %>%
+    mutate(
+      cap_m = cap_hit / 1e6,
+      strat_label = paste0(n_strategies, "/5")
+    ) %>%
+    select(full_name, position, team, cap_m, strat_label, strategies) %>%
+    kable(
+      digits = 1,
+      col.names = c("Joueur", "Pos", "Équipe", "Cap ($M)", "Stratégies", "Dans")
+    )
+} else {
+  cat("\nAucun joueur pivot (tous les rosters identiques)\n")
+}
+```
+
+# Recommandations
+
+## Synthèse des Résultats
+
+```{r}
+best_expectation <- sim_stats %>% filter(esperance == max(esperance)) %>% pull(strategy_label)
+best_floor <- sim_stats %>% filter(p10 == max(p10)) %>% pull(strategy_label)
+best_sharpe <- sim_stats %>% filter(sharpe == max(sharpe)) %>% pull(strategy_label)
+best_winrate <- ranking %>% filter(rang == 1) %>% pull(label_a)
+
+cat("**Stratégies Optimales par Critère:**\n\n")
+cat(sprintf("- 🏆 **Meilleure espérance**: %s\n", best_expectation))
+cat(sprintf("- 🛡️ **Meilleur floor (P10)**: %s\n", best_floor))
+cat(sprintf("- 📊 **Meilleur Sharpe ratio**: %s\n", best_sharpe))
+cat(sprintf("- 🎯 **Meilleur win rate global**: %s\n", best_winrate))
+```
+
+## Conclusion
+
+Avec **20 changements disponibles** pendant la saison, une stratégie modérément agressive est probablement optimale:
+
+- ✅ **Bon upside** pour capitaliser sur les breakouts
+- ✅ **Floor acceptable** pour ne pas partir trop loin derrière
+- ✅ **Flexibilité** pour corriger avec les 20 changements
+
+**Stratégie recommandée:** `r best_winrate` (win rate moyen: `r sprintf("%.1f%%", ranking %>% filter(rang == 1) %>% pull(avg_win_rate) * 100)`)
+
+---
+
+*Rapport généré automatiquement à partir des résultats d'optimisation et simulations Monte Carlo (5,000 saisons par stratégie).*

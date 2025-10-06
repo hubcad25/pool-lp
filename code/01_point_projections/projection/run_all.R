@@ -95,6 +95,54 @@ cat("===========================================================================
 
 source("code/01_point_projections/projection/06_match_cap_hits.R")
 
+# Validation --------------------------------------------------------------
+cat("\n")
+cat("================================================================================\n")
+cat("VALIDATION: Tests de qualité des projections\n")
+cat("================================================================================\n\n")
+
+# Charger projections finales
+projections_final <- readRDS("data/01_point_projections/projection/projections_2026_final.rds")
+
+# Test 1: Noms dupliqués (Elias Pettersson)
+cat("Test 1: Vérifier gestion des noms dupliqués (Elias Pettersson)...\n")
+pettersson <- projections_final %>%
+  filter(scenario == "mid",
+         player_id %in% c(8480012, 8483678)) %>%
+  select(player_id, first_name, last_name, position, points) %>%
+  distinct()
+
+if (nrow(pettersson) == 2) {
+  points_diff <- abs(diff(pettersson$points))
+  if (points_diff > 30) {  # Différence attendue: ~50 points
+    cat("  ✓ Les deux Elias Pettersson ont des projections distinctes\n")
+    cat("    - ", pettersson$player_id[1], " (", pettersson$position[1], "): ",
+        round(pettersson$points[1], 1), " points\n", sep = "")
+    cat("    - ", pettersson$player_id[2], " (", pettersson$position[2], "): ",
+        round(pettersson$points[2], 1), " points\n", sep = "")
+  } else {
+    warning("ERREUR: Les deux Elias Pettersson ont des projections trop similaires!")
+  }
+} else {
+  warning("ERREUR: Les deux Elias Pettersson ne sont pas présents dans les projections!")
+}
+
+cat("\n")
+
+# Test 2: Pas de NA dans colonnes critiques
+cat("Test 2: Vérifier absence de NA dans colonnes critiques...\n")
+critical_cols <- c("player_id", "first_name", "last_name", "team", "position", "goals", "assists", "points")
+na_counts <- sapply(projections_final[critical_cols], function(x) sum(is.na(x)))
+
+if (all(na_counts == 0)) {
+  cat("  ✓ Pas de valeurs manquantes dans les colonnes critiques\n")
+} else {
+  warning("ATTENTION: Valeurs manquantes détectées:")
+  print(na_counts[na_counts > 0])
+}
+
+cat("\n")
+
 # Résumé final ------------------------------------------------------------
 end_time <- Sys.time()
 elapsed_time <- round(difftime(end_time, start_time, units = "mins"), 2)

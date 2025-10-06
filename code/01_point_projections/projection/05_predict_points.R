@@ -150,7 +150,7 @@ projections_final <- bind_rows(scenarios_f, scenarios_d) %>%
 cat("  ✓ Points calculés pour", nrow(projections_final), "lignes\n\n")
 
 # Sauvegarder -------------------------------------------------------------
-output_file <- "data/01_point_projections/projection/projections_2026_with_points.rds"
+output_file <- "data/01_point_projections/projection/projections_2026_base.rds"
 saveRDS(projections_final, output_file)
 
 cat("✓ Projections finales sauvegardées\n")

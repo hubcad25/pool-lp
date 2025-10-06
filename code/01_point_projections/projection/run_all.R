@@ -28,7 +28,8 @@ cat("  3. Projeter features RF avec Quantile Random Forest (P10/P50/P90)\n")
 cat("  3b. Blender TOI RF avec lineup priors (weighted by GP)\n")
 cat("  4. Projeter conversions avec GAM + league averages (P10/P50/P90)\n")
 cat("  5. Créer 3 scénarios par joueur (low/mid/high)\n")
-cat("  6. Prédire points avec modèles bayésiens (3 prédictions par joueur)\n")
+cat("  6. Prédire points avec modèles bayésiens (modèle base pour tous)\n")
+cat("  6b. Override candidats Calder (~15 joueurs) avec modèle recrues\n")
 cat("  7. Matcher cap hits\n")
 cat("\n")
 
@@ -79,13 +80,21 @@ cat("===========================================================================
 
 source("code/01_point_projections/projection/04_create_scenarios.R")
 
-# 6. Prédire points -------------------------------------------------------
+# 6. Prédire points (modèle base) -----------------------------------------
 cat("\n")
 cat("================================================================================\n")
-cat("ÉTAPE 6: Prédire points avec modèles bayésiens\n")
+cat("ÉTAPE 6: Prédire points avec modèles bayésiens (modèle base)\n")
 cat("================================================================================\n\n")
 
 source("code/01_point_projections/projection/05_predict_points.R")
+
+# 6b. Override candidats Calder -------------------------------------------
+cat("\n")
+cat("================================================================================\n")
+cat("ÉTAPE 6b: Override candidats Calder avec modèle recrues\n")
+cat("================================================================================\n\n")
+
+source("code/01_point_projections/projection/05b_predict_rookies.R")
 
 # 7. Matcher cap hits -----------------------------------------------------
 cat("\n")
@@ -143,6 +152,70 @@ if (all(na_counts == 0)) {
 
 cat("\n")
 
+# Test 3: Vérifier que les recrues ont des projections
+cat("Test 3: Vérifier présence des recrues...\n")
+
+if ("is_rookie" %in% names(projections_final)) {
+  rookies_in_final <- projections_final %>%
+    filter(is_rookie == TRUE, scenario == "mid") %>%
+    distinct(player_id)
+
+  n_rookies_final <- nrow(rookies_in_final)
+
+  if (n_rookies_final > 0) {
+    cat("  ✓ Recrues trouvées:", n_rookies_final, "joueurs\n")
+
+    # Statistiques recrues
+    rookie_stats <- projections_final %>%
+      filter(is_rookie == TRUE, scenario == "mid") %>%
+      summarise(
+        min_pts = min(points),
+        mean_pts = round(mean(points), 1),
+        max_pts = max(points)
+      )
+
+    cat("    - Range points:", rookie_stats$min_pts, "-", rookie_stats$max_pts, "\n")
+    cat("    - Moyenne:", rookie_stats$mean_pts, "points\n")
+  } else {
+    warning("ATTENTION: Aucune recrue trouvée dans les projections finales!")
+  }
+} else {
+  warning("ATTENTION: Colonne 'is_rookie' absente des projections finales!")
+}
+
+cat("\n")
+
+# Test 4: Vérifier range réaliste pour recrues
+cat("Test 4: Vérifier ranges réalistes pour recrues (mid)...\n")
+
+if ("is_rookie" %in% names(projections_final)) {
+  rookie_projections <- projections_final %>%
+    filter(is_rookie == TRUE, scenario == "mid")
+
+  # Forwards: 10-80 pts, Defensemen: 5-60 pts
+  unrealistic_f <- rookie_projections %>%
+    filter(position %in% c("C", "L", "R"), (points < 5 | points > 90))
+
+  unrealistic_d <- rookie_projections %>%
+    filter(position == "D", (points < 2 | points > 70))
+
+  n_unrealistic <- nrow(unrealistic_f) + nrow(unrealistic_d)
+
+  if (n_unrealistic == 0) {
+    cat("  ✓ Toutes les recrues ont des projections réalistes\n")
+  } else {
+    warning("ATTENTION: ", n_unrealistic, " recrues avec projections hors normes:")
+    if (nrow(unrealistic_f) > 0) {
+      print(unrealistic_f %>% select(first_name, last_name, position, points))
+    }
+    if (nrow(unrealistic_d) > 0) {
+      print(unrealistic_d %>% select(first_name, last_name, position, points))
+    }
+  }
+}
+
+cat("\n")
+
 # Résumé final ------------------------------------------------------------
 end_time <- Sys.time()
 elapsed_time <- round(difftime(end_time, start_time, units = "mins"), 2)
@@ -155,12 +228,18 @@ cat("===========================================================================
 cat("Temps d'exécution total:", elapsed_time, "minutes\n\n")
 
 cat("Fichiers générés:\n")
-cat("  - data/01_point_projections/projection/skeleton_2026.rds\n")
-cat("  - data/01_point_projections/projection/quantile_projections/wpm_features.rds\n")
-cat("  - data/01_point_projections/projection/quantile_projections/rf_features.rds\n")
-cat("  - data/01_point_projections/projection/quantile_projections/toi_blended.rds\n")
-cat("  - data/01_point_projections/projection/quantile_projections/conversion_features.rds\n")
-cat("  - data/01_point_projections/projection/projections_2026_scenarios.rds\n")
-cat("  - data/01_point_projections/projection/projections_2026_with_points.rds\n")
-cat("  - data/01_point_projections/projection/projections_2026_final.rds\n")
+cat("  Étape 1:\n")
+cat("    - data/01_point_projections/projection/skeleton_2026.rds\n")
+cat("  Étapes 2-5 (features + scénarios):\n")
+cat("    - data/01_point_projections/projection/quantile_projections/wpm_features.rds\n")
+cat("    - data/01_point_projections/projection/quantile_projections/rf_features.rds\n")
+cat("    - data/01_point_projections/projection/quantile_projections/toi_blended.rds\n")
+cat("    - data/01_point_projections/projection/quantile_projections/conversion_features.rds\n")
+cat("    - data/01_point_projections/projection/projections_2026_scenarios.rds\n")
+cat("  Étape 6 (prédictions modèle base):\n")
+cat("    - data/01_point_projections/projection/projections_2026_base.rds\n")
+cat("  Étape 6b (override Calder seulement):\n")
+cat("    - data/01_point_projections/projection/projections_2026_with_points.rds\n")
+cat("  Étape 7 (final avec cap hits):\n")
+cat("    - data/01_point_projections/projection/projections_2026_final.rds\n")
 cat("\n")

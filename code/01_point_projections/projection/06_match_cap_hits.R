@@ -1,12 +1,15 @@
 ## Script: Matcher les cap hits avec les projections
-## Ajoute la colonne cap_hit à l'objet projections
+## Ajoute la colonne cap_hit aux scénarios de projections
 
 # Packages ----------------------------------------------------------------
 library(dplyr)
 library(stringdist)
 
+cat("\n=== Matching Cap Hits ===\n\n")
+
 # Configuration -----------------------------------------------------------
-output_file <- "data/01_point_projections/projection/projections_2026.rds"
+input_file <- "data/01_point_projections/projection/projections_2026_with_points.rds"
+output_file <- "data/01_point_projections/projection/projections_2026_final.rds"
 cap_hits_file <- "data/01_point_projections/lineups/cap_hits.csv"
 report_file <- "data/01_point_projections/lineups/cap_matching_report.csv"
 
@@ -84,21 +87,19 @@ normalize_name_single <- function(name) {
 normalize_name <- Vectorize(normalize_name_single, USE.NAMES = FALSE)
 
 # Charger projections ----------------------------------------------------
-cat("Chargement des projections...\n")
+cat("Chargement des projections avec points...\n")
 
-# Charger projections (depuis mémoire si sourcé par run_all.R, sinon depuis fichier)
-if (!exists("projections")) {
-  if (file.exists(output_file)) {
-    cat("  Chargement des projections depuis fichier...\n")
-    projections <- readRDS(output_file)
-  } else {
-    stop("Erreur: Fichier projections_2026.rds introuvable. Exécutez d'abord les scripts 00-05.")
-  }
-} else {
-  cat("  Utilisation des projections en mémoire...\n")
-}
+projections_scenarios <- readRDS(input_file)
 
-cat("  Projections:", nrow(projections), "joueurs\n\n")
+cat("  Projections:", nrow(projections_scenarios), "lignes (", nrow(projections_scenarios)/3, "joueurs × 3 scénarios)\n\n")
+
+# Créer skeleton unique pour matching (1 ligne par joueur)
+projections_unique <- projections_scenarios %>%
+  filter(scenario == "mid") %>%  # Prendre mid arbitrairement pour avoir 1 ligne/joueur
+  select(player_id, first_name, last_name, position, team) %>%
+  mutate(full_name = paste(first_name, last_name))
+
+cat("  Joueurs uniques pour matching:", nrow(projections_unique), "\n\n")
 
 # Charger cap hits --------------------------------------------------------
 cat("Chargement des cap hits...\n")
@@ -108,7 +109,7 @@ cat("  Cap hits:", nrow(cap_hits), "joueurs\n\n")
 # Préparer données pour matching ------------------------------------------
 cat("Préparation pour matching...\n")
 
-projections_clean <- projections %>%
+projections_clean <- projections_unique %>%
   mutate(
     full_name_original = full_name,
     full_name_norm = normalize_name(full_name)
@@ -251,7 +252,7 @@ all_matches <- bind_rows(
   matches_lastname
 )
 
-cat("\nTotal matchés:", nrow(all_matches), "/", nrow(projections), "\n")
+cat("\nTotal matchés:", nrow(all_matches), "/", nrow(projections_unique), "\n")
 
 # Joueurs définitivement non matchés --------------------------------------
 unmatched_final <- projections_clean %>%
@@ -260,35 +261,40 @@ unmatched_final <- projections_clean %>%
 
 cat("Non matchés final:", nrow(unmatched_final), "\n\n")
 
-# Joindre cap hits aux projections ----------------------------------------
-cat("Jointure avec projections...\n")
+# Joindre cap hits aux scénarios -----------------------------------------
+cat("Jointure avec scénarios...\n")
 
-projections <- projections %>%
+projections_final <- projections_scenarios %>%
   left_join(
     all_matches %>% select(player_id, cap_hit, player_slug, match_type, distance),
     by = "player_id"
   )
 
-# Résumé ------------------------------------------------------------------
-cat("\n", rep("=", 60), "\n", sep = "")
-cat("RÉSUMÉ DU MATCHING\n")
-cat(rep("=", 60), "\n\n", sep = "")
+# Sauvegarder -------------------------------------------------------------
+saveRDS(projections_final, output_file)
 
-cat("Joueurs dans projections:", nrow(projections), "\n")
+cat("✓ Projections finales sauvegardées\n")
+cat("  Fichier:", output_file, "\n")
+cat("  Dimensions:", nrow(projections_final), "lignes ×", ncol(projections_final), "colonnes\n\n")
+
+# Résumé ------------------------------------------------------------------
+cat("=== Résumé du Matching ===\n\n")
+
+cat("Joueurs uniques:", nrow(projections_unique), "\n")
 cat("  - Matchés (exact):    ", nrow(matches_exact), "\n")
 cat("  - Matchés (fuzzy):    ", nrow(matches_fuzzy), "\n")
 cat("  - Matchés (lastname): ", nrow(matches_lastname), "\n")
 cat("  - Non matchés:        ", nrow(unmatched_final), "\n\n")
 
-# Stats cap hit
-projections_matched <- projections %>%
-  filter(!is.na(cap_hit))
+# Stats cap hit (sur scénario mid uniquement pour éviter duplication)
+projections_matched <- projections_final %>%
+  filter(scenario == "mid", !is.na(cap_hit))
 
 cat("Cap hit stats:\n")
 cat("  - Min:    $", format(min(projections_matched$cap_hit), big.mark = ","), "\n", sep = "")
 cat("  - Médian: $", format(median(projections_matched$cap_hit), big.mark = ","), "\n", sep = "")
 cat("  - Max:    $", format(max(projections_matched$cap_hit), big.mark = ","), "\n", sep = "")
-cat("  - Total:  $", format(sum(projections_matched$cap_hit), big.mark = ","), "\n\n", sep = "")
+cat("  - Moyenne: $", format(round(mean(projections_matched$cap_hit)), big.mark = ","), "\n\n", sep = "")
 
 # Rapport de matching -----------------------------------------------------
 matching_report <- bind_rows(
@@ -310,13 +316,24 @@ matching_report <- bind_rows(
 )
 
 write.csv(matching_report, report_file, row.names = FALSE)
-cat("  ✓ Rapport:", report_file, "\n")
+cat("✓ Rapport sauvegardé:", report_file, "\n\n")
 
 # Aperçu non matchés ------------------------------------------------------
 if (nrow(unmatched_final) > 0) {
-  cat("\nJoueurs non matchés (à vérifier):\n")
-  print(unmatched_final %>% head(20))
+  cat("Joueurs non matchés (à vérifier):\n")
+  print(unmatched_final %>% head(10))
+  cat("\n")
 }
 
-cat("\n✓ Variable ajoutée: cap_hit\n")
-cat("  Match rate:", round(100 * nrow(projections_matched) / nrow(projections), 1), "%\n")
+cat("Match rate:", round(100 * nrow(projections_matched) / nrow(projections_unique), 1), "%\n")
+
+# Aperçu données finales --------------------------------------------------
+cat("\nAperçu projections finales (scénario mid, top 5 scorers):\n")
+projections_final %>%
+  filter(scenario == "mid") %>%
+  arrange(desc(points)) %>%
+  select(first_name, last_name, team, goals, assists, points, cap_hit) %>%
+  head(5) %>%
+  print()
+
+cat("\n")

@@ -1,5 +1,11 @@
 ## Script: Orchestrer le workflow complet de projection pour 2025-26
 ## Génère 3 scénarios (low/mid/high) par joueur pour propager l'incertitude
+##
+## IMPORTANT: Avant de lancer ce script, exécuter UNE SEULE FOIS:
+##   Rscript code/01_point_projections/projection/00_train_rf_models.R
+##
+## Ce script entraîne les modèles Quantile RF pour les features et les sauvegarde.
+## Ils seront ensuite chargés par 02_project_features_rf.R lors de chaque projection.
 
 # Packages ----------------------------------------------------------------
 library(dplyr)
@@ -15,6 +21,7 @@ start_time <- Sys.time()
 
 # Étapes du workflow ------------------------------------------------------
 cat("Workflow:\n")
+cat("  0. [Une seule fois] Entraîner modèles RF (00_train_rf_models.R)\n")
 cat("  1. Créer skeleton des joueurs 2025-26\n")
 cat("  2. Projeter wpm_g et wpm_a (weighted means avec GP adjustment)\n")
 cat("  3. Projeter features RF avec Quantile Random Forest (P10/P50/P90)\n")
@@ -68,8 +75,15 @@ cat("===========================================================================
 cat("ÉTAPE 6: Prédire points avec modèles bayésiens\n")
 cat("================================================================================\n\n")
 
-cat("Note: Cette étape utilisera le script 05_predict_points.R qui devra être\n")
-cat("      adapté pour prédire sur les 3 scénarios (low/mid/high)\n\n")
+source("code/01_point_projections/projection/05_predict_points.R")
+
+# 7. Matcher cap hits -----------------------------------------------------
+cat("\n")
+cat("================================================================================\n")
+cat("ÉTAPE 7: Matcher cap hits\n")
+cat("================================================================================\n\n")
+
+source("code/01_point_projections/projection/06_match_cap_hits.R")
 
 # Résumé final ------------------------------------------------------------
 end_time <- Sys.time()
@@ -88,9 +102,6 @@ cat("  - data/01_point_projections/projection/quantile_projections/wpm_features.
 cat("  - data/01_point_projections/projection/quantile_projections/rf_features.rds\n")
 cat("  - data/01_point_projections/projection/quantile_projections/conversion_features.rds\n")
 cat("  - data/01_point_projections/projection/projections_2026_scenarios.rds\n")
-cat("\n")
-
-cat("Prochaine étape:\n")
-cat("  Adapter 05_predict_points.R pour prédire sur les 3 scénarios\n")
-cat("  → Chaque joueur aura 3 prédictions de points (low/mid/high)\n")
+cat("  - data/01_point_projections/projection/projections_2026_with_points.rds\n")
+cat("  - data/01_point_projections/projection/projections_2026_final.rds\n")
 cat("\n")

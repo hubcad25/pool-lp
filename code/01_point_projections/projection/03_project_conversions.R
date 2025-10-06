@@ -42,26 +42,54 @@ skeleton <- readRDS("data/01_point_projections/projection/skeleton_2026.rds")
 cat("  Projections RF:", nrow(rf_projections), "joueurs\n")
 cat("  Historique:", nrow(historical_all), "observations\n\n")
 
-# League Averages (constantes) -------------------------------------------
-cat("=== Conversion HD/MD: League Average ===\n")
+# Conversions HD/MD: Quantiles par position -----------------------------
+cat("=== Conversion HD/MD: Quantiles par Position ===\n")
 
-LEAGUE_AVG_HD <- 0.302
-LEAGUE_AVG_MD <- 0.124
+# Calculer les quantiles de conversion par position dans historique
+conversion_quantiles <- historical_all %>%
+  filter(season %in% c(2020, 2021, 2022, 2023, 2024)) %>%
+  mutate(pos_group = ifelse(position %in% c("C", "L", "R"), "F", "D")) %>%
+  group_by(pos_group) %>%
+  summarise(
+    conv_hd_p25 = quantile(conversion_high_danger, 0.25, na.rm = TRUE),
+    conv_hd_p50 = quantile(conversion_high_danger, 0.50, na.rm = TRUE),
+    conv_hd_p75 = quantile(conversion_high_danger, 0.75, na.rm = TRUE),
+    conv_md_p25 = quantile(conversion_medium, 0.25, na.rm = TRUE),
+    conv_md_p50 = quantile(conversion_medium, 0.50, na.rm = TRUE),
+    conv_md_p75 = quantile(conversion_medium, 0.75, na.rm = TRUE)
+  ) %>%
+  ungroup()
 
-cat("  conversion_high_danger:", LEAGUE_AVG_HD, "(constant pour tous)\n")
-cat("  conversion_medium:", LEAGUE_AVG_MD, "(constant pour tous)\n\n")
+cat("  Conversion High Danger:\n")
+conversion_quantiles %>%
+  select(pos_group, conv_hd_p25, conv_hd_p50, conv_hd_p75) %>%
+  print()
 
-# Créer dataframe avec constants
+cat("\n  Conversion Medium:\n")
+conversion_quantiles %>%
+  select(pos_group, conv_md_p25, conv_md_p50, conv_md_p75) %>%
+  print()
+
+cat("\n")
+
+# Assigner quantiles aux joueurs selon position
 conversion_constants <- rf_projections %>%
   select(player_id) %>%
+  left_join(
+    skeleton %>% select(player_id, position),
+    by = "player_id"
+  ) %>%
+  mutate(pos_group = ifelse(position %in% c("C", "L", "R"), "F", "D")) %>%
+  left_join(conversion_quantiles, by = "pos_group") %>%
   mutate(
-    conversion_high_danger_p10 = LEAGUE_AVG_HD,
-    conversion_high_danger_p50 = LEAGUE_AVG_HD,
-    conversion_high_danger_p90 = LEAGUE_AVG_HD,
-    conversion_medium_p10 = LEAGUE_AVG_MD,
-    conversion_medium_p50 = LEAGUE_AVG_MD,
-    conversion_medium_p90 = LEAGUE_AVG_MD
-  )
+    conversion_high_danger_p10 = conv_hd_p25,
+    conversion_high_danger_p50 = conv_hd_p50,
+    conversion_high_danger_p90 = conv_hd_p75,
+    conversion_medium_p10 = conv_md_p25,
+    conversion_medium_p50 = conv_md_p50,
+    conversion_medium_p90 = conv_md_p75
+  ) %>%
+  select(player_id, starts_with("conversion_high_danger"), starts_with("conversion_medium"))
 
 # GAM pour conversion_overall ---------------------------------------------
 cat("=== Conversion Overall: GAM avec intervalles ===\n")
@@ -207,15 +235,9 @@ df_predict <- df_predict %>%
   mutate(across(starts_with("conversion_overall_t"), ~replace_na(.x, 0))) %>%
   mutate(across(starts_with("weight_t"), ~replace_na(.x, 0)))
 
-# Joindre avec skeleton pour tous les joueurs
-df_predict_full <- skeleton %>%
-  select(player_id, position, age) %>%
-  left_join(df_predict, by = "player_id") %>%
-  mutate(
-    position = coalesce(position.x, position.y),
-    age = coalesce(age.x, age.y)
-  ) %>%
-  select(-position.x, -position.y, -age.x, -age.y, -age_current) %>%
+# Filtrer pour garder SEULEMENT les joueurs du skeleton
+df_predict_full <- df_predict %>%
+  filter(player_id %in% skeleton$player_id) %>%
   mutate(across(starts_with("conversion_overall_t"), ~replace_na(.x, 0))) %>%
   mutate(across(starts_with("weight_t"), ~replace_na(.x, 0)))
 
@@ -266,11 +288,11 @@ cat("  Joueurs:", nrow(all_conversion_preds), "\n\n")
 # Résumé ------------------------------------------------------------------
 cat("=== Résumé des projections Conversions ===\n\n")
 
-cat("conversion_high_danger (league avg):\n")
-cat("  Constant:", LEAGUE_AVG_HD, "\n\n")
+cat("conversion_high_danger (quantiles par position):\n")
+cat("  P10/P50/P90 correspondent aux P25/P50/P75 de la distribution historique\n\n")
 
-cat("conversion_medium (league avg):\n")
-cat("  Constant:", LEAGUE_AVG_MD, "\n\n")
+cat("conversion_medium (quantiles par position):\n")
+cat("  P10/P50/P90 correspondent aux P25/P50/P75 de la distribution historique\n\n")
 
 cat("conversion_overall (GAM):\n")
 cat("  P10: [", round(min(pred_p10, na.rm = TRUE), 3), ", ",

@@ -1,31 +1,24 @@
 ## Script: Prédire goals et assists pour 2025-26 avec modèles bayésiens
-## Utilise les modèles entraînés dans modeling/ et les features projetées
+## Utilise les modèles entraînés dans modeling/ et les scénarios projetés (low/mid/high)
+## Note: Prédit P50 (médiane) pour chaque scénario
 
 # Packages ----------------------------------------------------------------
 library(dplyr)
 library(brms)
 
+cat("\n=== Prédiction Goals/Assists avec Modèles Bayésiens ===\n\n")
+
 # Configuration -----------------------------------------------------------
 models_dir <- "data/01_point_projections/models"
-output_file <- "data/01_point_projections/projection/projections_2026.rds"
+scenarios_file <- "data/01_point_projections/projection/projections_2026_scenarios.rds"
 
-# Charger projections -----------------------------------------------------
-cat("Chargement des projections...\n")
+# Charger scénarios -------------------------------------------------------
+cat("Chargement des scénarios...\n")
 
-# Charger projections (depuis mémoire si sourcé par run_all.R, sinon depuis fichier)
-if (!exists("projections")) {
-  if (file.exists(output_file)) {
-    cat("  Chargement des projections depuis fichier...\n")
-    projections <- readRDS(output_file)
-  } else {
-    stop("Erreur: Fichier projections_2026.rds introuvable. Exécutez d'abord les scripts 00-04.")
-  }
-} else {
-  cat("  Utilisation des projections en mémoire...\n")
-}
+scenarios <- readRDS(scenarios_file)
 
-cat("  Projections:", nrow(projections), "joueurs\n")
-cat("  Features disponibles:", paste(names(projections), collapse = ", "), "\n\n")
+cat("  Scénarios:", nrow(scenarios), "lignes (", nrow(scenarios)/3, "joueurs × 3 scénarios)\n")
+cat("  Features disponibles:", paste(names(scenarios), collapse = ", "), "\n\n")
 
 # Charger modèles bayésiens -----------------------------------------------
 cat("Chargement des modèles bayésiens...\n")
@@ -54,20 +47,19 @@ cat("  ✓ Modèles chargés:", paste(names(models), collapse = ", "), "\n\n")
 # Séparer Forwards et Defensemen ------------------------------------------
 cat("Séparation par position...\n")
 
-projections_f <- projections %>% filter(position %in% c("C", "L", "R"))
-projections_d <- projections %>% filter(position == "D")
+scenarios_f <- scenarios %>% filter(position %in% c("C", "L", "R"))
+scenarios_d <- scenarios %>% filter(position == "D")
 
-cat("  Forwards:", nrow(projections_f), "joueurs\n")
-cat("  Defensemen:", nrow(projections_d), "joueurs\n\n")
+cat("  Forwards:", nrow(scenarios_f), "lignes\n")
+cat("  Defensemen:", nrow(scenarios_d), "lignes\n\n")
 
 # Prédire Goals - Forwards ------------------------------------------------
-cat("Prédiction Goals Forwards...\n")
+cat("Prédiction Goals Forwards (3 scénarios)...\n")
 
-# Créer dataset pour prédiction avec season = 2026 (pour effet aléatoire)
-newdata_f <- projections_f %>%
+newdata_f <- scenarios_f %>%
   mutate(season = 2026) %>%
   select(
-    player_id, season,
+    player_id, scenario, season,
     wpm_g, wpm_a,
     evtoi_per_gp, pptoi_per_gp,
     high_danger_shots, medium_danger_shots,
@@ -75,53 +67,43 @@ newdata_f <- projections_f %>%
     x_goals, shot_attempts
   )
 
-# Prédictions avec quartiles (P25, P50, P75)
+# Prédire P50 (médiane) pour chaque scénario
 pred_goals_f <- predict(
   model_goals_f,
   newdata = newdata_f,
-  re_formula = NA,  # Ignorer effet aléatoire par saison (nouvelle saison)
-  probs = c(0.25, 0.5, 0.75),
+  re_formula = NA,  # Ignorer effet aléatoire par saison
+  probs = c(0.5),
   summary = TRUE
 )
 
-projections_f <- projections_f %>%
-  mutate(
-    goals_p25 = pred_goals_f[, "Q25"],
-    goals_p50 = pred_goals_f[, "Q50"],
-    goals_p75 = pred_goals_f[, "Q75"]
-  )
+scenarios_f <- scenarios_f %>%
+  mutate(goals = pred_goals_f[, "Q50"])
 
-cat("  ✓ Goals prédits pour", nrow(projections_f), "forwards\n")
-cat("    P25:", round(mean(projections_f$goals_p25), 2), "| P50:", round(mean(projections_f$goals_p50), 2), "| P75:", round(mean(projections_f$goals_p75), 2), "\n\n")
+cat("  ✓ Goals prédits pour", nrow(scenarios_f), "lignes (", nrow(scenarios_f)/3, "forwards × 3 scénarios)\n\n")
 
 # Prédire Assists - Forwards ----------------------------------------------
-cat("Prédiction Assists Forwards...\n")
+cat("Prédiction Assists Forwards (3 scénarios)...\n")
 
 pred_assists_f <- predict(
   model_assists_f,
   newdata = newdata_f,
   re_formula = NA,
-  probs = c(0.25, 0.5, 0.75),
+  probs = c(0.5),
   summary = TRUE
 )
 
-projections_f <- projections_f %>%
-  mutate(
-    assists_p25 = pred_assists_f[, "Q25"],
-    assists_p50 = pred_assists_f[, "Q50"],
-    assists_p75 = pred_assists_f[, "Q75"]
-  )
+scenarios_f <- scenarios_f %>%
+  mutate(assists = pred_assists_f[, "Q50"])
 
-cat("  ✓ Assists prédits pour", nrow(projections_f), "forwards\n")
-cat("    P25:", round(mean(projections_f$assists_p25), 2), "| P50:", round(mean(projections_f$assists_p50), 2), "| P75:", round(mean(projections_f$assists_p75), 2), "\n\n")
+cat("  ✓ Assists prédits pour", nrow(scenarios_f), "lignes\n\n")
 
 # Prédire Goals - Defensemen ----------------------------------------------
-cat("Prédiction Goals Defensemen...\n")
+cat("Prédiction Goals Defensemen (3 scénarios)...\n")
 
-newdata_d <- projections_d %>%
+newdata_d <- scenarios_d %>%
   mutate(season = 2026) %>%
   select(
-    player_id, season,
+    player_id, scenario, season,
     wpm_g, wpm_a,
     evtoi_per_gp, pptoi_per_gp,
     high_danger_shots, medium_danger_shots,
@@ -133,91 +115,85 @@ pred_goals_d <- predict(
   model_goals_d,
   newdata = newdata_d,
   re_formula = NA,
-  probs = c(0.25, 0.5, 0.75),
+  probs = c(0.5),
   summary = TRUE
 )
 
-projections_d <- projections_d %>%
-  mutate(
-    goals_p25 = pred_goals_d[, "Q25"],
-    goals_p50 = pred_goals_d[, "Q50"],
-    goals_p75 = pred_goals_d[, "Q75"]
-  )
+scenarios_d <- scenarios_d %>%
+  mutate(goals = pred_goals_d[, "Q50"])
 
-cat("  ✓ Goals prédits pour", nrow(projections_d), "defensemen\n")
-cat("    P25:", round(mean(projections_d$goals_p25), 2), "| P50:", round(mean(projections_d$goals_p50), 2), "| P75:", round(mean(projections_d$goals_p75), 2), "\n\n")
+cat("  ✓ Goals prédits pour", nrow(scenarios_d), "lignes (", nrow(scenarios_d)/3, "defensemen × 3 scénarios)\n\n")
 
 # Prédire Assists - Defensemen --------------------------------------------
-cat("Prédiction Assists Defensemen...\n")
+cat("Prédiction Assists Defensemen (3 scénarios)...\n")
 
 pred_assists_d <- predict(
   model_assists_d,
   newdata = newdata_d,
   re_formula = NA,
-  probs = c(0.25, 0.5, 0.75),
+  probs = c(0.5),
   summary = TRUE
 )
 
-projections_d <- projections_d %>%
-  mutate(
-    assists_p25 = pred_assists_d[, "Q25"],
-    assists_p50 = pred_assists_d[, "Q50"],
-    assists_p75 = pred_assists_d[, "Q75"]
-  )
+scenarios_d <- scenarios_d %>%
+  mutate(assists = pred_assists_d[, "Q50"])
 
-cat("  ✓ Assists prédits pour", nrow(projections_d), "defensemen\n")
-cat("    P25:", round(mean(projections_d$assists_p25), 2), "| P50:", round(mean(projections_d$assists_p50), 2), "| P75:", round(mean(projections_d$assists_p75), 2), "\n\n")
+cat("  ✓ Assists prédits pour", nrow(scenarios_d), "lignes\n\n")
 
 # Combiner et calculer points totaux --------------------------------------
 cat("Calcul des points totaux...\n")
 
-projections <- bind_rows(projections_f, projections_d) %>%
-  arrange(player_id) %>%
-  mutate(
-    points_p25 = goals_p25 + assists_p25,
-    points_p50 = goals_p50 + assists_p50,
-    points_p75 = goals_p75 + assists_p75
-  )
+projections_final <- bind_rows(scenarios_f, scenarios_d) %>%
+  arrange(player_id, scenario) %>%
+  mutate(points = goals + assists)
 
-cat("  ✓ Points calculés pour", nrow(projections), "joueurs\n")
-cat("    P25:", round(mean(projections$points_p25), 2), "| P50:", round(mean(projections$points_p50), 2), "| P75:", round(mean(projections$points_p75), 2), "\n\n")
+cat("  ✓ Points calculés pour", nrow(projections_final), "lignes\n\n")
+
+# Sauvegarder -------------------------------------------------------------
+output_file <- "data/01_point_projections/projection/projections_2026_with_points.rds"
+saveRDS(projections_final, output_file)
+
+cat("✓ Projections finales sauvegardées\n")
+cat("  Fichier:", output_file, "\n")
+cat("  Dimensions:", nrow(projections_final), "lignes ×", ncol(projections_final), "colonnes\n\n")
 
 # Résumé ------------------------------------------------------------------
-cat("Résumé des projections par position:\n\n")
+cat("=== Résumé des Prédictions ===\n\n")
 
-summary_stats <- projections %>%
+cat("Par scénario:\n")
+projections_final %>%
+  group_by(scenario) %>%
+  summarise(
+    n_joueurs = n() / 3,
+    goals_mean = round(mean(goals), 2),
+    assists_mean = round(mean(assists), 2),
+    points_mean = round(mean(points), 2)
+  ) %>%
+  print()
+
+cat("\nPar position (scénario mid):\n")
+projections_final %>%
+  filter(scenario == "mid") %>%
   group_by(position) %>%
   summarise(
     n = n(),
-    goals_p50 = round(mean(goals_p50), 2),
-    assists_p50 = round(mean(assists_p50), 2),
-    points_p50 = round(mean(points_p50), 2)
-  )
+    goals_mean = round(mean(goals), 2),
+    assists_mean = round(mean(assists), 2),
+    points_mean = round(mean(points), 2)
+  ) %>%
+  print()
 
-print(summary_stats)
-
-cat("\n✓ Variables ajoutées: goals (p25/p50/p75), assists (p25/p50/p75), points (p25/p50/p75)\n")
-cat("  P50 = médiane (prédiction centrale)\n")
-cat("  P25-P75 = intervalle de crédibilité 50% (scénario probable)\n")
-
-# Aperçu top scorers ------------------------------------------------------
-cat("\nTop 10 scorers projetés (P50):\n")
-projections %>%
-  arrange(desc(points_p50)) %>%
-  select(first_name, last_name, position, team, goals_p50, assists_p50, points_p50, points_p25, points_p75) %>%
+cat("\nTop 10 scorers (scénario mid):\n")
+projections_final %>%
+  filter(scenario == "mid") %>%
+  arrange(desc(points)) %>%
+  select(first_name, last_name, position, team, goals, assists, points) %>%
   head(10) %>%
   print()
 
-cat("\nTop 10 buteurs projetés (P50):\n")
-projections %>%
-  arrange(desc(goals_p50)) %>%
-  select(first_name, last_name, position, team, goals_p50, goals_p25, goals_p75, assists_p50, points_p50) %>%
-  head(10) %>%
-  print()
-
-cat("\nTop 10 passeurs projetés (P50):\n")
-projections %>%
-  arrange(desc(assists_p50)) %>%
-  select(first_name, last_name, position, team, assists_p50, assists_p25, assists_p75, goals_p50, points_p50) %>%
-  head(10) %>%
+cat("\nExemple - Auston Matthews (3 scénarios):\n")
+projections_final %>%
+  filter(last_name == "Matthews", first_name == "Auston") %>%
+  select(scenario, goals, assists, points) %>%
+  arrange(scenario) %>%
   print()

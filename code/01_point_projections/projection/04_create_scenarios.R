@@ -34,6 +34,11 @@ conversion_projections <- readRDS("data/01_point_projections/projection/quantile
 # Skeleton pour infos joueurs
 skeleton <- readRDS("data/01_point_projections/projection/skeleton_2026.rds")
 
+# Historique pour récupérer l'âge
+historical_f <- readRDS(file.path(input_dir, "training_data_F.rds"))
+historical_d <- readRDS(file.path(input_dir, "training_data_D.rds"))
+historical_all <- bind_rows(historical_f, historical_d)
+
 cat("  WPM projections:", nrow(wpm_projections), "joueurs\n")
 cat("  RF projections:", nrow(rf_projections), "joueurs\n")
 cat("  Conversion projections:", nrow(conversion_projections), "joueurs\n")
@@ -43,9 +48,9 @@ cat("  Skeleton:", nrow(skeleton), "joueurs\n\n")
 # Combiner toutes les projections -----------------------------------------
 cat("Combinaison de toutes les projections...\n")
 
-# Joindre tout
+# Joindre tout par player_id (position vient du skeleton, age des RF projections)
 all_data <- skeleton %>%
-  select(player_id, first_name, last_name, position, team, age) %>%
+  select(player_id, first_name, last_name, position, team) %>%
   left_join(wpm_projections, by = "player_id") %>%
   left_join(rf_projections, by = "player_id") %>%
   left_join(conversion_projections, by = "player_id")
@@ -59,17 +64,18 @@ cat("\nCalcul des replacement levels (5e centile)...\n")
 data_f <- all_data %>% filter(position %in% c("C", "L", "R"))
 data_d <- all_data %>% filter(position == "D")
 
-# Replacement forwards
+# Replacement forwards (P50 seulement, pas HD/MD conversions qui sont constants)
 repl_f <- data_f %>%
   summarise(
     wpm_g = quantile(wpm_g, 0.05, na.rm = TRUE),
     wpm_a = quantile(wpm_a, 0.05, na.rm = TRUE),
     evtoi_per_gp_p50 = quantile(evtoi_per_gp_p50, 0.05, na.rm = TRUE),
     pptoi_per_gp_p50 = quantile(pptoi_per_gp_p50, 0.05, na.rm = TRUE),
-    high_danger_shots_per60_p50 = quantile(high_danger_shots_per60_p50, 0.05, na.rm = TRUE),
-    medium_danger_shots_per60_p50 = quantile(medium_danger_shots_per60_p50, 0.05, na.rm = TRUE),
-    x_goals_per60_p50 = quantile(x_goals_per60_p50, 0.05, na.rm = TRUE),
-    shot_attempts_per60_p50 = quantile(shot_attempts_per60_p50, 0.05, na.rm = TRUE)
+    high_danger_shots_p50 = quantile(high_danger_shots_p50, 0.05, na.rm = TRUE),
+    medium_danger_shots_p50 = quantile(medium_danger_shots_p50, 0.05, na.rm = TRUE),
+    x_goals_p50 = quantile(x_goals_p50, 0.05, na.rm = TRUE),
+    shot_attempts_p50 = quantile(shot_attempts_p50, 0.05, na.rm = TRUE),
+    conversion_overall_p50 = quantile(conversion_overall_p50, 0.05, na.rm = TRUE)
   )
 
 # Replacement defensemen
@@ -79,10 +85,11 @@ repl_d <- data_d %>%
     wpm_a = quantile(wpm_a, 0.05, na.rm = TRUE),
     evtoi_per_gp_p50 = quantile(evtoi_per_gp_p50, 0.05, na.rm = TRUE),
     pptoi_per_gp_p50 = quantile(pptoi_per_gp_p50, 0.05, na.rm = TRUE),
-    high_danger_shots_per60_p50 = quantile(high_danger_shots_per60_p50, 0.05, na.rm = TRUE),
-    medium_danger_shots_per60_p50 = quantile(medium_danger_shots_per60_p50, 0.05, na.rm = TRUE),
-    x_goals_per60_p50 = quantile(x_goals_per60_p50, 0.05, na.rm = TRUE),
-    shot_attempts_per60_p50 = quantile(shot_attempts_per60_p50, 0.05, na.rm = TRUE)
+    high_danger_shots_p50 = quantile(high_danger_shots_p50, 0.05, na.rm = TRUE),
+    medium_danger_shots_p50 = quantile(medium_danger_shots_p50, 0.05, na.rm = TRUE),
+    x_goals_p50 = quantile(x_goals_p50, 0.05, na.rm = TRUE),
+    shot_attempts_p50 = quantile(shot_attempts_p50, 0.05, na.rm = TRUE),
+    conversion_overall_p50 = quantile(conversion_overall_p50, 0.05, na.rm = TRUE)
   )
 
 cat("  Replacement level Forwards: wpm_g =", round(repl_f$wpm_g, 2), ", wpm_a =", round(repl_f$wpm_a, 2), "\n")
@@ -105,8 +112,9 @@ all_data_imputed <- all_data %>%
       TRUE ~ 0
     ),
 
-    # RF features (imputer P50 seulement pour rookies)
-    across(ends_with("_p50"),
+    # RF features P50 (imputer pour rookies, sauf conversions HD/MD qui sont constants)
+    across(c(evtoi_per_gp_p50, pptoi_per_gp_p50, high_danger_shots_p50, medium_danger_shots_p50,
+             x_goals_p50, shot_attempts_p50, conversion_overall_p50),
            ~case_when(
              !is.na(.x) & .x > 0 ~ .x,
              position %in% c("C", "L", "R") ~ repl_f[[cur_column()]],
@@ -126,10 +134,10 @@ scenario_low <- all_data_imputed %>%
     wpm_g, wpm_a,
     evtoi_per_gp = evtoi_per_gp_p10,
     pptoi_per_gp = pptoi_per_gp_p10,
-    high_danger_shots_per60 = high_danger_shots_per60_p10,
-    medium_danger_shots_per60 = medium_danger_shots_per60_p10,
-    x_goals_per60 = x_goals_per60_p10,
-    shot_attempts_per60 = shot_attempts_per60_p10,
+    high_danger_shots = high_danger_shots_p10,
+    medium_danger_shots = medium_danger_shots_p10,
+    x_goals = x_goals_p10,
+    shot_attempts = shot_attempts_p10,
     conversion_high_danger = conversion_high_danger_p10,
     conversion_medium = conversion_medium_p10,
     conversion_overall = conversion_overall_p10
@@ -143,10 +151,10 @@ scenario_mid <- all_data_imputed %>%
     wpm_g, wpm_a,
     evtoi_per_gp = evtoi_per_gp_p50,
     pptoi_per_gp = pptoi_per_gp_p50,
-    high_danger_shots_per60 = high_danger_shots_per60_p50,
-    medium_danger_shots_per60 = medium_danger_shots_per60_p50,
-    x_goals_per60 = x_goals_per60_p50,
-    shot_attempts_per60 = shot_attempts_per60_p50,
+    high_danger_shots = high_danger_shots_p50,
+    medium_danger_shots = medium_danger_shots_p50,
+    x_goals = x_goals_p50,
+    shot_attempts = shot_attempts_p50,
     conversion_high_danger = conversion_high_danger_p50,
     conversion_medium = conversion_medium_p50,
     conversion_overall = conversion_overall_p50
@@ -160,10 +168,10 @@ scenario_high <- all_data_imputed %>%
     wpm_g, wpm_a,
     evtoi_per_gp = evtoi_per_gp_p90,
     pptoi_per_gp = pptoi_per_gp_p90,
-    high_danger_shots_per60 = high_danger_shots_per60_p90,
-    medium_danger_shots_per60 = medium_danger_shots_per60_p90,
-    x_goals_per60 = x_goals_per60_p90,
-    shot_attempts_per60 = shot_attempts_per60_p90,
+    high_danger_shots = high_danger_shots_p90,
+    medium_danger_shots = medium_danger_shots_p90,
+    x_goals = x_goals_p90,
+    shot_attempts = shot_attempts_p90,
     conversion_high_danger = conversion_high_danger_p90,
     conversion_medium = conversion_medium_p90,
     conversion_overall = conversion_overall_p90
@@ -197,7 +205,7 @@ scenarios_all %>%
 cat("\nExemple - 3 scénarios pour Auston Matthews:\n")
 scenarios_all %>%
   filter(last_name == "Matthews", first_name == "Auston") %>%
-  select(scenario, wpm_g, wpm_a, evtoi_per_gp, high_danger_shots_per60, conversion_overall) %>%
+  select(scenario, wpm_g, wpm_a, evtoi_per_gp, high_danger_shots, conversion_overall) %>%
   print()
 
 cat("\nDistribution par scénario (evtoi_per_gp):\n")

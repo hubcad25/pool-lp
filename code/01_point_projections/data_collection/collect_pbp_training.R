@@ -385,18 +385,16 @@ cat("Dataset sauvegardé:", output_file, "\n")
 # 10. Créer datasets par position ------------------------------------------
 cat("\nCréation datasets par position...\n")
 
-# Forwards
+# Forwards (GARDER position pour entraînement des modèles!)
 training_f <- training_data %>%
-  filter(position %in% c("C", "L", "R")) %>%
-  select(-position)
+  filter(position %in% c("C", "L", "R"))
 
 saveRDS(training_f, file.path(output_dir, "training_data_F.rds"))
 cat("  Forwards:", nrow(training_f), "lignes\n")
 
-# Defensemen
+# Defensemen (GARDER position pour entraînement des modèles!)
 training_d <- training_data %>%
-  filter(position == "D") %>%
-  select(-position)
+  filter(position == "D")
 
 saveRDS(training_d, file.path(output_dir, "training_data_D.rds"))
 cat("  Defensemen:", nrow(training_d), "lignes\n")

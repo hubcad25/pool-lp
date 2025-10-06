@@ -124,7 +124,7 @@ cat("\n")
 cat("Joindre avec skeleton...\n")
 
 wpm_full <- skeleton %>%
-  select(player_id, first_name, last_name, position, team, age) %>%
+  select(player_id, first_name, last_name, position, team) %>%
   left_join(wpm_data %>% select(player_id, wpm_g, wpm_a, n_seasons), by = "player_id")
 
 # Calculer replacement levels (5e centile) --------------------------------

@@ -328,3 +328,8 @@ TSWLatexianTemp*
 # option is specified. Footnotes are the stored in a file with suffix Notes.bib.
 # Uncomment the next line to have this generated file ignored.
 #*Notes.bib
+
+# Draft optimizer outputs (can be regenerated)
+data/02_draft_optimization/rosters/
+data/02_draft_optimization/simulations/
+data/02_draft_optimization/comparison_report.txt

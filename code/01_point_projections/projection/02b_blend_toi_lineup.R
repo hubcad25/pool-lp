@@ -113,32 +113,109 @@ lineups_with_prior <- lineups %>%
     )
   )
 
-# Dédupliquer (prendre DailyFaceoff en priorité)
-lineups_dedup <- lineups_with_prior %>%
-  arrange(player_id, desc(source == "dailyfaceoff")) %>%
-  distinct(player_id, .keep_all = TRUE)
+# Combiner les deux sources avec pondération: 0.7 DF + 0.3 PP
+# Si un joueur apparaît dans les deux sources, on blend les priors
+# Si une seule source, on utilise celle-ci
 
+cat("Combinaison pondérée des sources (0.7 DF + 0.3 PP)...\n")
+
+# Séparer par source
+df_source <- lineups_with_prior %>%
+  select(player_id, source,
+         evtoi_prior_low, evtoi_prior_mid, evtoi_prior_high,
+         pptoi_prior_low, pptoi_prior_mid, pptoi_prior_high,
+         line, pp_unit)
+
+puckpedia <- df_source %>% filter(source == "puckpedia")
+dailyfaceoff <- df_source %>% filter(source == "dailyfaceoff")
+
+cat("  DailyFaceoff:", nrow(dailyfaceoff), "joueurs\n")
+cat("  Puckpedia:", nrow(puckpedia), "joueurs\n")
+
+# Identifier joueurs présents dans les deux
+both_sources <- inner_join(
+  dailyfaceoff %>% select(player_id),
+  puckpedia %>% select(player_id),
+  by = "player_id"
+) %>%
+  distinct()
+
+cat("  Joueurs dans les deux sources:", nrow(both_sources), "\n")
+
+# Joueurs avec les deux sources: blend 0.7 DF + 0.3 PP
+if (nrow(both_sources) > 0) {
+  combined_both <- both_sources %>%
+    left_join(dailyfaceoff %>% rename_with(~paste0(., "_df"), -c(player_id, source)),
+              by = "player_id") %>%
+    left_join(puckpedia %>% rename_with(~paste0(., "_pp"), -c(player_id, source)),
+              by = "player_id") %>%
+    mutate(
+      # EVTOI blended
+      evtoi_prior_low = 0.7 * evtoi_prior_low_df + 0.3 * evtoi_prior_low_pp,
+      evtoi_prior_mid = 0.7 * evtoi_prior_mid_df + 0.3 * evtoi_prior_mid_pp,
+      evtoi_prior_high = 0.7 * evtoi_prior_high_df + 0.3 * evtoi_prior_high_pp,
+
+      # PPTOI blended
+      pptoi_prior_low = 0.7 * pptoi_prior_low_df + 0.3 * pptoi_prior_low_pp,
+      pptoi_prior_mid = 0.7 * pptoi_prior_mid_df + 0.3 * pptoi_prior_mid_pp,
+      pptoi_prior_high = 0.7 * pptoi_prior_high_df + 0.3 * pptoi_prior_high_pp,
+
+      # Prendre line/pp_unit de DailyFaceoff (plus à jour)
+      line = line_df,
+      pp_unit = pp_unit_df,
+      source = "combined"
+    ) %>%
+    select(player_id, source,
+           evtoi_prior_low, evtoi_prior_mid, evtoi_prior_high,
+           pptoi_prior_low, pptoi_prior_mid, pptoi_prior_high,
+           line, pp_unit)
+} else {
+  combined_both <- tibble()
+}
+
+# Joueurs avec une seule source
+only_df <- dailyfaceoff %>%
+  filter(!player_id %in% both_sources$player_id)
+
+only_pp <- puckpedia %>%
+  filter(!player_id %in% both_sources$player_id)
+
+cat("  Seulement DF:", nrow(only_df), "joueurs\n")
+cat("  Seulement PP:", nrow(only_pp), "joueurs\n")
+
+# Combiner tout
+lineups_dedup <- bind_rows(
+  combined_both,
+  only_df,
+  only_pp
+)
+
+cat("\nRésultat final:\n")
 cat("  Joueurs avec lineup prior:", nrow(lineups_dedup), "\n")
 cat("  - Avec EVTOI prior:", sum(!is.na(lineups_dedup$evtoi_prior_mid)), "\n")
-cat("  - Avec PPTOI prior > 0:", sum(lineups_dedup$pptoi_prior_mid > 0, na.rm = TRUE), "\n\n")
+cat("  - Avec PPTOI prior > 0:", sum(lineups_dedup$pptoi_prior_mid > 0, na.rm = TRUE), "\n")
+cat("  - Sources combinées (0.7 DF + 0.3 PP):", sum(lineups_dedup$source == "combined"), "\n")
+cat("  - DailyFaceoff seulement:", sum(lineups_dedup$source == "dailyfaceoff"), "\n")
+cat("  - Puckpedia seulement:", sum(lineups_dedup$source == "puckpedia"), "\n\n")
 
 # Fonction de weighting selon GP ------------------------------------------
 
 # Fonction sigmoïde pour calculer weight_rf basé sur total_gp
 # weight_rf = 1 / (1 + exp(-k * (gp - gp_50)))
-# Où gp_50 = 116 (médiane GP 2022-2024) et k = 0.025 (pente)
+# Où gp_50 = 116 (médiane GP 2022-2024) et k = 0.020 (pente réduite)
+# Max RF weight = 0.70 (vs 0.90 avant) pour corriger biais changement d'équipe
 #
-# Exemples:
-# - 22 GP (P25) → 35% RF, 65% lineup
-# - 116 GP (P50) → 50% RF, 50% lineup
-# - 211 GP (P75) → 77% RF, 23% lineup
+# Exemples (nouveaux poids):
+# - 84 GP (Hutson) → ~23% RF, 77% lineup (vs 31% avant)
+# - 116 GP (P50) → ~42% RF, 58% lineup (vs 50% avant)
+# - 228 GP (Dobson) → ~70% RF, 30% lineup (vs 94% avant)
 
-calculate_rf_weight <- function(total_gp, gp_50 = 116, k = 0.025) {
+calculate_rf_weight <- function(total_gp, gp_50 = 116, k = 0.020) {
   # Sigmoïde centrée sur gp_50
   weight_rf <- 1 / (1 + exp(-k * (total_gp - gp_50)))
 
-  # Clamp entre 0.1 et 0.9 pour toujours garder un peu des deux sources
-  weight_rf <- pmax(0.1, pmin(0.9, weight_rf))
+  # Clamp entre 0.1 et 0.70 pour privilégier lineups (corrige changements d'équipe)
+  weight_rf <- pmax(0.1, pmin(0.70, weight_rf))
 
   return(weight_rf)
 }

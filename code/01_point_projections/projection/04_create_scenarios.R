@@ -25,8 +25,11 @@ cat("Chargement des projections quantiles...\n")
 # WPM features
 wpm_projections <- readRDS("data/01_point_projections/projection/quantile_projections/wpm_features.rds")
 
-# RF features
+# RF features (sans TOI)
 rf_projections <- readRDS("data/01_point_projections/projection/quantile_projections/rf_features.rds")
+
+# TOI blendés (RF + lineup)
+toi_blended <- readRDS("data/01_point_projections/projection/quantile_projections/toi_blended.rds")
 
 # Conversion features
 conversion_projections <- readRDS("data/01_point_projections/projection/quantile_projections/conversion_features.rds")
@@ -41,6 +44,7 @@ historical_all <- bind_rows(historical_f, historical_d)
 
 cat("  WPM projections:", nrow(wpm_projections), "joueurs\n")
 cat("  RF projections:", nrow(rf_projections), "joueurs\n")
+cat("  TOI blended:", nrow(toi_blended), "joueurs\n")
 cat("  Conversion projections:", nrow(conversion_projections), "joueurs\n")
 cat("  Skeleton:", nrow(skeleton), "joueurs\n\n")
 
@@ -49,10 +53,18 @@ cat("  Skeleton:", nrow(skeleton), "joueurs\n\n")
 cat("Combinaison de toutes les projections...\n")
 
 # Joindre tout par player_id (position vient du skeleton, age des RF projections)
+# TOI vient de toi_blended, autres features viennent de rf_projections
 all_data <- skeleton %>%
   select(player_id, first_name, last_name, position, team) %>%
   left_join(wpm_projections, by = "player_id") %>%
-  left_join(rf_projections, by = "player_id") %>%
+  left_join(rf_projections %>%
+              select(player_id, age,
+                     high_danger_shots_p10, high_danger_shots_p50, high_danger_shots_p90,
+                     medium_danger_shots_p10, medium_danger_shots_p50, medium_danger_shots_p90,
+                     x_goals_p10, x_goals_p50, x_goals_p90,
+                     shot_attempts_p10, shot_attempts_p50, shot_attempts_p90),
+            by = "player_id") %>%
+  left_join(toi_blended, by = "player_id") %>%
   left_join(conversion_projections, by = "player_id")
 
 cat("  Dataset combiné:", nrow(all_data), "joueurs\n")

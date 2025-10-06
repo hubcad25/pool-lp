@@ -25,9 +25,11 @@ cat("  0. [Une seule fois] Entraîner modèles RF (00_train_rf_models.R)\n")
 cat("  1. Créer skeleton des joueurs 2025-26\n")
 cat("  2. Projeter wpm_g et wpm_a (weighted means avec GP adjustment)\n")
 cat("  3. Projeter features RF avec Quantile Random Forest (P10/P50/P90)\n")
+cat("  3b. Blender TOI RF avec lineup priors (weighted by GP)\n")
 cat("  4. Projeter conversions avec GAM + league averages (P10/P50/P90)\n")
 cat("  5. Créer 3 scénarios par joueur (low/mid/high)\n")
 cat("  6. Prédire points avec modèles bayésiens (3 prédictions par joueur)\n")
+cat("  7. Matcher cap hits\n")
 cat("\n")
 
 # 1. Créer skeleton -------------------------------------------------------
@@ -52,6 +54,14 @@ cat("ÉTAPE 3: Projeter features RF avec Quantile Random Forest\n")
 cat("================================================================================\n\n")
 
 source("code/01_point_projections/projection/02_project_features_rf.R")
+
+# 3b. Blender TOI RF avec lineup priors -----------------------------------
+cat("\n")
+cat("================================================================================\n")
+cat("ÉTAPE 3b: Blender TOI RF avec lineup priors (weighted by GP)\n")
+cat("================================================================================\n\n")
+
+source("code/01_point_projections/projection/02b_blend_toi_lineup.R")
 
 # 4. Projeter conversions -------------------------------------------------
 cat("\n")
@@ -100,6 +110,7 @@ cat("Fichiers générés:\n")
 cat("  - data/01_point_projections/projection/skeleton_2026.rds\n")
 cat("  - data/01_point_projections/projection/quantile_projections/wpm_features.rds\n")
 cat("  - data/01_point_projections/projection/quantile_projections/rf_features.rds\n")
+cat("  - data/01_point_projections/projection/quantile_projections/toi_blended.rds\n")
 cat("  - data/01_point_projections/projection/quantile_projections/conversion_features.rds\n")
 cat("  - data/01_point_projections/projection/projections_2026_scenarios.rds\n")
 cat("  - data/01_point_projections/projection/projections_2026_with_points.rds\n")

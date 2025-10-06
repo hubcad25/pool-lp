@@ -68,14 +68,20 @@ try:
     if selected_positions:
         df_filtered = df_filtered[df_filtered['position'].isin(selected_positions)]
 
-    # Filtre âge
-    min_age, max_age = int(df_filtered['age'].min()), int(df_filtered['age'].max())
-    age_range = st.sidebar.slider(
-        "Âge",
-        min_age, max_age,
-        (min_age, max_age)
-    )
-    df_filtered = df_filtered[(df_filtered['age'] >= age_range[0]) & (df_filtered['age'] <= age_range[1])]
+    # Filtre âge (gérer les NA - recrues sans âge)
+    if df_filtered['age'].notna().any():
+        min_age, max_age = int(df_filtered['age'].min(skipna=True)), int(df_filtered['age'].max(skipna=True))
+        age_range = st.sidebar.slider(
+            "Âge",
+            min_age, max_age,
+            (min_age, max_age),
+            help="Les recrues sans âge connu restent affichées"
+        )
+        # Inclure les NA (recrues) dans le filtrage
+        df_filtered = df_filtered[
+            ((df_filtered['age'] >= age_range[0]) & (df_filtered['age'] <= age_range[1])) |
+            (df_filtered['age'].isna())
+        ]
 
     # Filtre salaire (cap_hit)
     min_cap = int(df_filtered['cap_hit'].min())

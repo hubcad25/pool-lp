@@ -23,16 +23,14 @@ start_time <- Sys.time()
 cat("Workflow:\n")
 cat("  0. [Une seule fois] Entraîner modèles RF (00_train_rf_models.R)\n")
 cat("  1. Créer skeleton des joueurs 2025-26\n")
-cat("  1a. Identifier recrues vs vétérans (< 25 GP historiques)\n")
-cat("  2. Projeter wpm_g et wpm_a (weighted means avec GP adjustment) [vétérans]\n")
-cat("  3. Projeter features RF avec Quantile Random Forest (P10/P50/P90) [vétérans]\n")
-cat("  3b. Blender TOI RF avec lineup priors (weighted by GP) [vétérans]\n")
-cat("  4. Projeter conversions avec GAM + league averages (P10/P50/P90) [vétérans]\n")
-cat("  5. Créer 3 scénarios par joueur (low/mid/high) [vétérans]\n")
-cat("  6a. Prédire points vétérans avec modèles bayésiens (3 prédictions par joueur)\n")
-cat("  6b. Prédire points recrues avec modèles bayésiens recrues\n")
-cat("  6c. Fusionner projections vétérans + recrues\n")
-cat("  7. Matcher cap hits [dataset fusionné]\n")
+cat("  2. Projeter wpm_g et wpm_a (weighted means avec GP adjustment)\n")
+cat("  3. Projeter features RF avec Quantile Random Forest (P10/P50/P90)\n")
+cat("  3b. Blender TOI RF avec lineup priors (weighted by GP)\n")
+cat("  4. Projeter conversions avec GAM + league averages (P10/P50/P90)\n")
+cat("  5. Créer 3 scénarios par joueur (low/mid/high)\n")
+cat("  6. Prédire points avec modèles bayésiens (modèle base pour tous)\n")
+cat("  6b. Override candidats Calder (~15 joueurs) avec modèle recrues\n")
+cat("  7. Matcher cap hits\n")
 cat("\n")
 
 # 1. Créer skeleton -------------------------------------------------------
@@ -41,14 +39,6 @@ cat("ÉTAPE 1: Créer skeleton des joueurs 2025-26\n")
 cat("================================================================================\n\n")
 
 source("code/01_point_projections/projection/00_create_skeleton.R")
-
-# 1a. Identifier recrues vs vétérans ---------------------------------------
-cat("\n")
-cat("================================================================================\n")
-cat("ÉTAPE 1a: Identifier recrues vs vétérans\n")
-cat("================================================================================\n\n")
-
-source("code/01_point_projections/projection/00a_identify_rookies.R")
 
 # 2. Projeter wpm ---------------------------------------------------------
 cat("\n")
@@ -90,29 +80,21 @@ cat("===========================================================================
 
 source("code/01_point_projections/projection/04_create_scenarios.R")
 
-# 6a. Prédire points vétérans ---------------------------------------------
+# 6. Prédire points (modèle base) -----------------------------------------
 cat("\n")
 cat("================================================================================\n")
-cat("ÉTAPE 6a: Prédire points vétérans avec modèles bayésiens\n")
+cat("ÉTAPE 6: Prédire points avec modèles bayésiens (modèle base)\n")
 cat("================================================================================\n\n")
 
 source("code/01_point_projections/projection/05_predict_points.R")
 
-# 6b. Prédire points recrues ----------------------------------------------
+# 6b. Override candidats Calder -------------------------------------------
 cat("\n")
 cat("================================================================================\n")
-cat("ÉTAPE 6b: Prédire points recrues avec modèles bayésiens recrues\n")
+cat("ÉTAPE 6b: Override candidats Calder avec modèle recrues\n")
 cat("================================================================================\n\n")
 
 source("code/01_point_projections/projection/05b_predict_rookies.R")
-
-# 6c. Fusionner projections -----------------------------------------------
-cat("\n")
-cat("================================================================================\n")
-cat("ÉTAPE 6c: Fusionner projections vétérans + recrues\n")
-cat("================================================================================\n\n")
-
-source("code/01_point_projections/projection/05c_merge_projections.R")
 
 # 7. Matcher cap hits -----------------------------------------------------
 cat("\n")
@@ -248,19 +230,16 @@ cat("Temps d'exécution total:", elapsed_time, "minutes\n\n")
 cat("Fichiers générés:\n")
 cat("  Étape 1:\n")
 cat("    - data/01_point_projections/projection/skeleton_2026.rds\n")
-cat("  Étape 1a:\n")
-cat("    - data/01_point_projections/projection/rookies_2026.rds\n")
-cat("    - data/01_point_projections/projection/veterans_2026.rds\n")
-cat("  Étapes 2-5 (vétérans):\n")
+cat("  Étapes 2-5 (features + scénarios):\n")
 cat("    - data/01_point_projections/projection/quantile_projections/wpm_features.rds\n")
 cat("    - data/01_point_projections/projection/quantile_projections/rf_features.rds\n")
 cat("    - data/01_point_projections/projection/quantile_projections/toi_blended.rds\n")
 cat("    - data/01_point_projections/projection/quantile_projections/conversion_features.rds\n")
 cat("    - data/01_point_projections/projection/projections_2026_scenarios.rds\n")
-cat("  Étape 6a-6c (projections finales):\n")
-cat("    - data/01_point_projections/projection/projections_2026_with_points.rds (vétérans)\n")
-cat("    - data/01_point_projections/projection/projections_2026_rookies.rds (recrues)\n")
-cat("    - data/01_point_projections/projection/projections_2026_merged.rds (fusionné)\n")
-cat("  Étape 7 (final):\n")
+cat("  Étape 6 (prédictions modèle base):\n")
+cat("    - data/01_point_projections/projection/projections_2026_base.rds\n")
+cat("  Étape 6b (override Calder seulement):\n")
+cat("    - data/01_point_projections/projection/projections_2026_with_points.rds\n")
+cat("  Étape 7 (final avec cap hits):\n")
 cat("    - data/01_point_projections/projection/projections_2026_final.rds\n")
 cat("\n")

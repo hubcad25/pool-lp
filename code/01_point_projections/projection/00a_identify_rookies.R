@@ -4,6 +4,7 @@
 
 # Packages ----------------------------------------------------------------
 library(dplyr)
+library(tidyr)
 
 cat("\n=== Identification Recrues vs Vétérans ===\n\n")
 
@@ -94,23 +95,21 @@ skeleton_classified %>%
 
 cat("\n")
 
-# Séparer en deux datasets ------------------------------------------------
-rookies <- skeleton_classified %>%
-  filter(is_rookie) %>%
-  select(player_id, first_name, last_name, team, position,
-         total_gp_last_3_seasons, seasons_played)
+# Ajouter métadonnées utiles pour le modèle recrue -------------------------
+skeleton_with_rookie_flag <- skeleton_classified %>%
+  mutate(
+    position_group = ifelse(position %in% c("C", "L", "R"), "F", "D")
+  ) %>%
+  select(player_id, first_name, last_name, team, position, season, full_name,
+         is_rookie, position_group, total_gp_last_3_seasons, seasons_played)
 
-veterans <- skeleton_classified %>%
-  filter(!is_rookie) %>%
-  select(player_id, first_name, last_name, team, position)
+# Sauvegarder skeleton avec flag is_rookie --------------------------------
+skeleton_file <- file.path(output_dir, "skeleton_2026.rds")
 
-# Sauvegarder -------------------------------------------------------------
-rookies_file <- file.path(output_dir, "rookies_2026.rds")
-veterans_file <- file.path(output_dir, "veterans_2026.rds")
+saveRDS(skeleton_with_rookie_flag, skeleton_file)
 
-saveRDS(rookies, rookies_file)
-saveRDS(veterans, veterans_file)
-
-cat("✓ Datasets sauvegardés:\n")
-cat("  - Recrues:", rookies_file, "(", nrow(rookies), "joueurs)\n")
-cat("  - Vétérans:", veterans_file, "(", nrow(veterans), "joueurs)\n\n")
+cat("✓ Skeleton avec flag is_rookie sauvegardé:\n")
+cat("  - Fichier:", skeleton_file, "\n")
+cat("  - Total:", nrow(skeleton_with_rookie_flag), "joueurs\n")
+cat("  - Recrues:", sum(skeleton_with_rookie_flag$is_rookie), "\n")
+cat("  - Vétérans:", sum(!skeleton_with_rookie_flag$is_rookie), "\n\n")

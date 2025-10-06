@@ -68,40 +68,71 @@ if (length(missing_rookies) > 0) {
 
 cat("  ✓ Colonnes requises présentes\n\n")
 
-# Sélectionner colonnes communes pour fusion ------------------------------
+# Sélectionner colonnes pour fusion -----------------------------------------
 cat("Sélection des colonnes pour fusion...\n")
 
-# Colonnes à garder (colonnes présentes dans veterans, qui est la référence)
-# On ajoute is_rookie qui sera FALSE pour veterans, TRUE pour rookies
-keep_cols <- unique(c(
-  "player_id", "first_name", "last_name", "team", "position",
-  "scenario", "goals", "assists", "points", "is_rookie",
-  intersect(names(veterans), names(rookies))
-))
+# Stratégie: Garder TOUTES les colonnes de veterans (incluant age, features avancées)
+# Les rookies auront NA pour les colonnes manquantes
 
-# Supprimer duplicates
-keep_cols <- unique(keep_cols)
+# Veterans: garder toutes les colonnes (déjà a is_rookie = FALSE)
+veterans_clean <- veterans
 
-# Pour veterans: garder toutes les colonnes existantes + is_rookie
-veterans_clean <- veterans %>%
-  select(any_of(keep_cols))
+# Rookies: ajouter les colonnes manquantes avec NA
+veterans_cols <- names(veterans_clean)
+rookies_clean <- rookies
 
-# Pour rookies: ne garder que les colonnes qui existent dans veterans
-rookies_clean <- rookies %>%
-  select(any_of(names(veterans_clean)))
+# Identifier colonnes manquantes dans rookies
+missing_in_rookies <- setdiff(veterans_cols, names(rookies_clean))
 
-# Ajouter colonnes manquantes dans rookies (avec NA)
-missing_in_rookies <- setdiff(names(veterans_clean), names(rookies_clean))
-
+cat("  Colonnes à ajouter aux recrues:", length(missing_in_rookies), "\n")
 if (length(missing_in_rookies) > 0) {
-  cat("  Ajout colonnes manquantes dans recrues:", paste(missing_in_rookies, collapse = ", "), "\n")
+  cat("    -", paste(missing_in_rookies, collapse = ", "), "\n")
+}
 
-  for (col in missing_in_rookies) {
+# Ajouter colonnes manquantes aux rookies avec NA
+for (col in missing_in_rookies) {
+  # Déterminer le type de colonne depuis veterans
+  col_type <- class(veterans_clean[[col]])[1]
+
+  if (col_type == "numeric" || col_type == "integer") {
+    rookies_clean[[col]] <- as.numeric(NA)
+  } else if (col_type == "character") {
+    rookies_clean[[col]] <- as.character(NA)
+  } else if (col_type == "logical") {
+    rookies_clean[[col]] <- as.logical(NA)
+  } else {
     rookies_clean[[col]] <- NA
   }
 }
 
+# Réordonner colonnes de rookies pour matcher veterans
+rookies_clean <- rookies_clean %>%
+  select(all_of(veterans_cols))
+
 cat("  ✓ Colonnes alignées:", length(names(veterans_clean)), "colonnes\n\n")
+
+# Gérer doublons (joueurs dans veterans ET rookies) ----------------------
+cat("Vérification des doublons...\n")
+
+player_ids_veterans <- unique(veterans_clean$player_id)
+player_ids_rookies <- unique(rookies_clean$player_id)
+
+overlapping_ids <- intersect(player_ids_veterans, player_ids_rookies)
+
+if (length(overlapping_ids) > 0) {
+  cat("  ⚠️  Joueurs présents dans veterans ET rookies:", length(overlapping_ids), "\n")
+  cat("      → Stratégie: Garder seulement version RECRUE (priorité au modèle recrues)\n")
+
+  # Filtrer veterans pour retirer les doublons
+  veterans_clean <- veterans_clean %>%
+    filter(!player_id %in% overlapping_ids)
+
+  cat("      → Vétérans après filtrage:", nrow(veterans_clean)/3, "joueurs\n")
+} else {
+  cat("  ✓ Pas de doublons détectés\n")
+}
+
+cat("\n")
 
 # Fusionner ---------------------------------------------------------------
 cat("Fusion des datasets...\n")

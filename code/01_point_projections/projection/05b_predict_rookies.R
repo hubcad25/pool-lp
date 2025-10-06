@@ -1,405 +1,332 @@
-## Script: Prédire goals et assists pour les recrues 2025-26
-## Utilise les modèles bayésiens recrues et les votes Calder pour assigner ranks
-## Crée 3 scénarios (low/mid/high) à partir des IC 95%
+## Script: Override candidats Calder avec modèle recrues
+## Charge projections_2026_base.rds (tout le monde avec modèle base)
+## Pour les ~15 candidats Calder SEULEMENT:
+##   - Calcule probabilités graduelles de rank (distribution gaussienne)
+##   - Prédit avec modèle recrues
+##   - Override leur prédiction
+## Tous les autres joueurs (700+) gardent leur prédiction du modèle de base
 
 # Packages ----------------------------------------------------------------
 library(dplyr)
 library(brms)
 library(stringdist)
 
-cat("\n=== Prédiction Goals/Assists pour Recrues ===\n\n")
+cat("\n=== Override Candidats Calder avec Modèle Recrues ===\n\n")
 
 # Configuration -----------------------------------------------------------
-rookies_file <- "data/01_point_projections/projection/rookies_2026.rds"
+base_file <- "data/01_point_projections/projection/projections_2026_base.rds"
 calder_file <- "data/01_point_projections/rookie_model/calder_adjustments_2026.rds"
 models_dir <- "data/01_point_projections/models"
-output_file <- "data/01_point_projections/projection/projections_2026_rookies.rds"
+output_file <- "data/01_point_projections/projection/projections_2026_with_points.rds"
 
-# Charger recrues ---------------------------------------------------------
-cat("Chargement des recrues 2025-26...\n")
+# Paramètres pour distribution gaussienne
+BASE_SIGMA <- 1.5  # Variance de base
+SCALE <- 10        # Facteur d'échelle pour exp(-gap/scale)
 
-rookies <- readRDS(rookies_file)
+# Charger projections de base ---------------------------------------------
+cat("Chargement des projections de base (tout le monde)...\n")
 
-cat("  Recrues:", nrow(rookies), "\n")
-cat("  Par position:", paste(table(rookies$position), collapse = ", "), "\n\n")
+projections_base <- readRDS(base_file)
+
+cat("  Total:", nrow(projections_base), "lignes (",
+    nrow(projections_base)/3, "joueurs × 3 scénarios)\n\n")
 
 # Charger votes Calder ----------------------------------------------------
 cat("Chargement des votes Calder...\n")
 
 calder_exists <- file.exists(calder_file)
 
-if (calder_exists) {
-  calder <- readRDS(calder_file) %>%
-    select(name, position_group, votes, calder_rank)
-
-  cat("  Candidats Calder:", nrow(calder), "\n")
-  cat("  Positions:", paste(unique(calder$position_group), collapse = ", "), "\n\n")
-} else {
-  warning("Fichier Calder non trouvé. Les recrues auront des ranks par défaut.\n\n")
-  calder <- data.frame(
-    name = character(),
-    position_group = character(),
-    votes = integer(),
-    calder_rank = integer()
-  )
+if (!calder_exists) {
+  cat("⚠️  Fichier Calder non trouvé. Pas d'override. Copie projections_base...\n")
+  saveRDS(projections_base, output_file)
+  cat("✓ Fichier sauvegardé:", output_file, "\n")
+  quit(save = "no", status = 0)
 }
 
-# Matcher recrues avec candidats Calder -----------------------------------
-cat("Matching recrues avec candidats Calder...\n")
+calder <- readRDS(calder_file) %>%
+  select(name, position_group, votes, calder_rank) %>%
+  arrange(desc(votes))  # Trier par votes décroissants
 
-# Créer nom complet pour matching
-rookies <- rookies %>%
+cat("  Candidats Calder:", nrow(calder), "\n")
+cat("  Range votes:", min(calder$votes), "-", max(calder$votes), "\n\n")
+
+# Matcher candidats Calder avec joueurs dans projections -----------------
+cat("Matching candidats Calder avec joueurs...\n")
+
+players_mid <- projections_base %>%
+  filter(scenario == "mid") %>%
   mutate(
     full_name = paste(first_name, last_name),
     position_group = ifelse(position %in% c("C", "L", "R"), "F", "D")
-  )
+  ) %>%
+  select(player_id, full_name, first_name, last_name, position, position_group, team)
 
-# Pour chaque recrue, trouver le meilleur match Calder
-rookies_matched <- rookies %>%
+calder_matched <- calder %>%
   rowwise() %>%
   mutate(
-    # Trouver candidats Calder de la même position
-    calder_match = {
-      calder_same_pos <- calder %>%
-        filter(position_group == !!position_group)
+    match_result = list({
+      pos_grp <- position_group
+      candidates <- players_mid %>%
+        filter(position_group == pos_grp)
 
-      if (nrow(calder_same_pos) == 0) {
-        list(name = NA, votes = NA, calder_rank = NA, match_score = NA)
-      } else {
-        # Calculer distance Jaro-Winkler
-        distances <- stringdist(full_name, calder_same_pos$name, method = "jw")
-        best_idx <- which.min(distances)
-        best_score <- 1 - distances[best_idx]
-
-        # Accepter match si score > 0.85
-        if (best_score > 0.85) {
-          list(
-            name = calder_same_pos$name[best_idx],
-            votes = calder_same_pos$votes[best_idx],
-            calder_rank = calder_same_pos$calder_rank[best_idx],
-            match_score = best_score
-          )
-        } else {
-          list(name = NA, votes = NA, calder_rank = NA, match_score = best_score)
-        }
+      if (nrow(candidates) == 0) {
+        return(data.frame(
+          player_id = NA_real_,
+          matched_name = NA_character_,
+          distance = NA_real_
+        ))
       }
-    }
+
+      distances <- stringdist(
+        tolower(name),
+        tolower(candidates$full_name),
+        method = "jw"
+      )
+
+      best_idx <- which.min(distances)
+      best_dist <- distances[best_idx]
+
+      if (best_dist < 0.15) {
+        data.frame(
+          player_id = candidates$player_id[best_idx],
+          matched_name = candidates$full_name[best_idx],
+          distance = best_dist
+        )
+      } else {
+        data.frame(
+          player_id = NA_real_,
+          matched_name = NA_character_,
+          distance = best_dist
+        )
+      }
+    })
   ) %>%
   ungroup() %>%
-  mutate(
-    calder_name = sapply(calder_match, function(x) x$name),
-    votes = sapply(calder_match, function(x) x$votes),
-    calder_rank_matched = sapply(calder_match, function(x) x$calder_rank),
-    match_score = sapply(calder_match, function(x) x$match_score),
-    is_calder_candidate = !is.na(votes)
-  ) %>%
-  select(-calder_match)
+  tidyr::unnest(match_result) %>%
+  filter(!is.na(player_id))
 
-n_matched <- sum(rookies_matched$is_calder_candidate)
-cat("  Recrues matchées avec Calder:", n_matched, "/", nrow(rookies_matched), "\n")
+n_matched <- nrow(calder_matched)
+cat("  Candidats matchés:", n_matched, "/", nrow(calder), "\n\n")
 
-if (n_matched > 0) {
-  cat("\n  Matches trouvés:\n")
-  rookies_matched %>%
-    filter(is_calder_candidate) %>%
-    select(full_name, calder_name, position_group, votes, match_score) %>%
-    print()
+if (n_matched == 0) {
+  cat("⚠️  Aucun candidat Calder matché. Pas d'override. Copie projections_base...\n")
+  saveRDS(projections_base, output_file)
+  cat("✓ Fichier sauvegardé:", output_file, "\n")
+  quit(save = "no", status = 0)
 }
+
+# Afficher matches
+cat("  Matches:\n")
+calder_matched %>%
+  select(name, matched_name, votes, distance) %>%
+  print()
 
 cat("\n")
 
-# Assigner ranks pour recrues non-Calder ----------------------------------
-cat("Assignment ranks par défaut pour recrues non-Calder...\n")
+# Calculer probabilités graduelles de rank --------------------------------
+cat("Calcul des probabilités de rank (distribution gaussienne)...\n")
 
-# Heuristique: GP historiques → rank attendu
-# Plus de GP = meilleur développement attendu
-rookies_with_ranks <- rookies_matched %>%
-  mutate(
-    # Rank par défaut basé sur GP historiques
-    default_rank = case_when(
-      # Recrues avec plus de GP (10-24) sont mieux développées
-      total_gp_last_3_seasons >= 10 ~ 10,
-      total_gp_last_3_seasons >= 5 ~ 12,
-      TRUE ~ 14  # Vraies recrues (0-4 GP)
-    ),
-
-    # Utiliser rank Calder si disponible, sinon défaut
-    assigned_rank = ifelse(is_calder_candidate, calder_rank_matched, default_rank)
-  )
-
-cat("  Distribution des ranks assignés:\n")
-table(rookies_with_ranks$assigned_rank) %>% print()
-cat("\n")
-
-# Calculer probabilités de rank -------------------------------------------
-cat("Calcul des probabilités de rank...\n")
-
-# Fonction pour créer probabilités distribuées autour du rank assigné
-create_rank_probs <- function(rank, is_calder, votes = NA, n_votes_total = NA) {
-  probs <- rep(0, 15)
-
-  if (is_calder && !is.na(votes) && !is.na(n_votes_total)) {
-    # Pour candidats Calder: distribution basée sur votes
-    vote_strength <- votes / n_votes_total
-
-    # Plus de votes = distribution plus concentrée
-    if (vote_strength > 0.3) {  # Top candidates
-      probs[rank] <- 0.8
-      if (rank > 1) probs[rank - 1] <- 0.15
-      if (rank < 15) probs[rank + 1] <- 0.05
-    } else if (vote_strength > 0.1) {  # Mid-tier
-      probs[rank] <- 0.7
-      if (rank > 1) probs[rank - 1] <- 0.2
-      if (rank < 15) probs[rank + 1] <- 0.1
-    } else {  # Long shots
-      probs[rank] <- 0.6
-      if (rank > 1) probs[rank - 1] <- 0.2
-      if (rank < 15) probs[rank + 1] <- 0.2
-    }
-  } else {
-    # Pour non-Calder: distribution plus large
-    probs[rank] <- 0.5
-    if (rank > 1) probs[rank - 1] <- 0.2
-    if (rank < 15) probs[rank + 1] <- 0.2
-    if (rank > 2) probs[rank - 2] <- 0.05
-    if (rank < 14) probs[rank + 2] <- 0.05
-  }
-
-  # Normaliser
-  probs <- probs / sum(probs)
-
-  # Retourner comme liste nommée
-  names(probs) <- paste0("prob_rank_", 1:15)
-  return(as.list(probs))
-}
-
-# Calculer total votes pour scaling
-total_votes <- sum(rookies_with_ranks$votes, na.rm = TRUE)
-
-# Appliquer aux recrues
-rookies_with_probs <- rookies_with_ranks %>%
+calder_with_probs <- calder_matched %>%
   rowwise() %>%
   mutate(
-    rank_probs = list(create_rank_probs(
-      assigned_rank,
-      is_calder_candidate,
-      votes,
-      total_votes
-    ))
+    rank_assigned = calder_rank,
+
+    # Calculer écarts avec voisins
+    gap_above = {
+      if (rank_assigned > 1) {
+        above_rank <- rank_assigned - 1
+        above_votes <- calder_matched$votes[calder_matched$calder_rank == above_rank]
+        if (length(above_votes) > 0) votes - above_votes[1] else Inf
+      } else {
+        Inf
+      }
+    },
+    gap_below = {
+      if (rank_assigned < nrow(calder_matched)) {
+        below_rank <- rank_assigned + 1
+        below_votes <- calder_matched$votes[calder_matched$calder_rank == below_rank]
+        if (length(below_votes) > 0) below_votes[1] - votes else Inf
+      } else {
+        Inf
+      }
+    },
+    min_gap = min(abs(gap_above), abs(gap_below), na.rm = TRUE),
+
+    # Variance basée sur min_gap (plus l'écart est grand, plus sigma est petit)
+    sigma = BASE_SIGMA * exp(-min_gap / SCALE),
+
+    # Distribution gaussienne centrée sur rank_assigned
+    rank_probs = list({
+      ranks <- 1:15
+      probs_raw <- dnorm(ranks, mean = rank_assigned, sd = sigma)
+      probs_norm <- probs_raw / sum(probs_raw)
+
+      # Créer dataframe avec colonnes is_rank_*
+      result <- data.frame(matrix(ncol = 15, nrow = 1))
+      colnames(result) <- paste0("is_rank_", 1:15)
+      for (k in 1:15) {
+        result[[paste0("is_rank_", k)]] <- probs_norm[k]
+      }
+      result
+    })
   ) %>%
   ungroup() %>%
-  tidyr::unnest_wider(rank_probs)
+  tidyr::unnest(rank_probs)
 
 cat("  ✓ Probabilités calculées\n\n")
 
-# Charger modèles bayésiens recrues ---------------------------------------
+# Afficher exemples de distributions
+cat("Exemples de distributions de probabilités:\n")
+examples <- calder_with_probs %>%
+  arrange(desc(votes)) %>%
+  head(5) %>%
+  select(name, votes, rank_assigned, min_gap, sigma,
+         is_rank_1, is_rank_2, is_rank_3, is_rank_4, is_rank_5)
+
+print(examples)
+cat("\n")
+
+# Charger modèles recrues -------------------------------------------------
 cat("Chargement des modèles bayésiens recrues...\n")
 
-model_goals_f <- readRDS(file.path(models_dir, "rookie_bayes_goals_F.rds"))
-model_assists_f <- readRDS(file.path(models_dir, "rookie_bayes_assists_F.rds"))
-model_goals_d <- readRDS(file.path(models_dir, "rookie_bayes_goals_D.rds"))
-model_assists_d <- readRDS(file.path(models_dir, "rookie_bayes_assists_D.rds"))
+model_rookie_goals_f <- readRDS(file.path(models_dir, "rookie_bayes_goals_F.rds"))
+model_rookie_assists_f <- readRDS(file.path(models_dir, "rookie_bayes_assists_F.rds"))
+model_rookie_goals_d <- readRDS(file.path(models_dir, "rookie_bayes_goals_D.rds"))
+model_rookie_assists_d <- readRDS(file.path(models_dir, "rookie_bayes_assists_D.rds"))
 
-cat("  ✓ 4 modèles chargés\n\n")
+cat("  ✓ 4 modèles recrues chargés\n\n")
 
-# Préparer données pour prédiction ----------------------------------------
-cat("Préparation des données pour prédiction...\n")
+# Prédiction avec modèle recrues ------------------------------------------
+cat("Prédiction avec modèles recrues...\n")
 
-# Créer dummies pondérés par probabilités
-predict_data <- rookies_with_probs %>%
-  mutate(
-    is_rank_1 = prob_rank_1,
-    is_rank_2 = prob_rank_2,
-    is_rank_3 = prob_rank_3,
-    is_rank_4 = prob_rank_4,
-    is_rank_5 = prob_rank_5,
-    is_rank_6 = prob_rank_6,
-    is_rank_7 = prob_rank_7,
-    is_rank_8 = prob_rank_8,
-    is_rank_9 = prob_rank_9,
-    is_rank_10 = prob_rank_10,
-    is_rank_11 = prob_rank_11,
-    is_rank_12 = prob_rank_12,
-    is_rank_13 = prob_rank_13,
-    is_rank_14 = prob_rank_14,
-    is_rank_15 = prob_rank_15
-  )
+# Forwards
+calder_f <- calder_with_probs %>% filter(position_group == "F")
 
-# Séparer par position
-predict_f <- predict_data %>% filter(position_group == "F")
-predict_d <- predict_data %>% filter(position_group == "D")
-
-cat("  Forwards:", nrow(predict_f), "\n")
-cat("  Defensemen:", nrow(predict_d), "\n\n")
-
-# Prédire Goals/Assists - Forwards ----------------------------------------
-projections_f <- data.frame()
-
-if (nrow(predict_f) > 0) {
-  cat("Prédiction Forwards...\n")
-
-  # Goals
+if (nrow(calder_f) > 0) {
   pred_goals_f <- predict(
-    model_goals_f,
-    newdata = predict_f,
-    re_formula = NA,
-    probs = c(0.05, 0.5, 0.95),
-    summary = TRUE
+    model_rookie_goals_f,
+    newdata = calder_f,
+    probs = c(0.1, 0.5, 0.9),
+    re_formula = NA
   )
 
-  # Assists
   pred_assists_f <- predict(
-    model_assists_f,
-    newdata = predict_f,
-    re_formula = NA,
-    probs = c(0.05, 0.5, 0.95),
-    summary = TRUE
+    model_rookie_assists_f,
+    newdata = calder_f,
+    probs = c(0.1, 0.5, 0.9),
+    re_formula = NA
   )
 
-  # Créer 3 scénarios
-  projections_f <- predict_f %>%
+  calder_f_preds <- calder_f %>%
     mutate(
-      # Scénario Low (P5)
-      goals_low = pmax(0, pred_goals_f[, "Q5"]),
-      assists_low = pmax(0, pred_assists_f[, "Q5"]),
-      points_low = goals_low + assists_low,
-
-      # Scénario Mid (P50)
+      goals_low = pred_goals_f[, "Q10"],
       goals_mid = pred_goals_f[, "Q50"],
+      goals_high = pred_goals_f[, "Q90"],
+      assists_low = pred_assists_f[, "Q10"],
       assists_mid = pred_assists_f[, "Q50"],
-      points_mid = goals_mid + assists_mid,
-
-      # Scénario High (P95)
-      goals_high = pred_goals_f[, "Q95"],
-      assists_high = pred_assists_f[, "Q95"],
-      points_high = goals_high + assists_high
-    ) %>%
-    select(
-      player_id, first_name, last_name, team, position, position_group,
-      assigned_rank, is_calder_candidate,
-      goals_low, assists_low, points_low,
-      goals_mid, assists_mid, points_mid,
-      goals_high, assists_high, points_high
+      assists_high = pred_assists_f[, "Q90"]
     )
 
-  cat("  ✓", nrow(projections_f), "forwards projetés\n\n")
+  cat("  ✓ Forwards:", nrow(calder_f), "candidats\n")
+} else {
+  calder_f_preds <- data.frame()
 }
 
-# Prédire Goals/Assists - Defensemen --------------------------------------
-projections_d <- data.frame()
+# Defensemen
+calder_d <- calder_with_probs %>% filter(position_group == "D")
 
-if (nrow(predict_d) > 0) {
-  cat("Prédiction Defensemen...\n")
-
-  # Goals
+if (nrow(calder_d) > 0) {
   pred_goals_d <- predict(
-    model_goals_d,
-    newdata = predict_d,
-    re_formula = NA,
-    probs = c(0.05, 0.5, 0.95),
-    summary = TRUE
+    model_rookie_goals_d,
+    newdata = calder_d,
+    probs = c(0.1, 0.5, 0.9),
+    re_formula = NA
   )
 
-  # Assists
   pred_assists_d <- predict(
-    model_assists_d,
-    newdata = predict_d,
-    re_formula = NA,
-    probs = c(0.05, 0.5, 0.95),
-    summary = TRUE
+    model_rookie_assists_d,
+    newdata = calder_d,
+    probs = c(0.1, 0.5, 0.9),
+    re_formula = NA
   )
 
-  # Créer 3 scénarios
-  projections_d <- predict_d %>%
+  calder_d_preds <- calder_d %>%
     mutate(
-      # Scénario Low (P5)
-      goals_low = pmax(0, pred_goals_d[, "Q5"]),
-      assists_low = pmax(0, pred_assists_d[, "Q5"]),
-      points_low = goals_low + assists_low,
-
-      # Scénario Mid (P50)
+      goals_low = pred_goals_d[, "Q10"],
       goals_mid = pred_goals_d[, "Q50"],
+      goals_high = pred_goals_d[, "Q90"],
+      assists_low = pred_assists_d[, "Q10"],
       assists_mid = pred_assists_d[, "Q50"],
-      points_mid = goals_mid + assists_mid,
-
-      # Scénario High (P95)
-      goals_high = pred_goals_d[, "Q95"],
-      assists_high = pred_assists_d[, "Q95"],
-      points_high = goals_high + assists_high
-    ) %>%
-    select(
-      player_id, first_name, last_name, team, position, position_group,
-      assigned_rank, is_calder_candidate,
-      goals_low, assists_low, points_low,
-      goals_mid, assists_mid, points_mid,
-      goals_high, assists_high, points_high
+      assists_high = pred_assists_d[, "Q90"]
     )
 
-  cat("  ✓", nrow(projections_d), "defensemen projetés\n\n")
+  cat("  ✓ Defensemen:", nrow(calder_d), "candidats\n")
+} else {
+  calder_d_preds <- data.frame()
 }
 
-# Combiner et formater ----------------------------------------------------
-projections_rookies <- bind_rows(projections_f, projections_d)
+cat("\n")
 
-# Transformer en format long (3 lignes par joueur: low/mid/high)
-projections_long <- projections_rookies %>%
-  tidyr::pivot_longer(
-    cols = c(goals_low, assists_low, points_low,
-             goals_mid, assists_mid, points_mid,
-             goals_high, assists_high, points_high),
-    names_to = c(".value", "scenario"),
-    names_pattern = "(.+)_(low|mid|high)"
+# Combiner prédictions F + D ----------------------------------------------
+calder_all_preds <- bind_rows(calder_f_preds, calder_d_preds)
+
+# Créer 3 scénarios pour chaque candidat
+calder_long <- bind_rows(
+  calder_all_preds %>%
+    mutate(scenario = "low", goals = goals_low, assists = assists_low),
+  calder_all_preds %>%
+    mutate(scenario = "mid", goals = goals_mid, assists = assists_mid),
+  calder_all_preds %>%
+    mutate(scenario = "high", goals = goals_high, assists = assists_high)
+) %>%
+  mutate(points = goals + assists) %>%
+  select(player_id, scenario, goals, assists, points)
+
+# Override les prédictions des candidats Calder ---------------------------
+cat("Override des prédictions des candidats Calder...\n")
+
+projections_final <- projections_base %>%
+  left_join(
+    calder_long %>% select(player_id, scenario,
+                           goals_calder = goals,
+                           assists_calder = assists,
+                           points_calder = points),
+    by = c("player_id", "scenario")
   ) %>%
   mutate(
-    scenario = factor(scenario, levels = c("low", "mid", "high")),
-    is_rookie = TRUE  # Flag pour identification
-  )
+    goals = ifelse(!is.na(goals_calder), goals_calder, goals),
+    assists = ifelse(!is.na(assists_calder), assists_calder, assists),
+    points = ifelse(!is.na(points_calder), points_calder, points)
+  ) %>%
+  select(-goals_calder, -assists_calder, -points_calder)
+
+n_overridden <- length(unique(calder_long$player_id))
+cat("  ✓", n_overridden, "candidats Calder overridés\n\n")
 
 # Résumé ------------------------------------------------------------------
-cat("=== Résumé des Projections Recrues ===\n\n")
+cat("=== Résumé (scénario mid) ===\n\n")
 
-cat("Total recrues projetées:", nrow(projections_rookies), "\n")
-cat("  Forwards:", sum(projections_rookies$position_group == "F"), "\n")
-cat("  Defensemen:", sum(projections_rookies$position_group == "D"), "\n\n")
-
-cat("Candidats Calder:", sum(projections_rookies$is_calder_candidate), "\n\n")
-
-cat("Statistiques projections (scénario mid):\n")
-projections_rookies %>%
-  group_by(position_group) %>%
-  summarise(
-    n = n(),
-    min_pts = round(min(points_mid), 1),
-    mean_pts = round(mean(points_mid), 1),
-    max_pts = round(max(points_mid), 1)
-  ) %>%
-  print()
-
-cat("\n")
-
-# Top 5 recrues par position (scénario mid)
-cat("Top 5 recrues Forwards (mid):\n")
-projections_rookies %>%
-  filter(position_group == "F") %>%
-  arrange(desc(points_mid)) %>%
-  select(first_name, last_name, team, goals_mid, assists_mid, points_mid) %>%
+cat("Top 5 candidats Calder Forwards:\n")
+projections_final %>%
+  filter(player_id %in% calder_f_preds$player_id, scenario == "mid") %>%
+  arrange(desc(points)) %>%
+  select(first_name, last_name, team, goals, assists, points) %>%
   head(5) %>%
   print()
 
-cat("\n")
-
-cat("Top 5 recrues Defensemen (mid):\n")
-projections_rookies %>%
-  filter(position_group == "D") %>%
-  arrange(desc(points_mid)) %>%
-  select(first_name, last_name, team, goals_mid, assists_mid, points_mid) %>%
+cat("\nTop 5 candidats Calder Defensemen:\n")
+projections_final %>%
+  filter(player_id %in% calder_d_preds$player_id, scenario == "mid") %>%
+  arrange(desc(points)) %>%
+  select(first_name, last_name, team, goals, assists, points) %>%
   head(5) %>%
   print()
-
-cat("\n")
 
 # Sauvegarder -------------------------------------------------------------
-saveRDS(projections_long, output_file)
+saveRDS(projections_final, output_file)
 
-cat("✓ Projections recrues sauvegardées:", output_file, "\n")
-cat("  Format: 3 scénarios par recrue (", nrow(projections_long), "lignes)\n\n")
+cat("\n✓ Projections avec override Calder sauvegardées:", output_file, "\n")
+cat("  Total:", nrow(projections_final), "lignes\n")
+cat("  Candidats Calder overridés:", n_overridden, "\n")
+cat("  Autres joueurs (modèle base):",
+    length(unique(projections_final$player_id)) - n_overridden, "\n\n")

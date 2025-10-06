@@ -138,8 +138,37 @@ all_data_imputed <- all_data %>%
 # Créer les 3 scénarios ---------------------------------------------------
 cat("Création des 3 scénarios (low/mid/high)...\n")
 
+# Fallback sur P50 si P10/P90 sont NA (joueurs sans historique récent)
+# Ceci garantit que TOUS les joueurs ont des projections
+all_data_with_fallback <- all_data_imputed %>%
+  mutate(
+    # P10 fallback
+    evtoi_per_gp_p10 = ifelse(is.na(evtoi_per_gp_p10), evtoi_per_gp_p50, evtoi_per_gp_p10),
+    pptoi_per_gp_p10 = ifelse(is.na(pptoi_per_gp_p10), pptoi_per_gp_p50, pptoi_per_gp_p10),
+    high_danger_shots_p10 = ifelse(is.na(high_danger_shots_p10), high_danger_shots_p50, high_danger_shots_p10),
+    medium_danger_shots_p10 = ifelse(is.na(medium_danger_shots_p10), medium_danger_shots_p50, medium_danger_shots_p10),
+    x_goals_p10 = ifelse(is.na(x_goals_p10), x_goals_p50, x_goals_p10),
+    shot_attempts_p10 = ifelse(is.na(shot_attempts_p10), shot_attempts_p50, shot_attempts_p10),
+    conversion_overall_p10 = ifelse(is.na(conversion_overall_p10), conversion_overall_p50, conversion_overall_p10),
+
+    # P90 fallback
+    evtoi_per_gp_p90 = ifelse(is.na(evtoi_per_gp_p90), evtoi_per_gp_p50, evtoi_per_gp_p90),
+    pptoi_per_gp_p90 = ifelse(is.na(pptoi_per_gp_p90), pptoi_per_gp_p50, pptoi_per_gp_p90),
+    high_danger_shots_p90 = ifelse(is.na(high_danger_shots_p90), high_danger_shots_p50, high_danger_shots_p90),
+    medium_danger_shots_p90 = ifelse(is.na(medium_danger_shots_p90), medium_danger_shots_p50, medium_danger_shots_p90),
+    x_goals_p90 = ifelse(is.na(x_goals_p90), x_goals_p50, x_goals_p90),
+    shot_attempts_p90 = ifelse(is.na(shot_attempts_p90), shot_attempts_p50, shot_attempts_p90),
+    conversion_overall_p90 = ifelse(is.na(conversion_overall_p90), conversion_overall_p50, conversion_overall_p90)
+  )
+
+# Compter combien de joueurs ont bénéficié du fallback
+n_fallback <- sum(is.na(all_data_imputed$evtoi_per_gp_p10))
+if (n_fallback > 0) {
+  cat("  ⚠️ ", n_fallback, " joueurs sans P10/P90 (historique manquant) → fallback sur P50\n")
+}
+
 # Scénario LOW (P10)
-scenario_low <- all_data_imputed %>%
+scenario_low <- all_data_with_fallback %>%
   mutate(scenario = "low") %>%
   select(
     player_id, scenario, first_name, last_name, position, team, age,
@@ -156,7 +185,7 @@ scenario_low <- all_data_imputed %>%
   )
 
 # Scénario MID (P50)
-scenario_mid <- all_data_imputed %>%
+scenario_mid <- all_data_with_fallback %>%
   mutate(scenario = "mid") %>%
   select(
     player_id, scenario, first_name, last_name, position, team, age,
@@ -173,7 +202,7 @@ scenario_mid <- all_data_imputed %>%
   )
 
 # Scénario HIGH (P90)
-scenario_high <- all_data_imputed %>%
+scenario_high <- all_data_with_fallback %>%
   mutate(scenario = "high") %>%
   select(
     player_id, scenario, first_name, last_name, position, team, age,

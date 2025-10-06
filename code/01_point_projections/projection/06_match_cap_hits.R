@@ -123,19 +123,35 @@ cap_hits_clean <- cap_hits %>%
 # Matching exact par nom + équipe -----------------------------------------
 cat("Matching exact (nom + équipe)...\n")
 
-matches_exact <- projections_clean %>%
+matches_exact_raw <- projections_clean %>%
   inner_join(
     cap_hits_clean,
-    by = c("full_name_norm" = "player_name_norm", "team" = "team")
+    by = c("full_name_norm" = "player_name_norm", "team" = "team"),
+    relationship = "many-to-many"  # Explicite pour gérer les Pettersson
+  )
+
+# Gérer les duplicates (même nom, même équipe, plusieurs cap_hits)
+# Ex: Elias Pettersson VAN → 2 joueurs (C à 11.6M, D à 838k)
+# Règle: Position F (C/L/R) → cap_hit le plus élevé, Position D → cap_hit le plus bas
+matches_exact <- matches_exact_raw %>%
+  group_by(player_id) %>%
+  mutate(n_matches = n()) %>%
+  filter(
+    n_matches == 1 |  # Pas de duplicate, garder
+    (n_matches > 1 & position %in% c("C", "L", "R") & cap_hit == max(cap_hit)) |  # Forward → max cap
+    (n_matches > 1 & position == "D" & cap_hit == min(cap_hit))  # Defenseman → min cap
   ) %>%
+  ungroup() %>%
   select(
     player_id, full_name_original, team,
-    player_name, player_slug, cap_hit,
-    match_type = full_name_norm
+    player_name, player_slug, cap_hit
   ) %>%
   mutate(match_type = "exact")
 
 cat("  Matchés (exact):", nrow(matches_exact), "\n")
+if (nrow(matches_exact_raw) > nrow(matches_exact)) {
+  cat("    (", nrow(matches_exact_raw) - nrow(matches_exact), "duplicates résolus via position)\n")
+}
 
 # Joueurs non matchés -----------------------------------------------------
 unmatched_projections <- projections_clean %>%
@@ -261,12 +277,23 @@ unmatched_final <- projections_clean %>%
 
 cat("Non matchés final:", nrow(unmatched_final), "\n\n")
 
+# Dédupliquer all_matches avant jointure ---------------------------------
+# Garder seulement le meilleur match par player_id (plus petite distance)
+all_matches_dedup <- all_matches %>%
+  arrange(player_id, distance, match_type) %>%
+  distinct(player_id, .keep_all = TRUE)
+
+if (nrow(all_matches) > nrow(all_matches_dedup)) {
+  cat("⚠️  Duplicates détectés dans cap_hits matches:",
+      nrow(all_matches) - nrow(all_matches_dedup), "duplicates supprimés\n")
+}
+
 # Joindre cap hits aux scénarios -----------------------------------------
 cat("Jointure avec scénarios...\n")
 
 projections_final <- projections_scenarios %>%
   left_join(
-    all_matches %>% select(player_id, cap_hit, player_slug, match_type, distance),
+    all_matches_dedup %>% select(player_id, cap_hit, player_slug, match_type, distance),
     by = "player_id"
   )
 

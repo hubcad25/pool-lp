@@ -109,8 +109,8 @@ cat("Test 1: Vérifier gestion des noms dupliqués (Elias Pettersson)...\n")
 pettersson <- projections_final %>%
   filter(scenario == "mid",
          player_id %in% c(8480012, 8483678)) %>%
-  select(player_id, first_name, last_name, position, points) %>%
-  distinct()
+  distinct(player_id, .keep_all = TRUE) %>%
+  select(player_id, first_name, last_name, position, points)
 
 if (nrow(pettersson) == 2) {
   points_diff <- abs(diff(pettersson$points))
@@ -124,7 +124,7 @@ if (nrow(pettersson) == 2) {
     warning("ERREUR: Les deux Elias Pettersson ont des projections trop similaires!")
   }
 } else {
-  warning("ERREUR: Les deux Elias Pettersson ne sont pas présents dans les projections!")
+  warning("ERREUR: ", nrow(pettersson), " Elias Pettersson trouvés au lieu de 2!")
 }
 
 cat("\n")

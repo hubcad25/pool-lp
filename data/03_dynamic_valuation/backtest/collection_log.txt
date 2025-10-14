@@ -50,3 +50,32 @@
 [2025-10-14 18:15:14] Batch 6/20 (matchs 501-600) 
 [2025-10-14 18:19:43]   Succès: 494 | Erreurs: 0 | Skipped: 106 | Total événements: 42122 
 [2025-10-14 18:19:43] Batch 7/20 (matchs 601-700) 
+[2025-10-14 18:22:15]   Succès: 546 | Erreurs: 0 | Skipped: 154 | Total événements: 46664 
+[2025-10-14 18:22:15] Batch 8/20 (matchs 701-800) 
+[2025-10-14 18:26:42]   Succès: 646 | Erreurs: 0 | Skipped: 154 | Total événements: 55598 
+[2025-10-14 18:26:42] Batch 9/20 (matchs 801-900) 
+[2025-10-14 18:29:08]   Succès: 696 | Erreurs: 0 | Skipped: 204 | Total événements: 60107 
+[2025-10-14 18:29:08] Batch 10/20 (matchs 901-1000) 
+[2025-10-14 18:31:35]   Succès: 743 | Erreurs: 0 | Skipped: 257 | Total événements: 64220 
+[2025-10-14 18:31:35] Batch 11/20 (matchs 1001-1100) 
+[2025-10-14 18:33:00]   ERROR - Game 2024021009: cannot open the connection to 'https://api-web.nhle.com/v1/gamecenter/2024021009/play-by-play' 
+[2025-10-14 18:33:00]   ERROR - Game 2024021010: cannot open the connection to 'https://api-web.nhle.com/v1/gamecenter/2024021010/play-by-play' 
+[2025-10-14 18:33:00]   ERROR - Game 2024021011: cannot open the connection to 'https://api-web.nhle.com/v1/gamecenter/2024021011/play-by-play' 
+[2025-10-14 18:33:01] ARRÊT: 3 échecs consécutifs détectés 
+[2025-10-14 18:33:01] Dernier game ID valide probable: 2024021011 
+[2025-10-14 18:33:01]  
+[2025-10-14 18:33:01] ================================================================================ 
+[2025-10-14 18:33:01]    COLLECTE TERMINÉE 
+[2025-10-14 18:33:01] ================================================================================ 
+[2025-10-14 18:33:01] Temps d'exécution: 36.61 minutes 
+[2025-10-14 18:33:01]  
+[2025-10-14 18:33:01] Statistiques: 
+[2025-10-14 18:33:01]   - Matchs traités avec succès: 749 
+[2025-10-14 18:33:01]   - Matchs skipped (déjà existants): 259 
+[2025-10-14 18:33:01]   - Matchs avec erreurs: 3 
+[2025-10-14 18:33:01]   - Total d'événements collectés: 64746 
+[2025-10-14 18:33:01]   - Moyenne par match: 86.4 événements 
+[2025-10-14 18:33:01]  
+[2025-10-14 18:33:01] Fichiers sauvegardés dans: data/03_dynamic_valuation/backtest/pbp_events 
+[2025-10-14 18:33:01]  
+[2025-10-14 18:33:01] Distribution des types d'événements (échantillon): 

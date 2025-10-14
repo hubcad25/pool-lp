@@ -2,4 +2,4 @@
 library(ggplot2)
 library(dplyr)
 
-data <- readRDS("data/03_dynamic_valuation/backtest/pbp_events/2024020001.rds")
+data <- readRDS("data/03_dynamic_valuation/backtest/boxscores/2024020001.rds")

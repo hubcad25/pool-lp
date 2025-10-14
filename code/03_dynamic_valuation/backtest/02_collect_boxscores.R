@@ -29,72 +29,59 @@ cat("===========================================================================
 # Configuration -----------------------------------------------------------
 start_time <- Sys.time()
 SEASON_ID <- "20242025"
-OUTPUT_DIR <- "data/03_dynamic_valuation/backtest"
-OUTPUT_FILE <- file.path(OUTPUT_DIR, "game_logs_2025.rds")
+OUTPUT_DIR <- "data/03_dynamic_valuation/backtest/boxscores"
+LOG_FILE <- "data/03_dynamic_valuation/backtest/boxscore_collection_log.txt"
 
-# Créer le dossier de sortie
+# Créer les dossiers
 dir.create(OUTPUT_DIR, showWarnings = FALSE, recursive = TRUE)
+dir.create(dirname(LOG_FILE), showWarnings = FALSE, recursive = TRUE)
 
-# ==============================================================================
-# ÉTAPE 1: Récupérer tous les gameId de la saison
-# ==============================================================================
-cat("ÉTAPE 1: Récupération du calendrier de la saison", SEASON_ID, "...\n")
-
-get_season_game_ids <- function(season) {
-  start_year <- as.numeric(substr(season, 1, 4))
-  # Saison régulière: octobre à avril
-  months <- c(10, 11, 12, 1, 2, 3, 4)
-  years <- c(rep(start_year, 3), rep(start_year + 1, 4))
-
-  all_game_ids <- c()
-
-  for (i in 1:length(months)) {
-    month <- months[i]
-    year <- years[i]
-
-    schedule_url <- paste0(
-      "https://api-web.nhle.com/v1/schedule/",
-      year, "-", sprintf("%02d", month), "-01"
-    )
-
-    tryCatch({
-      schedule_data <- fromJSON(schedule_url)
-
-      # Extraire les gameIds de saison régulière (gameType=2)
-      if (!is.null(schedule_data$gameWeek)) {
-        games_list <- schedule_data$gameWeek$games
-
-        # Aplatir la liste si nécessaire
-        if (is.list(games_list) && length(games_list) > 0) {
-          games_df <- bind_rows(games_list)
-          regular_season_games <- games_df %>%
-            filter(gameType == 2) %>%
-            pull(id)
-
-          all_game_ids <- c(all_game_ids, regular_season_games)
-        }
-      }
-
-      cat(".")
-      Sys.sleep(0.25)
-
-    }, error = function(e) {
-      cat("E")
-    })
-  }
-
-  unique_game_ids <- unique(all_game_ids)
-  cat("\n", length(unique_game_ids), "matchs de saison régulière trouvés.\n\n")
-  return(unique_game_ids)
+# Fonction de logging
+log_message <- function(msg) {
+  timestamp <- format(Sys.time(), "%Y-%m-%d %H:%M:%S")
+  log_line <- paste0("[", timestamp, "] ", msg)
+  cat(log_line, "\n")
+  cat(log_line, "\n", file = LOG_FILE, append = TRUE)
 }
 
-game_ids <- get_season_game_ids(SEASON_ID)
+# ==============================================================================
+# ÉTAPE 1: Générer tous les gameIds possibles de la saison régulière
+# ==============================================================================
+
+log_message("ÉTAPE 1: Génération de la liste des game IDs")
+
+# Générer tous les game IDs possibles pour la saison régulière
+# Format: {year}02{number}
+# - 2024 = saison 2024-25
+# - 02 = saison régulière (01=présaison, 03=playoffs, 04=all-star)
+# - 0001-2000 = on teste jusqu'à 2000, arrêt après 3 échecs consécutifs
+
+generate_season_game_ids <- function(season, max_games = 2000) {
+  start_year <- as.numeric(substr(season, 1, 4))
+
+  # Générer tous les game IDs de 1 à max_games
+  game_numbers <- sprintf("%04d", 1:max_games)
+  game_ids <- paste0(start_year, "02", game_numbers)
+
+  return(game_ids)
+}
+
+game_ids <- generate_season_game_ids(SEASON_ID, max_games = 2000)
+log_message(paste("Total de game IDs à tenter:", length(game_ids)))
+log_message("(Arrêt automatique après 3 échecs consécutifs)")
 
 # ==============================================================================
 # ÉTAPE 2: Fonction pour extraire les stats d'un match
 # ==============================================================================
 
 extract_boxscore_stats <- function(game_id) {
+
+  # Vérifier si le fichier existe déjà
+  output_file <- file.path(OUTPUT_DIR, paste0(game_id, ".rds"))
+  if (file.exists(output_file)) {
+    return(list(status = "skip", game_id = game_id, message = "Already exists"))
+  }
+
   boxscore_url <- paste0("https://api-web.nhle.com/v1/gamecenter/", game_id, "/boxscore")
 
   tryCatch({
@@ -185,114 +172,155 @@ extract_boxscore_stats <- function(game_id) {
       home_defense
     )
 
+    if (is.null(all_players) || nrow(all_players) == 0) {
+      return(list(status = "empty", game_id = game_id, message = "No player stats"))
+    }
+
+    # Sauvegarder dans un fichier par match
+    saveRDS(all_players, output_file)
+
     cat(".")
     Sys.sleep(0.25)
 
-    return(all_players)
+    return(list(
+      status = "success",
+      game_id = game_id,
+      n_players = nrow(all_players),
+      message = paste0(nrow(all_players), " players")
+    ))
 
   }, error = function(e) {
     cat("E")
-    return(NULL)
+    return(list(
+      status = "error",
+      game_id = game_id,
+      message = as.character(e$message)
+    ))
   })
 }
 
 # ==============================================================================
-# ÉTAPE 3: Itérer sur tous les matchs
+# ÉTAPE 3: Traiter tous les matchs
 # ==============================================================================
-cat("ÉTAPE 2: Collecte des boxscores pour chaque match...\n")
-cat("(Cela peut prendre 5-10 minutes pour toute la saison)\n\n")
 
-all_game_logs <- map_df(game_ids, extract_boxscore_stats)
+log_message("ÉTAPE 2: Traitement des matchs")
+log_message("(Cela peut prendre 10-20 minutes)")
 
-cat("\n\nCollecte terminée.\n")
-cat("  Nombre de lignes collectées:", nrow(all_game_logs), "\n")
-cat("  Nombre de joueurs uniques:", n_distinct(all_game_logs$player_id), "\n")
-cat("  Nombre de matchs:", n_distinct(all_game_logs$game_id), "\n")
+# Traiter par batch de 100 pour monitoring
+batch_size <- 100
+n_batches <- ceiling(length(game_ids) / batch_size)
+
+results <- list()
+total_players <- 0
+n_success <- 0
+n_errors <- 0
+n_skipped <- 0
+consecutive_errors <- 0  # Compteur d'échecs consécutifs
+max_consecutive_errors <- 3  # Arrêter après 3 échecs consécutifs
+
+for (batch_idx in 1:n_batches) {
+  start_idx <- (batch_idx - 1) * batch_size + 1
+  end_idx <- min(batch_idx * batch_size, length(game_ids))
+
+  batch_ids <- game_ids[start_idx:end_idx]
+
+  log_message(paste0("Batch ", batch_idx, "/", n_batches, " (matchs ", start_idx, "-", end_idx, ")"))
+
+  for (gid in batch_ids) {
+    # Vérifier si on doit arrêter (3 échecs consécutifs)
+    if (consecutive_errors >= max_consecutive_errors) {
+      log_message(paste0("ARRÊT: ", max_consecutive_errors, " échecs consécutifs détectés"))
+      log_message(paste0("Dernier game ID valide probable: ", game_ids[start_idx + which(batch_ids == gid) - 2]))
+      break
+    }
+
+    result <- extract_boxscore_stats(gid)
+
+    if (result$status == "success") {
+      cat(".")
+      n_success <- n_success + 1
+      total_players <- total_players + result$n_players
+      consecutive_errors <- 0  # Reset du compteur
+    } else if (result$status == "skip") {
+      cat("s")
+      n_skipped <- n_skipped + 1
+      consecutive_errors <- 0  # Reset du compteur (le fichier existe)
+    } else if (result$status == "error") {
+      cat("E")
+      n_errors <- n_errors + 1
+      consecutive_errors <- consecutive_errors + 1
+      log_message(paste0("  ERROR - Game ", gid, ": ", result$message))
+    } else if (result$status == "empty") {
+      cat("e")
+      consecutive_errors <- 0  # Reset (le match existe mais pas de stats)
+    }
+
+    results <- c(results, list(result))
+    Sys.sleep(0.3)  # Rate limiting
+  }
+
+  # Si on a arrêté à cause des erreurs consécutives, sortir complètement
+  if (consecutive_errors >= max_consecutive_errors) {
+    break
+  }
+
+  cat("\n")
+  log_message(paste0("  Succès: ", n_success, " | Erreurs: ", n_errors,
+                     " | Skipped: ", n_skipped, " | Total joueurs: ", total_players))
+}
 
 # ==============================================================================
-# ÉTAPE 4: Nettoyage et validation
+# ÉTAPE 4: Résumé final
 # ==============================================================================
-cat("\nÉTAPE 3: Nettoyage et validation des données...\n")
 
-# Convertir TOI de "MM:SS" en minutes décimales
-all_game_logs <- all_game_logs %>%
-  mutate(
-    toi_seconds = sapply(toi, function(x) {
-      if (is.na(x) || x == "") return(0)
-      parts <- as.numeric(strsplit(x, ":")[[1]])
-      if (length(parts) == 2) {
-        return(parts[1] * 60 + parts[2])
-      } else {
-        return(0)
-      }
-    }),
-    toi_minutes = round(toi_seconds / 60, 2)
-  ) %>%
-  select(-toi, -toi_seconds) %>%
-  rename(toi = toi_minutes)
-
-# Réordonner les colonnes
-all_game_logs <- all_game_logs %>%
-  select(
-    game_id, game_date, team, opponent, is_home,
-    player_id, player_name, position,
-    goals, assists, points, sog, toi, shifts,
-    plusMinus, powerPlayGoals, pim, hits, blockedShots
-  ) %>%
-  arrange(game_date, game_id, team, player_name)
-
-# Validation
-cat("  Validation:\n")
-cat("    - Matchs avec game_date valide:", sum(!is.na(all_game_logs$game_date)), "lignes\n")
-cat("    - Joueurs avec player_id valide:", sum(!is.na(all_game_logs$player_id)), "lignes\n")
-cat("    - TOI médian par match:", round(median(all_game_logs$toi, na.rm = TRUE), 2), "minutes\n")
-cat("    - Range de dates:", min(all_game_logs$game_date, na.rm = TRUE), "à",
-    max(all_game_logs$game_date, na.rm = TRUE), "\n")
-
-# ==============================================================================
-# ÉTAPE 5: Sauvegarder
-# ==============================================================================
-cat("\nÉTAPE 4: Sauvegarde des données...\n")
-
-saveRDS(all_game_logs, OUTPUT_FILE)
-cat("  Données sauvegardées dans:", OUTPUT_FILE, "\n")
-
-# Sauvegarder aussi en CSV pour inspection
-csv_file <- gsub("\\.rds$", ".csv", OUTPUT_FILE)
-write.csv(all_game_logs, csv_file, row.names = FALSE)
-cat("  Données exportées en CSV:", csv_file, "\n")
-
-# ==============================================================================
-# RÉSUMÉ
-# ==============================================================================
-cat("\n")
-cat("================================================================================\n")
-cat("   COLLECTE TERMINÉE AVEC SUCCÈS\n")
-cat("================================================================================\n")
+log_message("")
+log_message("================================================================================")
+log_message("   COLLECTE TERMINÉE")
+log_message("================================================================================")
 
 end_time <- Sys.time()
 elapsed_time <- round(difftime(end_time, start_time, units = "mins"), 2)
-cat("\nScript terminé en", elapsed_time, "minutes.\n")
 
-# Statistiques finales
-cat("\nStatistiques finales:\n")
-cat("  Total de lignes (joueur-matchs):", nrow(all_game_logs), "\n")
-cat("  Joueurs uniques:", n_distinct(all_game_logs$player_id), "\n")
-cat("  Matchs uniques:", n_distinct(all_game_logs$game_id), "\n")
-cat("  Équipes:", paste(sort(unique(all_game_logs$team)), collapse = ", "), "\n")
+log_message(paste("Temps d'exécution:", elapsed_time, "minutes"))
+log_message("")
+log_message("Statistiques:")
+log_message(paste("  - Matchs traités avec succès:", n_success))
+log_message(paste("  - Matchs skipped (déjà existants):", n_skipped))
+log_message(paste("  - Matchs avec erreurs:", n_errors))
+log_message(paste("  - Total de joueurs-matchs collectés:", total_players))
+log_message(paste("  - Moyenne par match:", round(total_players / n_success, 1), "joueurs"))
+log_message("")
+log_message(paste("Fichiers sauvegardés dans:", OUTPUT_DIR))
 
-# Top 5 scorers
-cat("\nTop 5 scorers (total de points sur la saison):\n")
-top_scorers <- all_game_logs %>%
-  group_by(player_name, team) %>%
-  summarise(
-    games = n(),
-    total_goals = sum(goals, na.rm = TRUE),
-    total_assists = sum(assists, na.rm = TRUE),
-    total_points = sum(points, na.rm = TRUE),
-    .groups = "drop"
-  ) %>%
-  arrange(desc(total_points)) %>%
-  head(5)
+# Afficher quelques stats si on a des matchs
+if (n_success > 0) {
+  log_message("")
+  log_message("Top 5 scorers (échantillon sur premiers matchs):")
 
-print(top_scorers)
+  # Charger quelques fichiers pour stats
+  sample_files <- list.files(OUTPUT_DIR, pattern = "\\.rds$", full.names = TRUE)[1:min(10, length(list.files(OUTPUT_DIR)))]
+
+  if (length(sample_files) > 0) {
+    sample_data <- bind_rows(lapply(sample_files, readRDS))
+
+    top_scorers <- sample_data %>%
+      group_by(player_name, team) %>%
+      summarise(
+        games = n(),
+        total_goals = sum(goals, na.rm = TRUE),
+        total_assists = sum(assists, na.rm = TRUE),
+        total_points = sum(points, na.rm = TRUE),
+        .groups = "drop"
+      ) %>%
+      arrange(desc(total_points)) %>%
+      head(5)
+
+    for (i in 1:nrow(top_scorers)) {
+      log_message(paste0("    ", i, ". ", top_scorers$player_name[i], " (", top_scorers$team[i], "): ",
+                         top_scorers$total_points[i], " pts en ", top_scorers$games[i], " GP"))
+    }
+  }
+}
+
+log_message("")
+log_message("✓ Collecte des boxscores terminée!")

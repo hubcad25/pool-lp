@@ -40,3 +40,13 @@
 [2025-10-14 17:56:24] Batch 1/20 (matchs 1-100) 
 [2025-10-14 18:01:00]   Succès: 94 | Erreurs: 0 | Skipped: 6 | Total événements: 7989 
 [2025-10-14 18:01:00] Batch 2/20 (matchs 101-200) 
+[2025-10-14 18:04:17]   Succès: 161 | Erreurs: 0 | Skipped: 39 | Total événements: 13801 
+[2025-10-14 18:04:17] Batch 3/20 (matchs 201-300) 
+[2025-10-14 18:07:59]   Succès: 242 | Erreurs: 0 | Skipped: 58 | Total événements: 20763 
+[2025-10-14 18:07:59] Batch 4/20 (matchs 301-400) 
+[2025-10-14 18:11:58]   Succès: 329 | Erreurs: 0 | Skipped: 71 | Total événements: 28172 
+[2025-10-14 18:11:58] Batch 5/20 (matchs 401-500) 
+[2025-10-14 18:15:14]   Succès: 394 | Erreurs: 0 | Skipped: 106 | Total événements: 33775 
+[2025-10-14 18:15:14] Batch 6/20 (matchs 501-600) 
+[2025-10-14 18:19:43]   Succès: 494 | Erreurs: 0 | Skipped: 106 | Total événements: 42122 
+[2025-10-14 18:19:43] Batch 7/20 (matchs 601-700) 

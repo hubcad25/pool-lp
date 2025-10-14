@@ -1,0 +1,6 @@
+[2025-10-14 18:20:02] ÉTAPE 1: Génération de la liste des game IDs 
+[2025-10-14 18:20:02] Total de game IDs à tenter: 2000 
+[2025-10-14 18:20:02] (Arrêt automatique après 3 échecs consécutifs) 
+[2025-10-14 18:20:02] ÉTAPE 2: Traitement des matchs 
+[2025-10-14 18:20:02] (Cela peut prendre 10-20 minutes) 
+[2025-10-14 18:20:02] Batch 1/20 (matchs 1-100) 

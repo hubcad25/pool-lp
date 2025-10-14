@@ -1,0 +1,42 @@
+[2025-10-11 13:17:08] ÉTAPE 1: Récupération du calendrier de la saison 
+[2025-10-11 13:17:13] Total de matchs trouvés: 309 
+[2025-10-11 13:17:13] ÉTAPE 2: Traitement des matchs 
+[2025-10-11 13:17:13] (Cela peut prendre 20-30 minutes) 
+[2025-10-11 13:17:13] Batch 1/4 (matchs 1-100) 
+[2025-10-11 13:18:58]   Succès: 98 | Erreurs: 0 | Skipped: 2 | Total événements: 8344 
+[2025-10-11 13:18:58] Batch 2/4 (matchs 101-200) 
+[2025-10-11 13:20:58]   Succès: 198 | Erreurs: 0 | Skipped: 2 | Total événements: 17202 
+[2025-10-11 13:20:58] Batch 3/4 (matchs 201-300) 
+[2025-10-11 13:22:45]   Succès: 298 | Erreurs: 0 | Skipped: 2 | Total événements: 25992 
+[2025-10-11 13:22:45] Batch 4/4 (matchs 301-309) 
+[2025-10-11 13:22:56]   Succès: 307 | Erreurs: 0 | Skipped: 2 | Total événements: 26791 
+[2025-10-11 13:22:56]  
+[2025-10-11 13:22:56] ================================================================================ 
+[2025-10-11 13:22:56]    COLLECTE TERMINÉE 
+[2025-10-11 13:22:56] ================================================================================ 
+[2025-10-11 13:22:56] Temps d'exécution: 5.8 minutes 
+[2025-10-11 13:22:56]  
+[2025-10-11 13:22:56] Statistiques: 
+[2025-10-11 13:22:56]   - Matchs traités avec succès: 307 
+[2025-10-11 13:22:56]   - Matchs skipped (déjà existants): 2 
+[2025-10-11 13:22:56]   - Matchs avec erreurs: 0 
+[2025-10-11 13:22:56]   - Total d'événements collectés: 26791 
+[2025-10-11 13:22:56]   - Moyenne par match: 87.3 événements 
+[2025-10-11 13:22:56]  
+[2025-10-11 13:22:56] Fichiers sauvegardés dans: data/03_dynamic_valuation/backtest/pbp_events 
+[2025-10-11 13:22:56]  
+[2025-10-11 13:22:56] Distribution des types d'événements (échantillon): 
+[2025-10-11 13:22:56]     shot-on-goal: 413 
+[2025-10-11 13:22:56]     blocked-shot: 251 
+[2025-10-11 13:22:56]     missed-shot: 232 
+[2025-10-11 13:22:56]  
+[2025-10-11 13:22:56] ✓ Collecte PBP terminée! 
+[2025-10-14 17:42:47] ÉTAPE 1: Récupération du calendrier de la saison 
+[2025-10-14 17:56:24] ÉTAPE 1: Génération de la liste des game IDs 
+[2025-10-14 17:56:24] Total de game IDs à tenter: 2000 
+[2025-10-14 17:56:24] (Arrêt automatique après 3 échecs consécutifs) 
+[2025-10-14 17:56:24] ÉTAPE 2: Traitement des matchs 
+[2025-10-14 17:56:24] (Cela peut prendre 30-60 minutes) 
+[2025-10-14 17:56:24] Batch 1/20 (matchs 1-100) 
+[2025-10-14 18:01:00]   Succès: 94 | Erreurs: 0 | Skipped: 6 | Total événements: 7989 
+[2025-10-14 18:01:00] Batch 2/20 (matchs 101-200) 

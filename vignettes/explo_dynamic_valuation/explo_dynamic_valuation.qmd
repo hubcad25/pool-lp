@@ -1,5 +1,5 @@
 ---
-title: "[TITRE]"
+title: "Exploration: Métriques pour Évaluation Dynamique"
 format:
   html:
     toc: true
@@ -21,7 +21,7 @@ knitr:
   opts_chunk:
     out.width: "90%"
   opts_knit:
-    root.dir: "./"
+    root.dir: "../../"
 editor: source
 ---
 
@@ -29,9 +29,369 @@ editor: source
 #| label: setting
 #| cache: false
 
-source("r_scripts/00_setting.R")
+source("vignettes/explo_dynamic_valuation/r_scripts/00_setting.R")
+```
+
+```{r}
+#| label: select-random-players
+#| cache: false
+
+# Sélectionner 9 joueurs aléatoires (avec seed pour reproductibilité)
+#set.seed(42)
+
+# Liste des joueurs éligibles (minimum 30 matchs)
+eligible_players <- data |>
+  group_by(player_id, player_name, position) |>
+  summarise(games = n(), .groups = "drop") |>
+  filter(games >= 30)
+
+# Sélectionner 9 aléatoirement
+selected_player_ids <- sample(eligible_players$player_id, 9)
+
+cat("Joueurs sélectionnés pour l'analyse:\n")
+data |>
+  filter(player_id %in% selected_player_ids) |>
+  group_by(player_id, player_name, position) |>
+  summarise(
+    games = n(),
+    total_points = sum(points),
+    .groups = "drop"
+  ) |>
+  arrange(desc(total_points)) |>
+  print()
+
+# cach
 
 ```
 
 # Introduction
 
+Cette vignette explore les métriques clés pour le modèle d'évaluation dynamique des joueurs (saison 2024-25). L'objectif est de comprendre la volatilité des performances et d'identifier les patterns de "chance" (PDO, shooting %) qui permettront de détecter les opportunités **Buy Low / Sell High**.
+
+## Contexte
+
+Selon notre équation bayésienne (voir `code/03_dynamic_valuation/equation.md`):
+
+- **Shooting %** observé vs attendu → Quantifier la chance individuelle
+- **PDO** (shooting % on-ice + save % on-ice) → Quantifier la chance d'équipe
+- **Fenêtres rolling** (5-10 matchs) → Détecter les streaks anormaux
+
+# Volatilité du Shooting %
+
+## Préparation des données
+
+```{r}
+#| label: prep-data
+#| cache: false
+
+source("vignettes/explo_dynamic_valuation/r_scripts/01_prepare_rolling_sh_pct.R")
+```
+
+Dataset préparé:
+
+- **`df_rollshpct`**: Tous les joueurs avec SH% cumulatif, L5, L10
+- **`df_selected`**: 9 joueurs sélectionnés aléatoirement pour visualisation
+- **`df_volatility`**: Écarts rolling vs cumulatif pour analyse de streaks
+
+## Évolution du SH% pendant la saison
+
+```{r}
+#| label: fig-sh-pct-evolution
+#| fig-height: 10
+#| fig-width: 12
+#| fig-cap: "Évolution du shooting % avec différentes fenêtres temporelles"
+#| cache: false
+
+source("vignettes/explo_dynamic_valuation/r_scripts/02_fig_sh_pct_evolution.R")
+fig_sh_pct_evolution
+```
+
+**Observations:**
+
+- Le **SH% cumulatif** (noir) se stabilise progressivement au fil de la saison
+- Le **rolling 5 matchs** (bleu) est très volatil - bon pour détecter les streaks chauds/froids courts
+- Le **rolling 10 matchs** (rouge) offre un bon compromis: moins de bruit tout en capturant les tendances
+- Les écarts significatifs entre rolling et cumulatif peuvent signaler des opportunités de transaction
+
+## Distribution de la volatilité
+
+```{r}
+#| label: fig-sh-pct-volatility
+#| fig-height: 6
+#| fig-width: 10
+#| fig-cap: "Distribution des écarts entre Rolling SH% et Cumulatif"
+
+source("vignettes/explo_dynamic_valuation/r_scripts/03_fig_sh_pct_volatility.R")
+fig_sh_pct_volatility
+```
+
+**Interprétation:**
+
+- La majorité des écarts se situent entre **-5% et +5%**
+- Les queues de distribution (écarts > 7-8%) représentent des **streaks anormaux**
+- Ces écarts extrêmes sont des candidats pour la détection **SELL HIGH / BUY LOW**
+
+## Statistiques de volatilité
+
+```{r}
+#| label: tbl-volatility-stats
+#| tbl-cap: "Statistiques descriptives des écarts de SH%"
+
+df_volatility |>
+  summarise(
+    `Métrique` = c("Rolling 5 matchs", "Rolling 10 matchs"),
+    `Écart moyen` = c(mean(abs(diff_L5_cumul), na.rm = TRUE),
+                      mean(abs(diff_L10_cumul), na.rm = TRUE)),
+    `Écart médian` = c(median(abs(diff_L5_cumul), na.rm = TRUE),
+                       median(abs(diff_L10_cumul), na.rm = TRUE)),
+    `Écart-type` = c(sd(diff_L5_cumul, na.rm = TRUE),
+                     sd(diff_L10_cumul, na.rm = TRUE)),
+    `P90` = c(quantile(abs(diff_L5_cumul), 0.90, na.rm = TRUE),
+              quantile(abs(diff_L10_cumul), 0.90, na.rm = TRUE))
+  ) |>
+  knitr::kable(digits = 2)
+```
+
+## Patterns individuels et population (SH%)
+
+### Heatmap: Qui est hot/cold et quand?
+
+```{r}
+#| label: fig-sh-pct-heatmap
+#| fig-height: 12
+#| fig-width: 10
+#| fig-cap: "Heatmap des streaks (Top 50 joueurs les plus volatils)"
+#| cache: false
+
+source("vignettes/explo_dynamic_valuation/r_scripts/07_fig_sh_pct_heatmap.R")
+fig_sh_pct_heatmap
+```
+
+**Insight:** Identification rapide des joueurs et périodes avec streaks extrêmes (rouge foncé = hot, bleu foncé = cold).
+
+### Spaghetti: Tous les joueurs dans leur contexte
+
+```{r}
+#| label: fig-sh-pct-spaghetti
+#| fig-height: 7
+#| fig-width: 12
+#| fig-cap: "Trajectoires individuelles + Percentiles de la population"
+#| cache: false
+
+source("vignettes/explo_dynamic_valuation/r_scripts/08_fig_sh_pct_spaghetti.R")
+fig_sh_pct_spaghetti
+```
+
+**Insight:** Les trajectoires individuelles (gris) montrent énormément de variation, mais les percentiles (couleurs) restent relativement stables autour de 0.
+
+### Ridge plot: Convergence vers la valeur finale
+
+```{r}
+#| label: fig-sh-pct-violin-temporal
+#| fig-height: 10
+#| fig-width: 10
+#| fig-cap: "Convergence du L10 vers le SH% final de saison (groupes de 5 matchs)"
+#| cache: false
+
+source("vignettes/explo_dynamic_valuation/r_scripts/09_fig_sh_pct_violin_temporal.R")
+fig_sh_pct_violin_temporal
+```
+
+**Insight:** En début de saison (matchs 1-20), le L10 est très éloigné du final (large distribution). La convergence s'accélère après 30-40 matchs. Rouge = L10 surestime, Bleu = L10 sous-estime.
+
+### Stream: Narratif global des streaks
+
+```{r}
+#| label: fig-sh-pct-stream
+#| fig-height: 7
+#| fig-width: 12
+#| fig-cap: "Proportion de joueurs par zone de streak au fil de la saison"
+#| cache: false
+
+source("vignettes/explo_dynamic_valuation/r_scripts/10_fig_sh_pct_stream.R")
+fig_sh_pct_stream
+```
+
+**Insight:** La majorité reste dans la zone normale (gris). Les zones extrêmes (rouge/bleu foncé) représentent ~10-15% des joueurs à tout moment.
+
+# On-Ice Shooting % (Chance d'équipe)
+
+## Préparation des données
+
+```{r}
+#| label: prep-data-onice
+#| cache: false
+
+source("vignettes/explo_dynamic_valuation/r_scripts/04_prepare_rolling_onice_sh.R")
+```
+
+Le **on-ice shooting %** mesure le % de tirs qui deviennent des buts **quand le joueur est sur la glace**. C'est une mesure de **chance collective** (équipe) plutôt qu'individuelle.
+
+Dataset préparé:
+
+- **`df_roll_onice_sh`**: Tous les joueurs avec on-ice SH% cumulatif, L5, L10
+- **`df_selected_onice`**: 9 mêmes joueurs pour comparaison directe avec SH% individuel
+- **`df_volatility_onice`**: Écarts rolling vs cumulatif (chance d'équipe)
+
+## Évolution du On-Ice SH% pendant la saison
+
+```{r}
+#| label: fig-onice-sh-evolution
+#| fig-height: 10
+#| fig-width: 12
+#| fig-cap: "Évolution du on-ice shooting % avec différentes fenêtres temporelles"
+#| cache: false
+
+source("vignettes/explo_dynamic_valuation/r_scripts/05_fig_onice_sh_evolution.R")
+fig_onice_sh_evolution
+```
+
+**Observations:**
+
+- Le **on-ice SH% cumulatif** (noir) tend vers ~10% (moyenne ligue)
+- Le **rolling 5 matchs** (bleu) montre beaucoup de volatilité = chance à court terme
+- Le **rolling 10 matchs** (rouge) capture les tendances de "ligne chaude/froide"
+- On-ice SH% > 12-13% de façon soutenue = chance positive (régression attendue)
+
+## Distribution de la volatilité (On-Ice)
+
+```{r}
+#| label: fig-onice-sh-volatility
+#| fig-height: 6
+#| fig-width: 10
+#| fig-cap: "Distribution des écarts entre Rolling On-Ice SH% et Cumulatif"
+#| cache: false
+
+source("vignettes/explo_dynamic_valuation/r_scripts/06_fig_onice_sh_volatility.R")
+fig_onice_sh_volatility
+```
+
+**Interprétation:**
+
+- Les écarts de on-ice SH% sont généralement **moins extrêmes** que le SH% individuel
+- La régression vers la moyenne (10%) est forte sur l'on-ice SH%
+- Combiné avec SH% individuel élevé → Signal fort de **SELL HIGH**
+
+## Statistiques de volatilité (On-Ice)
+
+```{r}
+#| label: tbl-volatility-stats-onice
+#| tbl-cap: "Statistiques descriptives des écarts de On-Ice SH%"
+
+df_volatility_onice |>
+  summarise(
+    `Métrique` = c("Rolling 5 matchs", "Rolling 10 matchs"),
+    `Écart moyen` = c(mean(abs(diff_L5_cumul), na.rm = TRUE),
+                      mean(abs(diff_L10_cumul), na.rm = TRUE)),
+    `Écart médian` = c(median(abs(diff_L5_cumul), na.rm = TRUE),
+                       median(abs(diff_L10_cumul), na.rm = TRUE)),
+    `Écart-type` = c(sd(diff_L5_cumul, na.rm = TRUE),
+                     sd(diff_L10_cumul, na.rm = TRUE)),
+    `P90` = c(quantile(abs(diff_L5_cumul), 0.90, na.rm = TRUE),
+              quantile(abs(diff_L10_cumul), 0.90, na.rm = TRUE))
+  ) |>
+  knitr::kable(digits = 2)
+```
+
+## Patterns individuels et population (On-Ice SH%)
+
+### Heatmap: Lignes chaudes/froides
+
+```{r}
+#| label: fig-onice-sh-heatmap
+#| fig-height: 12
+#| fig-width: 10
+#| fig-cap: "Heatmap des streaks d'équipe (Top 50 joueurs)"
+#| cache: false
+
+source("vignettes/explo_dynamic_valuation/r_scripts/11_fig_onice_sh_heatmap.R")
+fig_onice_sh_heatmap
+```
+
+**Insight:** Les streaks d'équipe (on-ice SH%) sont généralement **moins extrêmes** que les streaks individuels. Échelle limitée à ±8% vs ±15%.
+
+### Spaghetti: Trajectoires de chance collective
+
+```{r}
+#| label: fig-onice-sh-spaghetti
+#| fig-height: 7
+#| fig-width: 12
+#| fig-cap: "Trajectoires individuelles + Percentiles (On-Ice SH%)"
+#| cache: false
+
+source("vignettes/explo_dynamic_valuation/r_scripts/12_fig_onice_sh_spaghetti.R")
+fig_onice_sh_spaghetti
+```
+
+**Insight:** La régression vers la moyenne est **plus forte** pour on-ice SH% que pour SH% individuel. Les percentiles convergent rapidement.
+
+### Ridge plot: Convergence de la chance d'équipe
+
+```{r}
+#| label: fig-onice-sh-violin-temporal
+#| fig-height: 10
+#| fig-width: 10
+#| fig-cap: "Convergence du L10 vers le On-Ice SH% final (groupes de 5 matchs)"
+#| cache: false
+
+source("vignettes/explo_dynamic_valuation/r_scripts/13_fig_onice_sh_violin_temporal.R")
+fig_onice_sh_violin_temporal
+```
+
+**Insight:** La convergence est **plus rapide** que pour SH% individuel. Après 25-30 matchs, la distribution est déjà bien centrée sur 0. La régression vers la moyenne est plus forte pour la chance collective.
+
+### Stream: Chance d'équipe dans le temps
+
+```{r}
+#| label: fig-onice-sh-stream
+#| fig-height: 7
+#| fig-width: 12
+#| fig-cap: "Proportion de joueurs par zone (On-Ice SH%)"
+#| cache: false
+
+source("vignettes/explo_dynamic_valuation/r_scripts/14_fig_onice_sh_stream.R")
+fig_onice_sh_stream
+```
+
+**Insight:** Les zones extrêmes (lignes très chaudes/froides) sont **rares** et **temporaires**. Forte convergence vers la normale.
+
+# Prochaines étapes
+
+## 1. Shot Differential (SF/SA) - Impact du joueur
+
+Quantifier l'implication positive/négative du joueur via:
+
+- **SF on-ice** (Shots For): Volume de tirs générés par son équipe
+- **SA on-ice** (Shots Against): Tirs concédés
+- **Ratio SF/SA**: Indicateur de domination territoriale
+
+## 2. Pondération par mesures de quantité
+
+Les observations doivent être **pondérées** selon leur fiabilité:
+
+- **TOI** (temps de glace): Plus de TOI = plus d'opportunités
+- **SOG** (shots on goal): Volume de tentatives
+- **Goals, Shifts**: Mesures d'implication et de chance
+
+Contrôler pour ces volumes permettra de distinguer la **qualité** de la **quantité**.
+
+## 3. Croisement descriptif: Observations vs Priors
+
+Comparer les performances observées (season-to-date) avec les **projections initiales** (modèle 01):
+
+- Qui surperforme vs prior? (candidates SELL HIGH)
+- Qui sous-performe vs prior? (candidates BUY LOW)
+- Comment le on-ice SH% et SF/SA expliquent ces écarts?
+
+## 4. Calibration des seuils de détection
+
+Finaliser les **seuils** pour flags automatiques en combinant:
+
+- **SH% individuel** (rolling L10 vs cumulatif): Détection de streaks
+- **On-ice SH%** (chance d'équipe): Régression attendue
+- **SF/SA**: Confirmation de tendance réelle vs chance
+
+**Règles proposées:**
+- SELL HIGH: SH% L10 > cumulatif + 5% **ET** on-ice SH% > 11%
+- BUY LOW: SH% L10 < cumulatif - 5% **ET** on-ice SH% < 9%
+- SF/SA: Valider que la tendance n'est pas soutenue par domination territoriale

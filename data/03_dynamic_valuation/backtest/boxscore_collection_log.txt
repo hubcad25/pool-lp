@@ -1,44 +1,57 @@
-[2025-10-14 18:20:02] ÉTAPE 1: Génération de la liste des game IDs 
-[2025-10-14 18:20:02] Total de game IDs à tenter: 2000 
-[2025-10-14 18:20:02] (Arrêt automatique après 3 échecs consécutifs) 
-[2025-10-14 18:20:02] ÉTAPE 2: Traitement des matchs 
-[2025-10-14 18:20:02] (Cela peut prendre 10-20 minutes) 
-[2025-10-14 18:20:02] Batch 1/20 (matchs 1-100) 
-[2025-10-14 18:22:23]   Succès: 100 | Erreurs: 0 | Skipped: 0 | Total joueurs: 3599 
-[2025-10-14 18:22:23] Batch 2/20 (matchs 101-200) 
-[2025-10-14 18:24:43]   Succès: 200 | Erreurs: 0 | Skipped: 0 | Total joueurs: 7199 
-[2025-10-14 18:24:43] Batch 3/20 (matchs 201-300) 
-[2025-10-14 18:27:04]   Succès: 300 | Erreurs: 0 | Skipped: 0 | Total joueurs: 10799 
-[2025-10-14 18:27:04] Batch 4/20 (matchs 301-400) 
-[2025-10-14 18:29:25]   Succès: 400 | Erreurs: 0 | Skipped: 0 | Total joueurs: 14399 
-[2025-10-14 18:29:25] Batch 5/20 (matchs 401-500) 
-[2025-10-14 18:31:54]   Succès: 500 | Erreurs: 0 | Skipped: 0 | Total joueurs: 17999 
-[2025-10-14 18:31:54] Batch 6/20 (matchs 501-600) 
-[2025-10-14 18:32:58]   ERROR - Game 2024020504: cannot open the connection to 'https://api-web.nhle.com/v1/gamecenter/2024020504/boxscore' 
-[2025-10-14 18:32:59]   ERROR - Game 2024020505: cannot open the connection to 'https://api-web.nhle.com/v1/gamecenter/2024020505/boxscore' 
-[2025-10-14 18:32:59]   ERROR - Game 2024020506: cannot open the connection to 'https://api-web.nhle.com/v1/gamecenter/2024020506/boxscore' 
-[2025-10-14 18:32:59] ARRÊT: 3 échecs consécutifs détectés 
-[2025-10-14 18:32:59] Dernier game ID valide probable: 2024020506 
-[2025-10-14 18:32:59]  
-[2025-10-14 18:32:59] ================================================================================ 
-[2025-10-14 18:32:59]    COLLECTE TERMINÉE 
-[2025-10-14 18:32:59] ================================================================================ 
-[2025-10-14 18:32:59] Temps d'exécution: 12.95 minutes 
-[2025-10-14 18:32:59]  
-[2025-10-14 18:32:59] Statistiques: 
-[2025-10-14 18:32:59]   - Matchs traités avec succès: 503 
-[2025-10-14 18:32:59]   - Matchs skipped (déjà existants): 0 
-[2025-10-14 18:32:59]   - Matchs avec erreurs: 3 
-[2025-10-14 18:32:59]   - Total de joueurs-matchs collectés: 18107 
-[2025-10-14 18:32:59]   - Moyenne par match: 36 joueurs 
-[2025-10-14 18:32:59]  
-[2025-10-14 18:32:59] Fichiers sauvegardés dans: data/03_dynamic_valuation/backtest/boxscores 
-[2025-10-14 18:32:59]  
-[2025-10-14 18:32:59] Top 5 scorers (échantillon sur premiers matchs): 
-[2025-10-14 18:32:59]     1. I. Barbashev (VGK): 4 pts en 1 GP 
-[2025-10-14 18:32:59]     2. J. Eichel (VGK): 4 pts en 1 GP 
-[2025-10-14 18:32:59]     3. M. Appleton (WPG): 3 pts en 1 GP 
-[2025-10-14 18:32:59]     4. M. Rantanen (COL): 3 pts en 1 GP 
-[2025-10-14 18:32:59]     5. M. Stone (VGK): 3 pts en 1 GP 
-[2025-10-14 18:32:59]  
-[2025-10-14 18:32:59] ✓ Collecte des boxscores terminée! 
+[2025-10-15 19:39:11] ÉTAPE 1: Chargement de la liste des game IDs 
+[2025-10-15 19:39:11] Total de matchs dans la saison: 1312 
+[2025-10-15 19:39:11] Premier match: 2024020001 
+[2025-10-15 19:39:11] Dernier match: 2024021312 
+[2025-10-15 19:39:11] ÉTAPE 2: Traitement des matchs 
+[2025-10-15 19:39:11] (Cela peut prendre 10-20 minutes) 
+[2025-10-15 19:39:11] Batch 1/14 (matchs 1-100) 
+[2025-10-15 19:40:48]   Succès: 100 | Erreurs: 0 | Skipped: 0 | Total joueurs: 3599 
+[2025-10-15 19:40:48] Batch 2/14 (matchs 101-200) 
+[2025-10-15 19:42:24]   Succès: 200 | Erreurs: 0 | Skipped: 0 | Total joueurs: 7199 
+[2025-10-15 19:42:24] Batch 3/14 (matchs 201-300) 
+[2025-10-15 19:44:04]   Succès: 300 | Erreurs: 0 | Skipped: 0 | Total joueurs: 10799 
+[2025-10-15 19:44:04] Batch 4/14 (matchs 301-400) 
+[2025-10-15 19:45:47]   Succès: 400 | Erreurs: 0 | Skipped: 0 | Total joueurs: 14399 
+[2025-10-15 19:45:47] Batch 5/14 (matchs 401-500) 
+[2025-10-15 19:47:20]   Succès: 500 | Erreurs: 0 | Skipped: 0 | Total joueurs: 17999 
+[2025-10-15 19:47:20] Batch 6/14 (matchs 501-600) 
+[2025-10-15 19:48:59]   Succès: 600 | Erreurs: 0 | Skipped: 0 | Total joueurs: 21599 
+[2025-10-15 19:48:59] Batch 7/14 (matchs 601-700) 
+[2025-10-15 19:50:36]   Succès: 700 | Erreurs: 0 | Skipped: 0 | Total joueurs: 25199 
+[2025-10-15 19:50:36] Batch 8/14 (matchs 701-800) 
+[2025-10-15 19:52:12]   Succès: 800 | Erreurs: 0 | Skipped: 0 | Total joueurs: 28799 
+[2025-10-15 19:52:12] Batch 9/14 (matchs 801-900) 
+[2025-10-15 19:53:51]   Succès: 900 | Erreurs: 0 | Skipped: 0 | Total joueurs: 32398 
+[2025-10-15 19:53:51] Batch 10/14 (matchs 901-1000) 
+[2025-10-15 19:55:27]   Succès: 1000 | Erreurs: 0 | Skipped: 0 | Total joueurs: 35998 
+[2025-10-15 19:55:27] Batch 11/14 (matchs 1001-1100) 
+[2025-10-15 19:57:03]   Succès: 1100 | Erreurs: 0 | Skipped: 0 | Total joueurs: 39598 
+[2025-10-15 19:57:03] Batch 12/14 (matchs 1101-1200) 
+[2025-10-15 19:58:39]   Succès: 1200 | Erreurs: 0 | Skipped: 0 | Total joueurs: 43198 
+[2025-10-15 19:58:39] Batch 13/14 (matchs 1201-1300) 
+[2025-10-15 20:00:14]   Succès: 1300 | Erreurs: 0 | Skipped: 0 | Total joueurs: 46794 
+[2025-10-15 20:00:14] Batch 14/14 (matchs 1301-1312) 
+[2025-10-15 20:00:26]   Succès: 1312 | Erreurs: 0 | Skipped: 0 | Total joueurs: 47225 
+[2025-10-15 20:00:26]  
+[2025-10-15 20:00:26] ================================================================================ 
+[2025-10-15 20:00:26]    COLLECTE TERMINÉE 
+[2025-10-15 20:00:26] ================================================================================ 
+[2025-10-15 20:00:26] Temps d'exécution: 21.24 minutes 
+[2025-10-15 20:00:26]  
+[2025-10-15 20:00:26] Statistiques: 
+[2025-10-15 20:00:26]   - Matchs traités avec succès: 1312 
+[2025-10-15 20:00:26]   - Matchs skipped (déjà existants): 0 
+[2025-10-15 20:00:26]   - Matchs avec erreurs: 0 
+[2025-10-15 20:00:26]   - Total de joueurs-matchs collectés: 47225 
+[2025-10-15 20:00:26]   - Moyenne par match: 36 joueurs 
+[2025-10-15 20:00:26]  
+[2025-10-15 20:00:26] Fichiers sauvegardés dans: data/03_dynamic_valuation/backtest/boxscores 
+[2025-10-15 20:00:26]  
+[2025-10-15 20:00:26] Top 5 scorers (échantillon sur premiers matchs): 
+[2025-10-15 20:00:26]     1. I. Barbashev (VGK): 4 pts en 1 GP 
+[2025-10-15 20:00:26]     2. J. Eichel (VGK): 4 pts en 1 GP 
+[2025-10-15 20:00:26]     3. M. Appleton (WPG): 3 pts en 1 GP 
+[2025-10-15 20:00:26]     4. M. Rantanen (COL): 3 pts en 1 GP 
+[2025-10-15 20:00:26]     5. M. Stone (VGK): 3 pts en 1 GP 
+[2025-10-15 20:00:26]  
+[2025-10-15 20:00:26] ✓ Collecte des boxscores terminée! 

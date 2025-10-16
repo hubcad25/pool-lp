@@ -1,81 +1,50 @@
-[2025-10-11 13:17:08] ÉTAPE 1: Récupération du calendrier de la saison 
-[2025-10-11 13:17:13] Total de matchs trouvés: 309 
-[2025-10-11 13:17:13] ÉTAPE 2: Traitement des matchs 
-[2025-10-11 13:17:13] (Cela peut prendre 20-30 minutes) 
-[2025-10-11 13:17:13] Batch 1/4 (matchs 1-100) 
-[2025-10-11 13:18:58]   Succès: 98 | Erreurs: 0 | Skipped: 2 | Total événements: 8344 
-[2025-10-11 13:18:58] Batch 2/4 (matchs 101-200) 
-[2025-10-11 13:20:58]   Succès: 198 | Erreurs: 0 | Skipped: 2 | Total événements: 17202 
-[2025-10-11 13:20:58] Batch 3/4 (matchs 201-300) 
-[2025-10-11 13:22:45]   Succès: 298 | Erreurs: 0 | Skipped: 2 | Total événements: 25992 
-[2025-10-11 13:22:45] Batch 4/4 (matchs 301-309) 
-[2025-10-11 13:22:56]   Succès: 307 | Erreurs: 0 | Skipped: 2 | Total événements: 26791 
-[2025-10-11 13:22:56]  
-[2025-10-11 13:22:56] ================================================================================ 
-[2025-10-11 13:22:56]    COLLECTE TERMINÉE 
-[2025-10-11 13:22:56] ================================================================================ 
-[2025-10-11 13:22:56] Temps d'exécution: 5.8 minutes 
-[2025-10-11 13:22:56]  
-[2025-10-11 13:22:56] Statistiques: 
-[2025-10-11 13:22:56]   - Matchs traités avec succès: 307 
-[2025-10-11 13:22:56]   - Matchs skipped (déjà existants): 2 
-[2025-10-11 13:22:56]   - Matchs avec erreurs: 0 
-[2025-10-11 13:22:56]   - Total d'événements collectés: 26791 
-[2025-10-11 13:22:56]   - Moyenne par match: 87.3 événements 
-[2025-10-11 13:22:56]  
-[2025-10-11 13:22:56] Fichiers sauvegardés dans: data/03_dynamic_valuation/backtest/pbp_events 
-[2025-10-11 13:22:56]  
-[2025-10-11 13:22:56] Distribution des types d'événements (échantillon): 
-[2025-10-11 13:22:56]     shot-on-goal: 413 
-[2025-10-11 13:22:56]     blocked-shot: 251 
-[2025-10-11 13:22:56]     missed-shot: 232 
-[2025-10-11 13:22:56]  
-[2025-10-11 13:22:56] ✓ Collecte PBP terminée! 
-[2025-10-14 17:42:47] ÉTAPE 1: Récupération du calendrier de la saison 
-[2025-10-14 17:56:24] ÉTAPE 1: Génération de la liste des game IDs 
-[2025-10-14 17:56:24] Total de game IDs à tenter: 2000 
-[2025-10-14 17:56:24] (Arrêt automatique après 3 échecs consécutifs) 
-[2025-10-14 17:56:24] ÉTAPE 2: Traitement des matchs 
-[2025-10-14 17:56:24] (Cela peut prendre 30-60 minutes) 
-[2025-10-14 17:56:24] Batch 1/20 (matchs 1-100) 
-[2025-10-14 18:01:00]   Succès: 94 | Erreurs: 0 | Skipped: 6 | Total événements: 7989 
-[2025-10-14 18:01:00] Batch 2/20 (matchs 101-200) 
-[2025-10-14 18:04:17]   Succès: 161 | Erreurs: 0 | Skipped: 39 | Total événements: 13801 
-[2025-10-14 18:04:17] Batch 3/20 (matchs 201-300) 
-[2025-10-14 18:07:59]   Succès: 242 | Erreurs: 0 | Skipped: 58 | Total événements: 20763 
-[2025-10-14 18:07:59] Batch 4/20 (matchs 301-400) 
-[2025-10-14 18:11:58]   Succès: 329 | Erreurs: 0 | Skipped: 71 | Total événements: 28172 
-[2025-10-14 18:11:58] Batch 5/20 (matchs 401-500) 
-[2025-10-14 18:15:14]   Succès: 394 | Erreurs: 0 | Skipped: 106 | Total événements: 33775 
-[2025-10-14 18:15:14] Batch 6/20 (matchs 501-600) 
-[2025-10-14 18:19:43]   Succès: 494 | Erreurs: 0 | Skipped: 106 | Total événements: 42122 
-[2025-10-14 18:19:43] Batch 7/20 (matchs 601-700) 
-[2025-10-14 18:22:15]   Succès: 546 | Erreurs: 0 | Skipped: 154 | Total événements: 46664 
-[2025-10-14 18:22:15] Batch 8/20 (matchs 701-800) 
-[2025-10-14 18:26:42]   Succès: 646 | Erreurs: 0 | Skipped: 154 | Total événements: 55598 
-[2025-10-14 18:26:42] Batch 9/20 (matchs 801-900) 
-[2025-10-14 18:29:08]   Succès: 696 | Erreurs: 0 | Skipped: 204 | Total événements: 60107 
-[2025-10-14 18:29:08] Batch 10/20 (matchs 901-1000) 
-[2025-10-14 18:31:35]   Succès: 743 | Erreurs: 0 | Skipped: 257 | Total événements: 64220 
-[2025-10-14 18:31:35] Batch 11/20 (matchs 1001-1100) 
-[2025-10-14 18:33:00]   ERROR - Game 2024021009: cannot open the connection to 'https://api-web.nhle.com/v1/gamecenter/2024021009/play-by-play' 
-[2025-10-14 18:33:00]   ERROR - Game 2024021010: cannot open the connection to 'https://api-web.nhle.com/v1/gamecenter/2024021010/play-by-play' 
-[2025-10-14 18:33:00]   ERROR - Game 2024021011: cannot open the connection to 'https://api-web.nhle.com/v1/gamecenter/2024021011/play-by-play' 
-[2025-10-14 18:33:01] ARRÊT: 3 échecs consécutifs détectés 
-[2025-10-14 18:33:01] Dernier game ID valide probable: 2024021011 
-[2025-10-14 18:33:01]  
-[2025-10-14 18:33:01] ================================================================================ 
-[2025-10-14 18:33:01]    COLLECTE TERMINÉE 
-[2025-10-14 18:33:01] ================================================================================ 
-[2025-10-14 18:33:01] Temps d'exécution: 36.61 minutes 
-[2025-10-14 18:33:01]  
-[2025-10-14 18:33:01] Statistiques: 
-[2025-10-14 18:33:01]   - Matchs traités avec succès: 749 
-[2025-10-14 18:33:01]   - Matchs skipped (déjà existants): 259 
-[2025-10-14 18:33:01]   - Matchs avec erreurs: 3 
-[2025-10-14 18:33:01]   - Total d'événements collectés: 64746 
-[2025-10-14 18:33:01]   - Moyenne par match: 86.4 événements 
-[2025-10-14 18:33:01]  
-[2025-10-14 18:33:01] Fichiers sauvegardés dans: data/03_dynamic_valuation/backtest/pbp_events 
-[2025-10-14 18:33:01]  
-[2025-10-14 18:33:01] Distribution des types d'événements (échantillon): 
+[2025-10-15 19:39:24] ÉTAPE 1: Chargement de la liste des game IDs 
+[2025-10-15 19:39:24] Total de matchs dans la saison: 1312 
+[2025-10-15 19:39:24] Premier match: 2024020001 
+[2025-10-15 19:39:24] Dernier match: 2024021312 
+[2025-10-15 19:39:24] ÉTAPE 2: Traitement des matchs 
+[2025-10-15 19:39:24] (Cela peut prendre 30-60 minutes) 
+[2025-10-15 19:39:24] Batch 1/14 (matchs 1-100) 
+[2025-10-15 19:41:44]   Succès: 100 | Erreurs: 0 | Skipped: 0 | Total événements: 9449 
+[2025-10-15 19:41:44] Batch 2/14 (matchs 101-200) 
+[2025-10-15 19:44:01]   Succès: 200 | Erreurs: 0 | Skipped: 0 | Total événements: 18958 
+[2025-10-15 19:44:01] Batch 3/14 (matchs 201-300) 
+[2025-10-15 19:46:22]   Succès: 300 | Erreurs: 0 | Skipped: 0 | Total événements: 28360 
+[2025-10-15 19:46:22] Batch 4/14 (matchs 301-400) 
+[2025-10-15 19:48:42]   Succès: 400 | Erreurs: 0 | Skipped: 0 | Total événements: 37802 
+[2025-10-15 19:48:42] Batch 5/14 (matchs 401-500) 
+[2025-10-15 19:51:00]   Succès: 500 | Erreurs: 0 | Skipped: 0 | Total événements: 47258 
+[2025-10-15 19:51:00] Batch 6/14 (matchs 501-600) 
+[2025-10-15 19:53:21]   Succès: 600 | Erreurs: 0 | Skipped: 0 | Total événements: 56483 
+[2025-10-15 19:53:21] Batch 7/14 (matchs 601-700) 
+[2025-10-15 19:55:40]   Succès: 700 | Erreurs: 0 | Skipped: 0 | Total événements: 66254 
+[2025-10-15 19:55:40] Batch 8/14 (matchs 701-800) 
+[2025-10-15 19:57:57]   Succès: 800 | Erreurs: 0 | Skipped: 0 | Total événements: 76083 
+[2025-10-15 19:57:57] Batch 9/14 (matchs 801-900) 
+[2025-10-15 20:00:14]   Succès: 900 | Erreurs: 0 | Skipped: 0 | Total événements: 85902 
+[2025-10-15 20:00:14] Batch 10/14 (matchs 901-1000) 
+[2025-10-15 20:02:29]   Succès: 1000 | Erreurs: 0 | Skipped: 0 | Total événements: 95611 
+[2025-10-15 20:02:29] Batch 11/14 (matchs 1001-1100) 
+[2025-10-15 20:04:42]   Succès: 1100 | Erreurs: 0 | Skipped: 0 | Total événements: 105163 
+[2025-10-15 20:04:42] Batch 12/14 (matchs 1101-1200) 
+[2025-10-15 20:06:56]   Succès: 1200 | Erreurs: 0 | Skipped: 0 | Total événements: 114626 
+[2025-10-15 20:06:56] Batch 13/14 (matchs 1201-1300) 
+[2025-10-15 20:07:42]   ERROR - Game 2024021235: no applicable method for 'filter' applied to an object of class "list" 
+[2025-10-15 20:07:43]   ERROR - Game 2024021236: no applicable method for 'filter' applied to an object of class "list" 
+[2025-10-15 20:07:44]   ERROR - Game 2024021237: no applicable method for 'filter' applied to an object of class "list" 
+[2025-10-15 20:07:45]   ERROR - Game 2024021238: no applicable method for 'filter' applied to an object of class "list" 
+[2025-10-15 20:07:46]   ERROR - Game 2024021239: no applicable method for 'filter' applied to an object of class "list" 
+[2025-10-15 20:07:47]   ERROR - Game 2024021240: no applicable method for 'filter' applied to an object of class "list" 
+[2025-10-15 20:07:48]   ERROR - Game 2024021241: no applicable method for 'filter' applied to an object of class "list" 
+[2025-10-15 20:07:48]   ERROR - Game 2024021242: no applicable method for 'filter' applied to an object of class "list" 
+[2025-10-15 20:07:49]   ERROR - Game 2024021243: no applicable method for 'filter' applied to an object of class "list" 
+[2025-10-15 20:07:50]   ERROR - Game 2024021244: no applicable method for 'filter' applied to an object of class "list" 
+[2025-10-15 20:07:51]   ERROR - Game 2024021245: no applicable method for 'filter' applied to an object of class "list" 
+[2025-10-15 20:07:52]   ERROR - Game 2024021246: no applicable method for 'filter' applied to an object of class "list" 
+[2025-10-15 20:07:53]   ERROR - Game 2024021247: no applicable method for 'filter' applied to an object of class "list" 
+[2025-10-15 20:07:54]   ERROR - Game 2024021248: no applicable method for 'filter' applied to an object of class "list" 
+[2025-10-15 20:07:54]   ERROR - Game 2024021249: no applicable method for 'filter' applied to an object of class "list" 
+[2025-10-15 20:07:55]   ERROR - Game 2024021250: no applicable method for 'filter' applied to an object of class "list" 
+[2025-10-15 20:07:56]   ERROR - Game 2024021251: no applicable method for 'filter' applied to an object of class "list" 
+[2025-10-15 20:07:57]   ERROR - Game 2024021252: no applicable method for 'filter' applied to an object of class "list" 
+[2025-10-15 20:07:58]   ERROR - Game 2024021253: no applicable method for 'filter' applied to an object of class "list" 

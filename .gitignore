@@ -2,6 +2,9 @@ data/archives/
 
 *.rds
 
+*_cache/
+*_files/
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof

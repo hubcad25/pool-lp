@@ -80,18 +80,14 @@ Selon notre équation bayésienne (voir `code/03_dynamic_valuation/equation.md`)
 
 ## Préparation des données
 
-```{r}
-#| label: prep-data
-#| cache: false
+Les données sont déjà préparées avec le système bayésien (priors et posteriors calculés dans `01a` et `01b`).
 
-source("vignettes/explo_dynamic_valuation/r_scripts/01_prepare_rolling_sh_pct.R")
-```
+Dataset disponible dans `data`:
 
-Dataset préparé:
-
-- **`df_rollshpct`**: Tous les joueurs avec SH% cumulatif, L5, L10
-- **`df_selected`**: 9 joueurs sélectionnés aléatoirement pour visualisation
-- **`df_volatility`**: Écarts rolling vs cumulatif pour analyse de streaks
+- **Priors pré-saison**: Calculés avec volume-weighted shrinkage sur historique 2021-2023
+- **Posterior bayésien**: Mis à jour match par match avec convergence adaptative (k varie selon volume historique)
+- **L5 et L10 rolling**: Shooting % sur derniers 5 et 10 matchs
+- **Différences L5/L10 vs Posterior**: Variables clés pour détecter les streaks hot/cold (courts vs moyens)
 
 ## Évolution du SH% pendant la saison
 
@@ -100,7 +96,6 @@ Dataset préparé:
 #| fig-height: 10
 #| fig-width: 12
 #| fig-cap: "Évolution du shooting % avec différentes fenêtres temporelles"
-#| cache: false
 
 source("vignettes/explo_dynamic_valuation/r_scripts/02_fig_sh_pct_evolution.R")
 fig_sh_pct_evolution
@@ -108,10 +103,11 @@ fig_sh_pct_evolution
 
 **Observations:**
 
-- Le **SH% cumulatif** (noir) se stabilise progressivement au fil de la saison
-- Le **rolling 5 matchs** (bleu) est très volatil - bon pour détecter les streaks chauds/froids courts
-- Le **rolling 10 matchs** (rouge) offre un bon compromis: moins de bruit tout en capturant les tendances
-- Les écarts significatifs entre rolling et cumulatif peuvent signaler des opportunités de transaction
+- Le **prior pré-saison** (pointillé gris) est la baseline fixe calculée avec shrinkage volume-pondéré
+- Le **posterior bayésien** (noir) combine prior et observations avec convergence adaptative (recrues convergent plus vite que vétérans)
+- Le **rolling 5 matchs** (bleu) est très volatil - détecte les streaks très courts
+- Le **rolling 10 matchs** (rouge) est plus stable - capture les tendances à moyen terme
+- Les écarts significatifs entre L5/L10 et posterior signalent des hot/cold streaks anormaux (opportunités de transaction)
 
 ## Distribution de la volatilité
 
@@ -119,7 +115,7 @@ fig_sh_pct_evolution
 #| label: fig-sh-pct-volatility
 #| fig-height: 6
 #| fig-width: 10
-#| fig-cap: "Distribution des écarts entre Rolling SH% et Cumulatif"
+#| fig-cap: "Distribution des écarts entre Rolling L5 & L10 et Posterior Bayésien"
 
 source("vignettes/explo_dynamic_valuation/r_scripts/03_fig_sh_pct_volatility.R")
 fig_sh_pct_volatility
@@ -127,28 +123,43 @@ fig_sh_pct_volatility
 
 **Interprétation:**
 
+- Le **L5** (bleu) est plus volatil que le **L10** (rouge) - détecte des streaks plus courts mais avec plus de bruit
+- Le **L10** (rouge) offre un meilleur compromis signal/bruit pour la détection de tendances
 - La majorité des écarts se situent entre **-5% et +5%**
-- Les queues de distribution (écarts > 7-8%) représentent des **streaks anormaux**
+- Les queues de distribution (écarts > 7-8%) représentent des **streaks anormaux** par rapport au posterior
 - Ces écarts extrêmes sont des candidats pour la détection **SELL HIGH / BUY LOW**
+- Le posterior étant plus stable que le cumulatif simple, les signaux de streaks sont plus fiables
 
 ## Statistiques de volatilité
 
 ```{r}
 #| label: tbl-volatility-stats
-#| tbl-cap: "Statistiques descriptives des écarts de SH%"
+#| tbl-cap: "Statistiques descriptives des écarts de SH% (L5 et L10 vs Posterior)"
 
-df_volatility |>
+# Préparer données pour L5 et L10
+stats_L5 <- data |>
+  filter(!is.na(diff_L5_posterior), game_index >= 5) |>
   summarise(
-    `Métrique` = c("Rolling 5 matchs", "Rolling 10 matchs"),
-    `Écart moyen` = c(mean(abs(diff_L5_cumul), na.rm = TRUE),
-                      mean(abs(diff_L10_cumul), na.rm = TRUE)),
-    `Écart médian` = c(median(abs(diff_L5_cumul), na.rm = TRUE),
-                       median(abs(diff_L10_cumul), na.rm = TRUE)),
-    `Écart-type` = c(sd(diff_L5_cumul, na.rm = TRUE),
-                     sd(diff_L10_cumul, na.rm = TRUE)),
-    `P90` = c(quantile(abs(diff_L5_cumul), 0.90, na.rm = TRUE),
-              quantile(abs(diff_L10_cumul), 0.90, na.rm = TRUE))
-  ) |>
+    `Métrique` = "Rolling 5 matchs vs Posterior",
+    `Écart moyen` = mean(abs(diff_L5_posterior), na.rm = TRUE),
+    `Écart médian` = median(abs(diff_L5_posterior), na.rm = TRUE),
+    `Écart-type` = sd(diff_L5_posterior, na.rm = TRUE),
+    `P90` = quantile(abs(diff_L5_posterior), 0.90, na.rm = TRUE),
+    `P95` = quantile(abs(diff_L5_posterior), 0.95, na.rm = TRUE)
+  )
+
+stats_L10 <- data |>
+  filter(!is.na(diff_L10_posterior), game_index >= 10) |>
+  summarise(
+    `Métrique` = "Rolling 10 matchs vs Posterior",
+    `Écart moyen` = mean(abs(diff_L10_posterior), na.rm = TRUE),
+    `Écart médian` = median(abs(diff_L10_posterior), na.rm = TRUE),
+    `Écart-type` = sd(diff_L10_posterior, na.rm = TRUE),
+    `P90` = quantile(abs(diff_L10_posterior), 0.90, na.rm = TRUE),
+    `P95` = quantile(abs(diff_L10_posterior), 0.95, na.rm = TRUE)
+  )
+
+bind_rows(stats_L5, stats_L10) |>
   knitr::kable(digits = 2)
 ```
 
@@ -161,7 +172,6 @@ df_volatility |>
 #| fig-height: 12
 #| fig-width: 10
 #| fig-cap: "Heatmap des streaks (Top 50 joueurs les plus volatils)"
-#| cache: false
 
 source("vignettes/explo_dynamic_valuation/r_scripts/07_fig_sh_pct_heatmap.R")
 fig_sh_pct_heatmap
@@ -176,7 +186,6 @@ fig_sh_pct_heatmap
 #| fig-height: 7
 #| fig-width: 12
 #| fig-cap: "Trajectoires individuelles + Percentiles de la population"
-#| cache: false
 
 source("vignettes/explo_dynamic_valuation/r_scripts/08_fig_sh_pct_spaghetti.R")
 fig_sh_pct_spaghetti
@@ -191,7 +200,7 @@ fig_sh_pct_spaghetti
 #| fig-height: 10
 #| fig-width: 10
 #| fig-cap: "Convergence du L10 vers le SH% final de saison (groupes de 5 matchs)"
-#| cache: false
+
 
 source("vignettes/explo_dynamic_valuation/r_scripts/09_fig_sh_pct_violin_temporal.R")
 fig_sh_pct_violin_temporal
@@ -206,7 +215,6 @@ fig_sh_pct_violin_temporal
 #| fig-height: 7
 #| fig-width: 12
 #| fig-cap: "Proportion de joueurs par zone de streak au fil de la saison"
-#| cache: false
 
 source("vignettes/explo_dynamic_valuation/r_scripts/10_fig_sh_pct_stream.R")
 fig_sh_pct_stream
@@ -214,13 +222,23 @@ fig_sh_pct_stream
 
 **Insight:** La majorité reste dans la zone normale (gris). Les zones extrêmes (rouge/bleu foncé) représentent ~10-15% des joueurs à tout moment.
 
+## Analyse de durée des streaks
+
+```{r}
+#| label: streak-duration-analysis
+
+source("vignettes/explo_dynamic_valuation/r_scripts/15_streak_duration_analysis.R")
+```
+
+**Statistiques de durée:**
+Les streaks typiques durent 2-5 matchs consécutifs. Les streaks extrêmes (>+7% ou <-7%) sont plus courts car la régression vers le posterior est forte.
+
 # On-Ice Shooting % (Chance d'équipe)
 
 ## Préparation des données
 
 ```{r}
 #| label: prep-data-onice
-#| cache: false
 
 source("vignettes/explo_dynamic_valuation/r_scripts/04_prepare_rolling_onice_sh.R")
 ```
@@ -302,7 +320,6 @@ df_volatility_onice |>
 #| fig-height: 12
 #| fig-width: 10
 #| fig-cap: "Heatmap des streaks d'équipe (Top 50 joueurs)"
-#| cache: false
 
 source("vignettes/explo_dynamic_valuation/r_scripts/11_fig_onice_sh_heatmap.R")
 fig_onice_sh_heatmap
@@ -317,7 +334,6 @@ fig_onice_sh_heatmap
 #| fig-height: 7
 #| fig-width: 12
 #| fig-cap: "Trajectoires individuelles + Percentiles (On-Ice SH%)"
-#| cache: false
 
 source("vignettes/explo_dynamic_valuation/r_scripts/12_fig_onice_sh_spaghetti.R")
 fig_onice_sh_spaghetti
@@ -332,7 +348,6 @@ fig_onice_sh_spaghetti
 #| fig-height: 10
 #| fig-width: 10
 #| fig-cap: "Convergence du L10 vers le On-Ice SH% final (groupes de 5 matchs)"
-#| cache: false
 
 source("vignettes/explo_dynamic_valuation/r_scripts/13_fig_onice_sh_violin_temporal.R")
 fig_onice_sh_violin_temporal
@@ -347,7 +362,6 @@ fig_onice_sh_violin_temporal
 #| fig-height: 7
 #| fig-width: 12
 #| fig-cap: "Proportion de joueurs par zone (On-Ice SH%)"
-#| cache: false
 
 source("vignettes/explo_dynamic_valuation/r_scripts/14_fig_onice_sh_stream.R")
 fig_onice_sh_stream
@@ -391,7 +405,10 @@ Finaliser les **seuils** pour flags automatiques en combinant:
 - **On-ice SH%** (chance d'équipe): Régression attendue
 - **SF/SA**: Confirmation de tendance réelle vs chance
 
-**Règles proposées:**
-- SELL HIGH: SH% L10 > cumulatif + 5% **ET** on-ice SH% > 11%
-- BUY LOW: SH% L10 < cumulatif - 5% **ET** on-ice SH% < 9%
-- SF/SA: Valider que la tendance n'est pas soutenue par domination territoriale
+**Règles proposées (version bayésienne):**
+- **Détection initiale (L5)**: Identifier les joueurs avec écarts extrêmes (>±7%) sur les 5 derniers matchs
+- **Confirmation (L10)**: Valider la tendance sur 10 matchs (>±5%)
+- **SELL HIGH**: SH% L5 > posterior + 7% **ET** L10 > posterior + 5% (streak confirmé et persistant)
+- **BUY LOW**: SH% L5 < posterior - 7% **ET** L10 < posterior - 5% (slump confirmé et persistant)
+- Le posterior étant plus stable que le cumulatif, les signaux de streaks sont plus fiables
+- À combiner avec on-ice SH% et SF/SA une fois implémentés

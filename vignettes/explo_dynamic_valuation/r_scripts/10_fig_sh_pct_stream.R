@@ -5,15 +5,19 @@ library(ggplot2)
 library(dplyr)
 library(tidyr)
 
+# Filtrer données avec L10 valide
+df_volatility <- data %>%
+  filter(!is.na(diff_L10_posterior), game_index >= 10)
+
 # Classifier joueurs par zone à chaque match (limiter à 80 matchs)
 df_stream <- df_volatility |>
   filter(game_index <= 80) |>
   mutate(
     zone = case_when(
-      diff_L10_cumul > 7 ~ "Extreme Hot (>+7%)",
-      diff_L10_cumul > 3 ~ "Hot (+3% à +7%)",
-      diff_L10_cumul > -3 ~ "Normal (±3%)",
-      diff_L10_cumul > -7 ~ "Cold (-7% à -3%)",
+      diff_L10_posterior > 7 ~ "Extreme Hot (>+7%)",
+      diff_L10_posterior > 3 ~ "Hot (+3% à +7%)",
+      diff_L10_posterior > -3 ~ "Normal (±3%)",
+      diff_L10_posterior > -7 ~ "Cold (-7% à -3%)",
       TRUE ~ "Extreme Cold (<-7%)"
     ),
     zone = factor(zone, levels = c(
@@ -47,7 +51,7 @@ fig_sh_pct_stream <- ggplot(df_stream, aes(x = game_index, y = proportion, fill 
   ) +
   labs(
     title = "Distribution des streaks au fil de la saison",
-    subtitle = "Proportion de joueurs dans chaque zone (SH% L10 vs Cumulatif)",
+    subtitle = "Proportion de joueurs dans chaque zone (SH% L10 vs Posterior Bayésien)",
     x = "Match #",
     y = "Proportion (%)",
     caption = "Zone normale (gris) = majorité des joueurs. Extrêmes (rouge/bleu foncé) = opportunités."

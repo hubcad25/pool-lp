@@ -5,15 +5,15 @@ library(ggplot2)
 library(ggridges)
 library(dplyr)
 
-# Calculer le SH% final de saison pour chaque joueur
-sh_pct_final <- df_rollshpct |>
+# Calculer le posterior final de saison pour chaque joueur
+sh_pct_final <- data |>
   group_by(player_id, player_name) |>
   filter(game_index == max(game_index)) |>
-  select(player_id, sh_pct_final = sh_pct_cumulative) |>
+  select(player_id, sh_pct_final = sh_pct_posterior) |>
   ungroup()
 
-# Joindre et calculer écart L10 vs final
-df_ridge <- df_rollshpct |>
+# Joindre et calculer écart L10 vs posterior final
+df_ridge <- data |>
   filter(!is.na(sh_pct_L10)) |>
   left_join(sh_pct_final, by = "player_id") |>
   mutate(
@@ -48,9 +48,9 @@ fig_sh_pct_violin_temporal <- ggplot(df_ridge, aes(x = diff_L10_final, y = match
   ) +
   geom_vline(xintercept = 0, linetype = "dashed", color = "black", linewidth = 0.8) +
   labs(
-    title = "Convergence du Rolling SH% vers la valeur finale",
-    subtitle = "Écart entre L10 et SH% final de saison (groupes de 5 matchs)",
-    x = "Écart: SH% L10 - SH% Final (points de %)",
+    title = "Convergence du Rolling SH% vers le Posterior final",
+    subtitle = "Écart entre L10 et Posterior Bayésien final (groupes de 5 matchs)",
+    x = "Écart: SH% L10 - Posterior Final (points de %)",
     y = NULL,
     caption = "La distribution se resserre vers 0 au fil de la saison.\nLigne verticale médiane visible dans chaque ridge."
   ) +

@@ -26,9 +26,11 @@ season_lengths <- c(
 df_f <- readRDS("data/01_point_projections/processed/training_data_F.rds")
 df_d <- readRDS("data/01_point_projections/processed/training_data_D.rds")
 df_hist <- bind_rows(df_f, df_d) %>%
-  filter(season >= 2020, season <= 2024, games_played >= 10)
+  filter(season >= 2020, season <= 2024) %>%
+  # Convertir C/L/R → F
+  mutate(position = ifelse(position %in% c("C", "L", "R"), "F", "D"))
 
-cat("  Données historiques:", nrow(df_hist), "observations (2020-2024)\n")
+cat("  Données historiques avant filtre GP:", nrow(df_hist), "observations (2020-2024)\n")
 
 # Calculer shots on goal depuis goals et conversion
 df_hist <- df_hist %>%
@@ -45,7 +47,9 @@ cat("  Saisons disponibles:", paste(unique(df_hist$season), collapse = ", "), "\
 # STEP 2: Charger données observées 2024-25 (pour validation)
 # ============================================
 
-game_data_2025 <- readRDS("data/03_dynamic_valuation/backtest/game_level_stats_2024.rds")
+game_data_2025 <- readRDS("data/03_dynamic_valuation/backtest/game_level_stats_2024.rds") %>%
+  # Convertir C/L/R → F pour cohérence
+  mutate(position = ifelse(position %in% c("C", "L", "R"), "F", "D"))
 
 # Calculer SH% final observé 2024-25
 sh_pct_observed_2025 <- game_data_2025 %>%
@@ -71,9 +75,8 @@ cat("Calcul des baselines (moyennes par position × âge)...\n")
 
 # Créer données train (2020-2023) pour calculer baselines
 df_train <- df_hist %>%
-  filter(season %in% c(2020, 2021, 2022, 2023)) %>%
+  filter(season %in% c(2020, 2021, 2022, 2023), games_played >= 10) %>%
   mutate(
-    pos_group = ifelse(position %in% c("C", "L", "R"), "F", "D"),
     age_group = case_when(
       age <= 22 ~ "18-22",
       age <= 27 ~ "23-27",
@@ -91,9 +94,9 @@ league_avg_global <- df_train %>%
   ) %>%
   pull(league_avg)
 
-# Par position
+# Par position (F/D)
 league_avg_pos <- df_train %>%
-  group_by(pos_group) %>%
+  group_by(position) %>%
   summarise(
     total_goals = sum(goals, na.rm = TRUE),
     total_shots = sum(shots_on_goal, na.rm = TRUE),
@@ -101,9 +104,9 @@ league_avg_pos <- df_train %>%
     .groups = "drop"
   )
 
-# Par position × âge
+# Par position × âge (2 pos × 4 âges = 8 strates)
 league_avg_pos_age <- df_train %>%
-  group_by(pos_group, age_group) %>%
+  group_by(position, age_group) %>%
   summarise(
     total_goals = sum(goals, na.rm = TRUE),
     total_shots = sum(shots_on_goal, na.rm = TRUE),
@@ -113,10 +116,10 @@ league_avg_pos_age <- df_train %>%
   )
 
 cat("  League avg global:", round(league_avg_global, 2), "%\n")
-cat("\nPar position:\n")
-print(league_avg_pos %>% select(pos_group, league_avg))
-cat("\nPar position × âge:\n")
-print(league_avg_pos_age %>% select(pos_group, age_group, league_avg, n_players))
+cat("\nPar position (F/D):\n")
+print(league_avg_pos %>% select(position, league_avg))
+cat("\nPar position × âge (8 strates):\n")
+print(league_avg_pos_age %>% select(position, age_group, league_avg, n_players))
 cat("\n")
 
 # ============================================
@@ -125,13 +128,24 @@ cat("\n")
 
 cat("Calcul de l'historique pondéré par joueur (2021-2023)...\n\n")
 
-# Préparer données wide (t1=2023, t2=2022, t3=2021)
-df_history <- df_hist %>%
+# Préparer données historiques: filtrer sur GP total (pas par saison)
+df_history_base <- df_hist %>%
   filter(season %in% c(2021, 2022, 2023)) %>%
+  group_by(player_id) %>%
+  mutate(total_gp_3seasons = sum(games_played)) %>%
+  ungroup() %>%
+  # Filtre: ≥20 GP total sur 3 saisons (au lieu de ≥10 par saison)
+  filter(total_gp_3seasons >= 20)
+
+cat("  Joueurs avec ≥20 GP sur 2021-2023:", n_distinct(df_history_base$player_id), "\n")
+
+# Préparer données wide (t1=2023, t2=2022, t3=2021)
+df_history <- df_history_base %>%
   arrange(player_id, desc(season)) %>%
   group_by(player_id) %>%
   mutate(
     time_index = row_number(),
+    position_recent = position[1],  # Position la plus récente
     age_current = age[1],
 
     # Weight par saison (recency × GP adjustment)
@@ -148,15 +162,18 @@ df_history <- df_hist %>%
   ungroup() %>%
   filter(time_index <= 3) %>%
   select(
-    player_id, name, position, time_index, age, age_current,
+    player_id, name, position_recent, time_index, age, age_current,
     season, weight, shots_on_goal, sh_pct
   ) %>%
   pivot_wider(
-    id_cols = c(player_id, name, position, age_current),
+    id_cols = c(player_id, name, position_recent, age_current),
     names_from = time_index,
     values_from = c(shots_on_goal, sh_pct, weight, age, season),
     names_glue = "{.value}_t{time_index}"
-  )
+  ) %>%
+  # Garantir un seul prior par joueur (en cas de duplicates)
+  distinct(player_id, .keep_all = TRUE) %>%
+  rename(position = position_recent)
 
 # Calculer volume pondéré et SH% career pondéré
 sh_pct_priors_raw <- df_history %>%
@@ -177,7 +194,6 @@ sh_pct_priors_raw <- df_history %>%
                     pmax(volume_shots, 1),
 
     # Groupes pour baselines
-    pos_group = ifelse(position %in% c("C", "L", "R"), "F", "D"),
     age = age_current,
     age_group = case_when(
       age <= 22 ~ "18-22",
@@ -186,23 +202,23 @@ sh_pct_priors_raw <- df_history %>%
       TRUE ~ "32+"
     )
   ) %>%
-  # Joindre baselines
+  # Joindre baselines (position déjà F/D)
   left_join(
-    league_avg_pos_age %>% select(pos_group, age_group, baseline_sh_pct = league_avg),
-    by = c("pos_group", "age_group")
+    league_avg_pos_age %>% select(position, age_group, baseline_sh_pct = league_avg),
+    by = c("position", "age_group")
   ) %>%
   # Si baseline manquant, utiliser moyenne position
   left_join(
-    league_avg_pos %>% select(pos_group, baseline_pos = league_avg),
-    by = "pos_group"
+    league_avg_pos %>% select(position, baseline_pos = league_avg),
+    by = "position"
   ) %>%
   mutate(
     baseline_sh_pct = ifelse(is.na(baseline_sh_pct), baseline_pos, baseline_sh_pct)
   ) %>%
-  select(player_id, name, position, age, pos_group, age_group,
+  select(player_id, name, position, age, age_group,
          volume_shots, sh_pct_career, baseline_sh_pct)
 
-cat("Joueurs avec historique 2021-2023:", nrow(sh_pct_priors_raw), "\n")
+cat("Joueurs avec historique après pivot:", nrow(sh_pct_priors_raw), "\n")
 cat("Volume médian:", round(median(sh_pct_priors_raw$volume_shots), 1), "shots\n")
 cat("Volume moyen:", round(mean(sh_pct_priors_raw$volume_shots), 1), "shots\n\n")
 
@@ -232,7 +248,7 @@ sh_pct_priors_final <- sh_pct_priors_raw %>%
     prior_sh_pct = weight * sh_pct_career + (1 - weight) * baseline_sh_pct,
     k_used = best_k
   ) %>%
-  select(player_id, name, position, age, pos_group, age_group,
+  select(player_id, name, position, age, age_group,
          prior_sh_pct, volume_shots, weight,
          baseline_sh_pct, sh_pct_career, k_used)
 
@@ -260,7 +276,7 @@ cat("\n")
 
 # Par position
 prior_stats_pos <- sh_pct_priors_final %>%
-  group_by(pos_group) %>%
+  group_by(position) %>%
   summarise(
     n = n(),
     mean_prior = mean(prior_sh_pct, na.rm = TRUE),
@@ -270,7 +286,7 @@ prior_stats_pos <- sh_pct_priors_final %>%
     .groups = "drop"
   )
 
-cat("Par position:\n")
+cat("Par position (F/D):\n")
 print(prior_stats_pos, n = Inf)
 cat("\n")
 
@@ -295,14 +311,98 @@ cat("  MAE:", round(mean(validation_final$abs_error), 2), "%\n")
 cat("  R²:", round(cor(validation_final$prior_sh_pct, validation_final$sh_pct_observed)^2, 3), "\n\n")
 
 # ============================================
+# STEP 8b: Ajouter priors pour TOUS les joueurs 2024-25
+# ============================================
+
+cat("=== Ajout des priors pour joueurs sans historique ===\n\n")
+
+# Liste complète des joueurs 2024-25
+all_players_2025 <- game_data_2025 %>%
+  distinct(player_id, player_name, position) %>%
+  # Ajouter âge (estimation si manquant)
+  left_join(
+    df_hist %>% filter(season == 2024) %>% distinct(player_id, age),
+    by = "player_id"
+  ) %>%
+  # Si âge manquant, utiliser 25 par défaut (âge moyen)
+  mutate(
+    age = ifelse(is.na(age), 25, age),
+    age_group = case_when(
+      age <= 22 ~ "18-22",
+      age <= 27 ~ "23-27",
+      age <= 31 ~ "28-31",
+      TRUE ~ "32+"
+    )
+  )
+
+# Identifier joueurs manquants
+missing_players <- all_players_2025 %>%
+  anti_join(sh_pct_priors_final, by = "player_id")
+
+cat("Joueurs sans prior (recrues/nouveaux):", nrow(missing_players), "\n")
+
+# Créer priors baseline pour ces joueurs
+if (nrow(missing_players) > 0) {
+  priors_baseline <- missing_players %>%
+    left_join(
+      league_avg_pos_age %>% select(position, age_group, baseline_sh_pct = league_avg),
+      by = c("position", "age_group")
+    ) %>%
+    # Si baseline manquant, utiliser moyenne position
+    left_join(
+      league_avg_pos %>% select(position, baseline_pos = league_avg),
+      by = "position"
+    ) %>%
+    mutate(
+      baseline_sh_pct = ifelse(is.na(baseline_sh_pct), baseline_pos, baseline_sh_pct),
+      # Pour recrues: prior = baseline (weight=0, pas d'historique)
+      prior_sh_pct = baseline_sh_pct,
+      volume_shots = 0,
+      weight = 0,
+      sh_pct_career = baseline_sh_pct,  # Utiliser baseline comme career
+      k_used = best_k
+    ) %>%
+    rename(name = player_name) %>%
+    select(player_id, name, position, age, age_group,
+           prior_sh_pct, volume_shots, weight,
+           baseline_sh_pct, sh_pct_career, k_used)
+
+  # Fusionner avec priors existants
+  sh_pct_priors_complete <- bind_rows(sh_pct_priors_final, priors_baseline) %>%
+    # Éliminer duplicates potentiels (caractères spéciaux, etc.)
+    distinct(player_id, .keep_all = TRUE)
+
+  cat("  Priors créés pour", nrow(priors_baseline), "joueurs\n")
+  cat("  Total priors:", nrow(sh_pct_priors_complete), "joueurs\n\n")
+} else {
+  sh_pct_priors_complete <- sh_pct_priors_final %>%
+    distinct(player_id, .keep_all = TRUE)
+  cat("  Tous les joueurs ont déjà un prior\n\n")
+}
+
+# Vérifier couverture complète (joueurs sans prior)
+missing_coverage <- all_players_2025 %>%
+  anti_join(sh_pct_priors_complete, by = "player_id")
+
+if (nrow(missing_coverage) > 0) {
+  cat("⚠ ATTENTION:", nrow(missing_coverage), "joueurs manquent encore un prior!\n")
+  print(head(missing_coverage))
+  cat("\n")
+} else {
+  cat("✓ Couverture 100%: tous les", nrow(all_players_2025), "joueurs 2024-25 ont un prior\n\n")
+}
+
+# ============================================
 # STEP 9: Sauvegarder
 # ============================================
 
-saveRDS(sh_pct_priors_final, "vignettes/explo_dynamic_valuation/data/sh_pct_priors.rds")
+saveRDS(sh_pct_priors_complete, "vignettes/explo_dynamic_valuation/data/sh_pct_priors.rds")
 saveRDS(validation_final, "vignettes/explo_dynamic_valuation/data/prior_validation.rds")
 
 cat("✓ Prior SH% calculé et sauvegardé\n")
-cat("  - sh_pct_priors.rds:", nrow(sh_pct_priors_final), "joueurs\n")
+cat("  - sh_pct_priors.rds:", nrow(sh_pct_priors_complete), "joueurs (100% couverture)\n")
+cat("  - Avec historique:", nrow(sh_pct_priors_final), "joueurs\n")
+cat("  - Baseline seulement:", nrow(sh_pct_priors_complete) - nrow(sh_pct_priors_final), "joueurs\n")
 cat("  - k =", best_k, "\n")
-cat("  - Weight moyen:", round(prior_stats$mean_weight, 3), "\n")
-cat("  - Volume moyen:", round(prior_stats$mean_volume, 1), "shots\n\n")
+cat("  - Weight moyen (avec historique):", round(prior_stats$mean_weight, 3), "\n")
+cat("  - Volume moyen (avec historique):", round(prior_stats$mean_volume, 1), "shots\n\n")

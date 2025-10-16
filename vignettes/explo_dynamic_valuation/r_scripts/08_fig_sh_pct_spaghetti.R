@@ -4,16 +4,20 @@
 library(ggplot2)
 library(dplyr)
 
+# Filtrer données avec L10 valide
+df_volatility <- data %>%
+  filter(!is.na(diff_L10_posterior), game_index >= 10)
+
 # Calculer percentiles par match (limiter à 80 matchs)
 df_percentiles <- df_volatility |>
   filter(game_index <= 80) |>
   group_by(game_index) |>
   summarise(
-    P10 = quantile(diff_L10_cumul, 0.10, na.rm = TRUE),
-    P25 = quantile(diff_L10_cumul, 0.25, na.rm = TRUE),
-    P50 = quantile(diff_L10_cumul, 0.50, na.rm = TRUE),
-    P75 = quantile(diff_L10_cumul, 0.75, na.rm = TRUE),
-    P90 = quantile(diff_L10_cumul, 0.90, na.rm = TRUE),
+    P10 = quantile(diff_L10_posterior, 0.10, na.rm = TRUE),
+    P25 = quantile(diff_L10_posterior, 0.25, na.rm = TRUE),
+    P50 = quantile(diff_L10_posterior, 0.50, na.rm = TRUE),
+    P75 = quantile(diff_L10_posterior, 0.75, na.rm = TRUE),
+    P90 = quantile(diff_L10_posterior, 0.90, na.rm = TRUE),
     .groups = "drop"
   )
 
@@ -22,7 +26,7 @@ fig_sh_pct_spaghetti <- ggplot() +
   # Lignes individuelles (grises, fines, transparentes)
   geom_line(
     data = df_volatility |> filter(game_index <= 80),
-    aes(x = game_index, y = diff_L10_cumul, group = player_id),
+    aes(x = game_index, y = diff_L10_posterior, group = player_id),
     color = "gray70",
     alpha = 0.15,
     linewidth = 0.3
@@ -43,7 +47,7 @@ fig_sh_pct_spaghetti <- ggplot() +
   ) +
   labs(
     title = "Patterns de streaks: Tous les joueurs + Percentiles",
-    subtitle = "Écart L10 - Cumulatif (SH%) | Ligne noire = P50, Rouge = P90, Bleu = P10",
+    subtitle = "Écart L10 - Posterior Bayésien (SH%) | Ligne noire = P50, Rouge = P90, Bleu = P10",
     x = "Match #",
     y = "Écart de Shooting % (points de %)",
     caption = "Zone grise = Interquartile (P25-P75). Pointillés à ±5% = seuils d'alerte."

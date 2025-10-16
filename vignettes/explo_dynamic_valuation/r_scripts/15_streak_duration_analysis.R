@@ -9,14 +9,18 @@ library(tidyr)
 # STEP 1: Classifier observations en zones
 # ============================================
 
+# Filtrer données avec L10 valide
+df_volatility <- data %>%
+  filter(!is.na(diff_L10_posterior), game_index >= 10)
+
 df_streaks <- df_volatility |>
   filter(game_index <= 80) |>
   mutate(
     zone = case_when(
-      diff_L10_cumul > 7 ~ "Extreme Hot",
-      diff_L10_cumul > 3 ~ "Hot",
-      diff_L10_cumul > -3 ~ "Normal",
-      diff_L10_cumul > -7 ~ "Cold",
+      diff_L10_posterior > 7 ~ "Extreme Hot",
+      diff_L10_posterior > 3 ~ "Hot",
+      diff_L10_posterior > -3 ~ "Normal",
+      diff_L10_posterior > -7 ~ "Cold",
       TRUE ~ "Extreme Cold"
     ),
     zone = factor(zone, levels = c("Extreme Hot", "Hot", "Normal", "Cold", "Extreme Cold"))
@@ -94,7 +98,7 @@ fig_streak_durations <- ggplot(df_streak_durations, aes(x = streak_length, fill 
     subtitle = "Combien de matchs consécutifs dans chaque zone?",
     x = "Durée du streak (nombre de matchs consécutifs)",
     y = "Nombre de streaks",
-    caption = "Streaks d'au moins 2 matchs consécutifs. Ligne L10 (10 matchs) vs Cumulatif."
+    caption = "Streaks d'au moins 2 matchs consécutifs. Ligne L10 (10 matchs) vs Posterior Bayésien."
   ) +
   theme_minimal() +
   theme(

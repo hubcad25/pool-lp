@@ -80,12 +80,45 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#stream-chance-déquipe-dans-le-temps" id="toc-stream-chance-déquipe-dans-le-temps" class="nav-link" data-scroll-target="#stream-chance-déquipe-dans-le-temps"><span class="header-section-number">3.5.4</span> Stream: Chance d’équipe dans le temps</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#prochaines-étapes" id="toc-prochaines-étapes" class="nav-link" data-scroll-target="#prochaines-étapes"><span class="header-section-number">4</span> Prochaines étapes</a>
+  <li><a href="#régression-vers-la-moyenne-impact-sur-production" id="toc-régression-vers-la-moyenne-impact-sur-production" class="nav-link" data-scroll-target="#régression-vers-la-moyenne-impact-sur-production"><span class="header-section-number">4</span> Régression vers la Moyenne: Impact sur Production</a>
   <ul class="collapse">
-  <li><a href="#shot-differential-sfsa---impact-du-joueur" id="toc-shot-differential-sfsa---impact-du-joueur" class="nav-link" data-scroll-target="#shot-differential-sfsa---impact-du-joueur"><span class="header-section-number">4.1</span> 1. Shot Differential (SF/SA) - Impact du joueur</a></li>
-  <li><a href="#pondération-par-mesures-de-quantité" id="toc-pondération-par-mesures-de-quantité" class="nav-link" data-scroll-target="#pondération-par-mesures-de-quantité"><span class="header-section-number">4.2</span> 2. Pondération par mesures de quantité</a></li>
-  <li><a href="#croisement-descriptif-observations-vs-priors" id="toc-croisement-descriptif-observations-vs-priors" class="nav-link" data-scroll-target="#croisement-descriptif-observations-vs-priors"><span class="header-section-number">4.3</span> 3. Croisement descriptif: Observations vs Priors</a></li>
-  <li><a href="#calibration-des-seuils-de-détection" id="toc-calibration-des-seuils-de-détection" class="nav-link" data-scroll-target="#calibration-des-seuils-de-détection"><span class="header-section-number">4.4</span> 4. Calibration des seuils de détection</a></li>
+  <li><a href="#préparation-des-données-2" id="toc-préparation-des-données-2" class="nav-link" data-scroll-target="#préparation-des-données-2"><span class="header-section-number">4.1</span> Préparation des données</a></li>
+  <li><a href="#corrélations-chance-production-de-goals" id="toc-corrélations-chance-production-de-goals" class="nav-link" data-scroll-target="#corrélations-chance-production-de-goals"><span class="header-section-number">4.2</span> Corrélations: Chance → Production de Goals</a>
+  <ul class="collapse">
+  <li><a href="#forwards" id="toc-forwards" class="nav-link" data-scroll-target="#forwards"><span class="header-section-number">4.2.1</span> Forwards</a></li>
+  <li><a href="#defensemen" id="toc-defensemen" class="nav-link" data-scroll-target="#defensemen"><span class="header-section-number">4.2.2</span> Defensemen</a></li>
+  </ul></li>
+  <li><a href="#corrélations-chance-production-dassists" id="toc-corrélations-chance-production-dassists" class="nav-link" data-scroll-target="#corrélations-chance-production-dassists"><span class="header-section-number">4.3</span> Corrélations: Chance → Production d’Assists</a>
+  <ul class="collapse">
+  <li><a href="#forwards-1" id="toc-forwards-1" class="nav-link" data-scroll-target="#forwards-1"><span class="header-section-number">4.3.1</span> Forwards</a></li>
+  <li><a href="#defensemen-1" id="toc-defensemen-1" class="nav-link" data-scroll-target="#defensemen-1"><span class="header-section-number">4.3.2</span> Defensemen</a></li>
+  </ul></li>
+  <li><a href="#évolution-de-la-force-des-corrélations-par-horizon" id="toc-évolution-de-la-force-des-corrélations-par-horizon" class="nav-link" data-scroll-target="#évolution-de-la-force-des-corrélations-par-horizon"><span class="header-section-number">4.4</span> Évolution de la force des corrélations par horizon</a></li>
+  <li><a href="#validation-empirique-régression-par-intensité-de-streak" id="toc-validation-empirique-régression-par-intensité-de-streak" class="nav-link" data-scroll-target="#validation-empirique-régression-par-intensité-de-streak"><span class="header-section-number">4.5</span> Validation empirique: Régression par intensité de streak</a>
+  <ul class="collapse">
+  <li><a href="#goals-forwards" id="toc-goals-forwards" class="nav-link" data-scroll-target="#goals-forwards"><span class="header-section-number">4.5.1</span> Goals (Forwards)</a></li>
+  <li><a href="#assists-forwards" id="toc-assists-forwards" class="nav-link" data-scroll-target="#assists-forwards"><span class="header-section-number">4.5.2</span> Assists (Forwards)</a></li>
+  <li><a href="#goals-defensemen" id="toc-goals-defensemen" class="nav-link" data-scroll-target="#goals-defensemen"><span class="header-section-number">4.5.3</span> Goals (Defensemen)</a></li>
+  </ul></li>
+  <li><a href="#synthèse-implications-pour-buy-low-sell-high" id="toc-synthèse-implications-pour-buy-low-sell-high" class="nav-link" data-scroll-target="#synthèse-implications-pour-buy-low-sell-high"><span class="header-section-number">4.6</span> Synthèse: Implications pour Buy Low / Sell High</a>
+  <ul class="collapse">
+  <li><a href="#validation-du-modèle-bayésien" id="toc-validation-du-modèle-bayésien" class="nav-link" data-scroll-target="#validation-du-modèle-bayésien"><span class="header-section-number">4.6.1</span> Validation du modèle bayésien</a></li>
+  <li><a href="#métriques-les-plus-prédictives" id="toc-métriques-les-plus-prédictives" class="nav-link" data-scroll-target="#métriques-les-plus-prédictives"><span class="header-section-number">4.6.2</span> Métriques les plus prédictives</a></li>
+  <li><a href="#règles-empiriques-validées" id="toc-règles-empiriques-validées" class="nav-link" data-scroll-target="#règles-empiriques-validées"><span class="header-section-number">4.6.3</span> Règles empiriques validées</a></li>
+  <li><a href="#horizon-optimal" id="toc-horizon-optimal" class="nav-link" data-scroll-target="#horizon-optimal"><span class="header-section-number">4.6.4</span> Horizon optimal</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#prochaines-étapes" id="toc-prochaines-étapes" class="nav-link" data-scroll-target="#prochaines-étapes"><span class="header-section-number">5</span> Prochaines étapes</a>
+  <ul class="collapse">
+  <li><a href="#ce-qui-a-été-accompli" id="toc-ce-qui-a-été-accompli" class="nav-link" data-scroll-target="#ce-qui-a-été-accompli"><span class="header-section-number">5.1</span> Ce qui a été accompli</a></li>
+  <li><a href="#prochaines-étapes-pour-le-modèle-prédictif" id="toc-prochaines-étapes-pour-le-modèle-prédictif" class="nav-link" data-scroll-target="#prochaines-étapes-pour-le-modèle-prédictif"><span class="header-section-number">5.2</span> Prochaines étapes pour le modèle prédictif</a>
+  <ul class="collapse">
+  <li><a href="#construction-du-modèle-prédictif-complet-hors-vignette" id="toc-construction-du-modèle-prédictif-complet-hors-vignette" class="nav-link" data-scroll-target="#construction-du-modèle-prédictif-complet-hors-vignette"><span class="header-section-number">5.2.1</span> 1. Construction du modèle prédictif complet (hors vignette)</a></li>
+  <li><a href="#posterior-bayésien-de-points" id="toc-posterior-bayésien-de-points" class="nav-link" data-scroll-target="#posterior-bayésien-de-points"><span class="header-section-number">5.2.2</span> 2. Posterior bayésien de POINTS</a></li>
+  <li><a href="#intégration-toi-projeté-et-lineups" id="toc-intégration-toi-projeté-et-lineups" class="nav-link" data-scroll-target="#intégration-toi-projeté-et-lineups"><span class="header-section-number">5.2.3</span> 3. Intégration TOI projeté et lineups</a></li>
+  <li><a href="#dashboard-de-recommandations" id="toc-dashboard-de-recommandations" class="nav-link" data-scroll-target="#dashboard-de-recommandations"><span class="header-section-number">5.2.4</span> 4. Dashboard de recommandations</a></li>
+  </ul></li>
+  <li><a href="#notes-méthodologiques" id="toc-notes-méthodologiques" class="nav-link" data-scroll-target="#notes-méthodologiques"><span class="header-section-number">5.3</span> Notes méthodologiques</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -117,17 +150,17 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 9 × 5
-  player_id player_name  position games total_points
-      &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;    &lt;int&gt;        &lt;int&gt;
-1   8475810 B. Rust      F           71           65
-2   8477940 N. Ehlers    F           69           63
-3   8481028 M. Pospisil  F           81           25
-4   8481577 P. Tomasino  F           61           24
-5   8477506 R. Pulock    D           74           23
-6   8478904 S. Lorentz   F           80           19
-7   8482929 E. Lilleberg D           76           19
-8   8479316 L. Kunin     F           75           18
-9   8475193 T. Tatar     F           74           17</code></pre>
+  player_id player_name position games total_points
+      &lt;dbl&gt; &lt;chr&gt;       &lt;chr&gt;    &lt;int&gt;        &lt;int&gt;
+1   8480069 C. Makar    D           80           92
+2   8476887 F. Forsberg F           82           76
+3   8482175 J. Peterka  F           77           68
+4   8482093 S. Jarvis   F           73           67
+5   8475314 A. Lee      F           82           54
+6   8484153 L. Carlsson F           76           45
+7   8482665 M. Beniers  F           82           43
+8   8483464 M. Kasper   F           77           37
+9   8479638 J. Brazeau  F           76           22</code></pre>
 </div>
 </div>
 <section id="introduction" class="level1" data-number="1">
@@ -543,45 +576,247 @@ Figure&nbsp;12: Proportion de joueurs par zone (On-Ice SH%)
 </section>
 </section>
 </section>
-<section id="prochaines-étapes" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Prochaines étapes</h1>
-<section id="shot-differential-sfsa---impact-du-joueur" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="shot-differential-sfsa---impact-du-joueur"><span class="header-section-number">4.1</span> 1. Shot Differential (SF/SA) - Impact du joueur</h2>
-<p>Quantifier l’implication positive/négative du joueur via:</p>
+<section id="régression-vers-la-moyenne-impact-sur-production" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Régression vers la Moyenne: Impact sur Production</h1>
+<p>Cette section établit le <strong>lien crucial entre les métriques de chance et la production future de points</strong>. L’objectif est de démontrer empiriquement que les streaks de SH% (détectés par notre système bayésien) prédisent une régression dans la production de goals et assists.</p>
+<section id="préparation-des-données-2" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="préparation-des-données-2"><span class="header-section-number">4.1</span> Préparation des données</h2>
+<p>Les données sont enrichies avec:</p>
 <ul>
-<li><strong>SF on-ice</strong> (Shots For): Volume de tirs générés par son équipe</li>
-<li><strong>SA on-ice</strong> (Shots Against): Tirs concédés</li>
-<li><strong>Ratio SF/SA</strong>: Indicateur de domination territoriale</li>
+<li><strong>Production future</strong> pour multiples horizons (5, 10, 15, 20 matchs)</li>
+<li><strong>Baseline attendue</strong> basée sur pace cumulatif au moment de l’observation</li>
+<li><strong>Excess</strong> = Différence entre production observée et attendue (mesure de régression)</li>
+<li><strong>Features de chance</strong> nommées alphabétiquement (A-H) pour faciliter l’analyse</li>
 </ul>
 </section>
-<section id="pondération-par-mesures-de-quantité" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="pondération-par-mesures-de-quantité"><span class="header-section-number">4.2</span> 2. Pondération par mesures de quantité</h2>
-<p>Les observations doivent être <strong>pondérées</strong> selon leur fiabilité:</p>
-<ul>
-<li><strong>TOI</strong> (temps de glace): Plus de TOI = plus d’opportunités</li>
-<li><strong>SOG</strong> (shots on goal): Volume de tentatives</li>
-<li><strong>Goals, Shifts</strong>: Mesures d’implication et de chance</li>
-</ul>
-<p>Contrôler pour ces volumes permettra de distinguer la <strong>qualité</strong> de la <strong>quantité</strong>.</p>
+<section id="corrélations-chance-production-de-goals" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="corrélations-chance-production-de-goals"><span class="header-section-number">4.2</span> Corrélations: Chance → Production de Goals</h2>
+<section id="forwards" class="level3" data-number="4.2.1">
+<h3 data-number="4.2.1" class="anchored" data-anchor-id="forwards"><span class="header-section-number">4.2.1</span> Forwards</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-correlations-goals-F" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-correlations-goals-F-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;13: Corrélations entre features de chance et production future de goals (Forwards)
+</figcaption>
+<div aria-describedby="fig-correlations-goals-F-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="explo_dynamic_valuation_files/figure-html/fig-correlations-goals-F-1.png" class="img-fluid figure-img" style="width:90.0%">
+</div>
+</figure>
+</div>
+</div>
+</div>
 </section>
-<section id="croisement-descriptif-observations-vs-priors" class="level2" data-number="4.3">
-<h2 data-number="4.3" class="anchored" data-anchor-id="croisement-descriptif-observations-vs-priors"><span class="header-section-number">4.3</span> 3. Croisement descriptif: Observations vs Priors</h2>
-<p>Comparer les performances observées (season-to-date) avec les <strong>projections initiales</strong> (modèle 01):</p>
+<section id="defensemen" class="level3" data-number="4.2.2">
+<h3 data-number="4.2.2" class="anchored" data-anchor-id="defensemen"><span class="header-section-number">4.2.2</span> Defensemen</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-correlations-goals-D" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-correlations-goals-D-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;14: Corrélations entre features de chance et production future de goals (Defensemen)
+</figcaption>
+<div aria-describedby="fig-correlations-goals-D-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="explo_dynamic_valuation_files/figure-html/fig-correlations-goals-D-1.png" class="img-fluid figure-img" style="width:90.0%">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Observations clés:</strong></p>
 <ul>
-<li>Qui surperforme vs prior? (candidates SELL HIGH)</li>
-<li>Qui sous-performe vs prior? (candidates BUY LOW)</li>
-<li>Comment le on-ice SH% et SF/SA expliquent ces écarts?</li>
+<li><strong>SH% L10 excess</strong> (A) montre corrélation NÉGATIVE avec <code>excess_goals_next_X</code> → Validation de la régression</li>
+<li>Les corrélations avec <code>goals_next_X</code> (absolu) sont plus faibles que avec <code>excess_goals_next_X</code> (régression)</li>
+<li><strong>Shots individuels</strong> (G) et <strong>TOI</strong> (H) montrent corrélations POSITIVES → Signal de talent/volume</li>
+<li>Corrélations généralement plus fortes sur horizons courts (5-10 matchs) que longs (15-20 matchs)</li>
 </ul>
 </section>
-<section id="calibration-des-seuils-de-détection" class="level2" data-number="4.4">
-<h2 data-number="4.4" class="anchored" data-anchor-id="calibration-des-seuils-de-détection"><span class="header-section-number">4.4</span> 4. Calibration des seuils de détection</h2>
-<p>Finaliser les <strong>seuils</strong> pour flags automatiques en combinant:</p>
+</section>
+<section id="corrélations-chance-production-dassists" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="corrélations-chance-production-dassists"><span class="header-section-number">4.3</span> Corrélations: Chance → Production d’Assists</h2>
+<section id="forwards-1" class="level3" data-number="4.3.1">
+<h3 data-number="4.3.1" class="anchored" data-anchor-id="forwards-1"><span class="header-section-number">4.3.1</span> Forwards</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-correlations-assists-F" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-correlations-assists-F-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;15: Corrélations entre features de chance et production future d’assists (Forwards)
+</figcaption>
+<div aria-describedby="fig-correlations-assists-F-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="explo_dynamic_valuation_files/figure-html/fig-correlations-assists-F-1.png" class="img-fluid figure-img" style="width:90.0%">
+</div>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="defensemen-1" class="level3" data-number="4.3.2">
+<h3 data-number="4.3.2" class="anchored" data-anchor-id="defensemen-1"><span class="header-section-number">4.3.2</span> Defensemen</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-correlations-assists-D" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-correlations-assists-D-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;16: Corrélations entre features de chance et production future d’assists (Defensemen)
+</figcaption>
+<div aria-describedby="fig-correlations-assists-D-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="explo_dynamic_valuation_files/figure-html/fig-correlations-assists-D-1.png" class="img-fluid figure-img" style="width:90.0%">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Observations clés:</strong></p>
 <ul>
-<li><strong>SH% individuel</strong> (rolling L10 vs cumulatif): Détection de streaks</li>
-<li><strong>On-ice SH%</strong> (chance d’équipe): Régression attendue</li>
-<li><strong>SF/SA</strong>: Confirmation de tendance réelle vs chance</li>
+<li>Patterns similaires aux goals mais <strong>intensité différente</strong></li>
+<li><strong>On-ice SH%</strong> (C) potentiellement plus important pour assists (chance collective)</li>
+<li><strong>Shots For</strong> (E) corrélation positive plus forte pour assists que goals</li>
+<li>Confirms nécessité de <strong>modèles séparés</strong> pour goals vs assists</li>
 </ul>
-<p><strong>Règles proposées (version bayésienne):</strong> - <strong>Détection initiale (L5)</strong>: Identifier les joueurs avec écarts extrêmes (&gt;±7%) sur les 5 derniers matchs - <strong>Confirmation (L10)</strong>: Valider la tendance sur 10 matchs (&gt;±5%) - <strong>SELL HIGH</strong>: SH% L5 &gt; posterior + 7% <strong>ET</strong> L10 &gt; posterior + 5% (streak confirmé et persistant) - <strong>BUY LOW</strong>: SH% L5 &lt; posterior - 7% <strong>ET</strong> L10 &lt; posterior - 5% (slump confirmé et persistant) - Le posterior étant plus stable que le cumulatif, les signaux de streaks sont plus fiables - À combiner avec on-ice SH% et SF/SA une fois implémentés</p>
+</section>
+</section>
+<section id="évolution-de-la-force-des-corrélations-par-horizon" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="évolution-de-la-force-des-corrélations-par-horizon"><span class="header-section-number">4.4</span> Évolution de la force des corrélations par horizon</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-correlation-evolution" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-correlation-evolution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;17: Évolution de la force des corrélations selon horizon de prédiction (Forwards)
+</figcaption>
+<div aria-describedby="fig-correlation-evolution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="explo_dynamic_valuation_files/figure-html/fig-correlation-evolution-1.png" class="img-fluid figure-img" style="width:90.0%">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Insight:</strong> Identification de l’<strong>horizon optimal</strong> pour détection de régression. Les corrélations de chance (SH% excess, PDO excess) sont généralement plus fortes sur horizons courts (5-10 matchs), tandis que signaux de talent (shots, TOI) restent stables.</p>
+</section>
+<section id="validation-empirique-régression-par-intensité-de-streak" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="validation-empirique-régression-par-intensité-de-streak"><span class="header-section-number">4.5</span> Validation empirique: Régression par intensité de streak</h2>
+<section id="goals-forwards" class="level3" data-number="4.5.1">
+<h3 data-number="4.5.1" class="anchored" data-anchor-id="goals-forwards"><span class="header-section-number">4.5.1</span> Goals (Forwards)</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-regression-goals-F" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-regression-goals-F-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;18: Régression empirique: Excess goals par catégorie de streak (Forwards)
+</figcaption>
+<div aria-describedby="fig-regression-goals-F-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="explo_dynamic_valuation_files/figure-html/fig-regression-goals-F-1.png" class="img-fluid figure-img" style="width:90.0%">
+</div>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="assists-forwards" class="level3" data-number="4.5.2">
+<h3 data-number="4.5.2" class="anchored" data-anchor-id="assists-forwards"><span class="header-section-number">4.5.2</span> Assists (Forwards)</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-regression-assists-F" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-regression-assists-F-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;19: Régression empirique: Excess assists par catégorie de streak (Forwards)
+</figcaption>
+<div aria-describedby="fig-regression-assists-F-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="explo_dynamic_valuation_files/figure-html/fig-regression-assists-F-1.png" class="img-fluid figure-img" style="width:90.0%">
+</div>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="goals-defensemen" class="level3" data-number="4.5.3">
+<h3 data-number="4.5.3" class="anchored" data-anchor-id="goals-defensemen"><span class="header-section-number">4.5.3</span> Goals (Defensemen)</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-regression-goals-D" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-regression-goals-D-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;20: Régression empirique: Excess goals par catégorie de streak (Defensemen)
+</figcaption>
+<div aria-describedby="fig-regression-goals-D-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="explo_dynamic_valuation_files/figure-html/fig-regression-goals-D-1.png" class="img-fluid figure-img" style="width:90.0%">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Observations critiques:</strong></p>
+<ul>
+<li><strong>Streaks hot extreme</strong> (SH% &gt; +7%) → Excess goals/assists <strong>NÉGATIF</strong> dans matchs suivants (régression confirmée)</li>
+<li><strong>Streaks cold extreme</strong> (SH% &lt; -7%) → Excess goals/assists <strong>POSITIF</strong> dans matchs suivants (rebond confirmé)</li>
+<li>Régression <strong>symétrique</strong> dans les deux directions</li>
+<li>Intensité de la régression proportionnelle à l’intensité du streak</li>
+<li>Pattern observable sur <strong>tous les horizons</strong> (5-20 matchs)</li>
+</ul>
+</section>
+</section>
+<section id="synthèse-implications-pour-buy-low-sell-high" class="level2" data-number="4.6">
+<h2 data-number="4.6" class="anchored" data-anchor-id="synthèse-implications-pour-buy-low-sell-high"><span class="header-section-number">4.6</span> Synthèse: Implications pour Buy Low / Sell High</h2>
+<section id="validation-du-modèle-bayésien" class="level3" data-number="4.6.1">
+<h3 data-number="4.6.1" class="anchored" data-anchor-id="validation-du-modèle-bayésien"><span class="header-section-number">4.6.1</span> Validation du modèle bayésien</h3>
+<p>✅ <strong>Le système de détection bayésien fonctionne:</strong> - Les écarts SH% L10 vs posterior identifient des streaks de chance - Ces streaks prédisent une régression mesurable dans la production future - La régression est observable sur des horizons de 5-20 matchs</p>
+</section>
+<section id="métriques-les-plus-prédictives" class="level3" data-number="4.6.2">
+<h3 data-number="4.6.2" class="anchored" data-anchor-id="métriques-les-plus-prédictives"><span class="header-section-number">4.6.2</span> Métriques les plus prédictives</h3>
+<p><strong>Pour SELL HIGH (identifier sur-performance temporaire):</strong> 1. <strong>A: SH% L10 excess</strong> (corrélation négative forte avec excess_goals) 2. <strong>C: On-ice SH% excess</strong> (chance collective) 3. <strong>D: PDO excess</strong> (combinaison chance offensive + défensive)</p>
+<p><strong>Pour confirmer TALENT (éviter faux positifs):</strong> 1. <strong>G: Shots individual L10</strong> (corrélation positive = volume réel) 2. <strong>E: Shots For L10</strong> (domination territoriale) 3. <strong>H: TOI</strong> (déploiement par l’entraîneur)</p>
+</section>
+<section id="règles-empiriques-validées" class="level3" data-number="4.6.3">
+<h3 data-number="4.6.3" class="anchored" data-anchor-id="règles-empiriques-validées"><span class="header-section-number">4.6.3</span> Règles empiriques validées</h3>
+<p><strong>SELL HIGH:</strong> - SH% L10 &gt; posterior + 7% <strong>ET</strong> Shots L10 &lt; baseline → Chance pure - Régression attendue: ~1-2 goals de moins dans les 10 prochains matchs</p>
+<p><strong>BUY LOW:</strong> - SH% L10 &lt; posterior - 7% <strong>ET</strong> Shots L10 ≥ baseline → Malchance temporaire - Rebond attendu: ~1-2 goals de plus dans les 10 prochains matchs</p>
+</section>
+<section id="horizon-optimal" class="level3" data-number="4.6.4">
+<h3 data-number="4.6.4" class="anchored" data-anchor-id="horizon-optimal"><span class="header-section-number">4.6.4</span> Horizon optimal</h3>
+<ul>
+<li><strong>5-10 matchs</strong>: Signal de chance le plus fort, régression rapide</li>
+<li><strong>15-20 matchs</strong>: Régression toujours présente mais diluée</li>
+<li><strong>Recommandation</strong>: Utiliser fenêtre <strong>10 matchs</strong> pour compromis signal/bruit</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="prochaines-étapes" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Prochaines étapes</h1>
+<section id="ce-qui-a-été-accompli" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="ce-qui-a-été-accompli"><span class="header-section-number">5.1</span> Ce qui a été accompli</h2>
+<p>✅ <strong>Prior bayésien de SH%</strong> avec shrinkage par volume ✅ <strong>Posterior dynamique</strong> mis à jour match par match ✅ <strong>Analyse de volatilité</strong> (L5/L10 vs posterior) ✅ <strong>Patterns population</strong> (heatmap, spaghetti, ridge, stream) ✅ <strong>On-ice SH%</strong> pour chance collective ✅ <strong>Validation empirique</strong> du lien chance → régression de production ✅ <strong>Shot Differential</strong> (SF/SA) intégré dans analyse de corrélations ✅ <strong>Pondération TOI</strong> incluse comme feature de contrôle</p>
+</section>
+<section id="prochaines-étapes-pour-le-modèle-prédictif" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="prochaines-étapes-pour-le-modèle-prédictif"><span class="header-section-number">5.2</span> Prochaines étapes pour le modèle prédictif</h2>
+<section id="construction-du-modèle-prédictif-complet-hors-vignette" class="level3" data-number="5.2.1">
+<h3 data-number="5.2.1" class="anchored" data-anchor-id="construction-du-modèle-prédictif-complet-hors-vignette"><span class="header-section-number">5.2.1</span> 1. Construction du modèle prédictif complet (hors vignette)</h3>
+<p><strong>Objectif:</strong> Prédire <code>goals_next_X</code> et <code>assists_next_X</code> avec fenêtre flexible.</p>
+<p><strong>Approche:</strong> - Modèles séparés: goals_F, assists_F, goals_D, assists_D - Features validées: SH% excess, on-ice SH%, PDO, SF/SA, shots, TOI - Baseline: Posterior bayésien de goals/assists (à créer, similaire à SH%) - Méthode: GAM ou brms pour capturer non-linéarités</p>
+</section>
+<section id="posterior-bayésien-de-points" class="level3" data-number="5.2.2">
+<h3 data-number="5.2.2" class="anchored" data-anchor-id="posterior-bayésien-de-points"><span class="header-section-number">5.2.2</span> 2. Posterior bayésien de POINTS</h3>
+<p>Créer posterior dynamique de goals et assists (comme pour SH%): - Prior: Projections du modèle 01 (scenario mid) - Mise à jour: Match par match avec convergence adaptative - Output: Baseline personnalisée par joueur pour détecter sur/sous-performance</p>
+</section>
+<section id="intégration-toi-projeté-et-lineups" class="level3" data-number="5.2.3">
+<h3 data-number="5.2.3" class="anchored" data-anchor-id="intégration-toi-projeté-et-lineups"><span class="header-section-number">5.2.3</span> 3. Intégration TOI projeté et lineups</h3>
+<p><strong>Phase production (2025-26):</strong> - Scraper dailyfaceoff pour combinaisons de trios - Qualité des compagnons (impact sur assists) - TOI projeté basé sur déploiement récent - Calendrier: nombre de matchs, force des adversaires</p>
+</section>
+<section id="dashboard-de-recommandations" class="level3" data-number="5.2.4">
+<h3 data-number="5.2.4" class="anchored" data-anchor-id="dashboard-de-recommandations"><span class="header-section-number">5.2.4</span> 4. Dashboard de recommandations</h3>
+<p><strong>Interface pour gestion des 20 mouvements:</strong> - Scoring composite: chance + talent + calendrier - Flags automatiques: SELL HIGH / BUY LOW / HOLD - Priorisation: impact attendu par mouvement - Simulation: optimiser timing des changements</p>
+</section>
+</section>
+<section id="notes-méthodologiques" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="notes-méthodologiques"><span class="header-section-number">5.3</span> Notes méthodologiques</h2>
+<ul>
+<li><strong>Horizon flexible</strong>: Paramètre X matchs (adapté selon calendrier et changements restants)</li>
+<li><strong>Validation continue</strong>: Backtesting sur 2024-25 pour calibrer seuils</li>
+<li><strong>Faux positifs</strong>: Toujours vérifier volume (shots, TOI) avant de flaguer</li>
+<li><strong>Symétrie</strong>: Buy low et sell high suivent mêmes principes (régression bidirectionnelle)</li>
+</ul>
 </section>
 </section>
 

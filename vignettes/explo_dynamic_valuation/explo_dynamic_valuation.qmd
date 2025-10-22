@@ -369,46 +369,236 @@ fig_onice_sh_stream
 
 **Insight:** Les zones extrêmes (lignes très chaudes/froides) sont **rares** et **temporaires**. Forte convergence vers la normale.
 
+# Régression vers la Moyenne: Impact sur Production
+
+Cette section établit le **lien crucial entre les métriques de chance et la production future de points**. L'objectif est de démontrer empiriquement que les streaks de SH% (détectés par notre système bayésien) prédisent une régression dans la production de goals et assists.
+
+## Préparation des données
+
+```{r}
+#| label: prepare-future-production
+#| cache: false
+
+source("vignettes/explo_dynamic_valuation/r_scripts/16_prepare_future_production.R")
+```
+
+Les données sont enrichies avec:
+
+- **Production future** pour multiples horizons (5, 10, 15, 20 matchs)
+- **Baseline attendue** basée sur pace cumulatif au moment de l'observation
+- **Excess** = Différence entre production observée et attendue (mesure de régression)
+- **Features de chance** nommées alphabétiquement (A-H) pour faciliter l'analyse
+
+## Corrélations: Chance → Production de Goals
+
+### Forwards
+
+```{r}
+#| label: fig-correlations-goals-F
+#| fig-height: 8
+#| fig-width: 14
+#| fig-cap: "Corrélations entre features de chance et production future de goals (Forwards)"
+
+source("vignettes/explo_dynamic_valuation/r_scripts/17_fig_correlations_goals_heatmap.R")
+fig_correlations_goals_F
+```
+
+### Defensemen
+
+```{r}
+#| label: fig-correlations-goals-D
+#| fig-height: 8
+#| fig-width: 14
+#| fig-cap: "Corrélations entre features de chance et production future de goals (Defensemen)"
+
+fig_correlations_goals_D
+```
+
+**Observations clés:**
+
+- **SH% L10 excess** (A) montre corrélation NÉGATIVE avec `excess_goals_next_X` → Validation de la régression
+- Les corrélations avec `goals_next_X` (absolu) sont plus faibles que avec `excess_goals_next_X` (régression)
+- **Shots individuels** (G) et **TOI** (H) montrent corrélations POSITIVES → Signal de talent/volume
+- Corrélations généralement plus fortes sur horizons courts (5-10 matchs) que longs (15-20 matchs)
+
+## Corrélations: Chance → Production d'Assists
+
+### Forwards
+
+```{r}
+#| label: fig-correlations-assists-F
+#| fig-height: 8
+#| fig-width: 14
+#| fig-cap: "Corrélations entre features de chance et production future d'assists (Forwards)"
+
+source("vignettes/explo_dynamic_valuation/r_scripts/18_fig_correlations_assists_heatmap.R")
+fig_correlations_assists_F
+```
+
+### Defensemen
+
+```{r}
+#| label: fig-correlations-assists-D
+#| fig-height: 8
+#| fig-width: 14
+#| fig-cap: "Corrélations entre features de chance et production future d'assists (Defensemen)"
+
+fig_correlations_assists_D
+```
+
+**Observations clés:**
+
+- Patterns similaires aux goals mais **intensité différente**
+- **On-ice SH%** (C) potentiellement plus important pour assists (chance collective)
+- **Shots For** (E) corrélation positive plus forte pour assists que goals
+- Confirms nécessité de **modèles séparés** pour goals vs assists
+
+## Évolution de la force des corrélations par horizon
+
+```{r}
+#| label: fig-correlation-evolution
+#| fig-height: 7
+#| fig-width: 12
+#| fig-cap: "Évolution de la force des corrélations selon horizon de prédiction (Forwards)"
+
+source("vignettes/explo_dynamic_valuation/r_scripts/19_fig_correlation_evolution_by_horizon.R")
+fig_cor_evolution_faceted
+```
+
+**Insight:** Identification de l'**horizon optimal** pour détection de régression. Les corrélations de chance (SH% excess, PDO excess) sont généralement plus fortes sur horizons courts (5-10 matchs), tandis que signaux de talent (shots, TOI) restent stables.
+
+## Validation empirique: Régression par intensité de streak
+
+### Goals (Forwards)
+
+```{r}
+#| label: fig-regression-goals-F
+#| fig-height: 7
+#| fig-width: 14
+#| fig-cap: "Régression empirique: Excess goals par catégorie de streak (Forwards)"
+
+source("vignettes/explo_dynamic_valuation/r_scripts/20_fig_regression_boxplots.R")
+fig_regression_goals_F
+```
+
+### Assists (Forwards)
+
+```{r}
+#| label: fig-regression-assists-F
+#| fig-height: 7
+#| fig-width: 14
+#| fig-cap: "Régression empirique: Excess assists par catégorie de streak (Forwards)"
+
+fig_regression_assists_F
+```
+
+### Goals (Defensemen)
+
+```{r}
+#| label: fig-regression-goals-D
+#| fig-height: 7
+#| fig-width: 14
+#| fig-cap: "Régression empirique: Excess goals par catégorie de streak (Defensemen)"
+
+fig_regression_goals_D
+```
+
+**Observations critiques:**
+
+- **Streaks hot extreme** (SH% > +7%) → Excess goals/assists **NÉGATIF** dans matchs suivants (régression confirmée)
+- **Streaks cold extreme** (SH% < -7%) → Excess goals/assists **POSITIF** dans matchs suivants (rebond confirmé)
+- Régression **symétrique** dans les deux directions
+- Intensité de la régression proportionnelle à l'intensité du streak
+- Pattern observable sur **tous les horizons** (5-20 matchs)
+
+## Synthèse: Implications pour Buy Low / Sell High
+
+### Validation du modèle bayésien
+
+✅ **Le système de détection bayésien fonctionne:**
+- Les écarts SH% L10 vs posterior identifient des streaks de chance
+- Ces streaks prédisent une régression mesurable dans la production future
+- La régression est observable sur des horizons de 5-20 matchs
+
+### Métriques les plus prédictives
+
+**Pour SELL HIGH (identifier sur-performance temporaire):**
+1. **A: SH% L10 excess** (corrélation négative forte avec excess_goals)
+2. **C: On-ice SH% excess** (chance collective)
+3. **D: PDO excess** (combinaison chance offensive + défensive)
+
+**Pour confirmer TALENT (éviter faux positifs):**
+1. **G: Shots individual L10** (corrélation positive = volume réel)
+2. **E: Shots For L10** (domination territoriale)
+3. **H: TOI** (déploiement par l'entraîneur)
+
+### Règles empiriques validées
+
+**SELL HIGH:**
+- SH% L10 > posterior + 7% **ET** Shots L10 < baseline → Chance pure
+- Régression attendue: ~1-2 goals de moins dans les 10 prochains matchs
+
+**BUY LOW:**
+- SH% L10 < posterior - 7% **ET** Shots L10 ≥ baseline → Malchance temporaire
+- Rebond attendu: ~1-2 goals de plus dans les 10 prochains matchs
+
+### Horizon optimal
+
+- **5-10 matchs**: Signal de chance le plus fort, régression rapide
+- **15-20 matchs**: Régression toujours présente mais diluée
+- **Recommandation**: Utiliser fenêtre **10 matchs** pour compromis signal/bruit
+
 # Prochaines étapes
 
-## 1. Shot Differential (SF/SA) - Impact du joueur
+## Ce qui a été accompli
 
-Quantifier l'implication positive/négative du joueur via:
+✅ **Prior bayésien de SH%** avec shrinkage par volume
+✅ **Posterior dynamique** mis à jour match par match
+✅ **Analyse de volatilité** (L5/L10 vs posterior)
+✅ **Patterns population** (heatmap, spaghetti, ridge, stream)
+✅ **On-ice SH%** pour chance collective
+✅ **Validation empirique** du lien chance → régression de production
+✅ **Shot Differential** (SF/SA) intégré dans analyse de corrélations
+✅ **Pondération TOI** incluse comme feature de contrôle
 
-- **SF on-ice** (Shots For): Volume de tirs générés par son équipe
-- **SA on-ice** (Shots Against): Tirs concédés
-- **Ratio SF/SA**: Indicateur de domination territoriale
+## Prochaines étapes pour le modèle prédictif
 
-## 2. Pondération par mesures de quantité
+### 1. Construction du modèle prédictif complet (hors vignette)
 
-Les observations doivent être **pondérées** selon leur fiabilité:
+**Objectif:** Prédire `goals_next_X` et `assists_next_X` avec fenêtre flexible.
 
-- **TOI** (temps de glace): Plus de TOI = plus d'opportunités
-- **SOG** (shots on goal): Volume de tentatives
-- **Goals, Shifts**: Mesures d'implication et de chance
+**Approche:**
+- Modèles séparés: goals_F, assists_F, goals_D, assists_D
+- Features validées: SH% excess, on-ice SH%, PDO, SF/SA, shots, TOI
+- Baseline: Posterior bayésien de goals/assists (à créer, similaire à SH%)
+- Méthode: GAM ou brms pour capturer non-linéarités
 
-Contrôler pour ces volumes permettra de distinguer la **qualité** de la **quantité**.
+### 2. Posterior bayésien de POINTS
 
-## 3. Croisement descriptif: Observations vs Priors
+Créer posterior dynamique de goals et assists (comme pour SH%):
+- Prior: Projections du modèle 01 (scenario mid)
+- Mise à jour: Match par match avec convergence adaptative
+- Output: Baseline personnalisée par joueur pour détecter sur/sous-performance
 
-Comparer les performances observées (season-to-date) avec les **projections initiales** (modèle 01):
+### 3. Intégration TOI projeté et lineups
 
-- Qui surperforme vs prior? (candidates SELL HIGH)
-- Qui sous-performe vs prior? (candidates BUY LOW)
-- Comment le on-ice SH% et SF/SA expliquent ces écarts?
+**Phase production (2025-26):**
+- Scraper dailyfaceoff pour combinaisons de trios
+- Qualité des compagnons (impact sur assists)
+- TOI projeté basé sur déploiement récent
+- Calendrier: nombre de matchs, force des adversaires
 
-## 4. Calibration des seuils de détection
+### 4. Dashboard de recommandations
 
-Finaliser les **seuils** pour flags automatiques en combinant:
+**Interface pour gestion des 20 mouvements:**
+- Scoring composite: chance + talent + calendrier
+- Flags automatiques: SELL HIGH / BUY LOW / HOLD
+- Priorisation: impact attendu par mouvement
+- Simulation: optimiser timing des changements
 
-- **SH% individuel** (rolling L10 vs cumulatif): Détection de streaks
-- **On-ice SH%** (chance d'équipe): Régression attendue
-- **SF/SA**: Confirmation de tendance réelle vs chance
+## Notes méthodologiques
 
-**Règles proposées (version bayésienne):**
-- **Détection initiale (L5)**: Identifier les joueurs avec écarts extrêmes (>±7%) sur les 5 derniers matchs
-- **Confirmation (L10)**: Valider la tendance sur 10 matchs (>±5%)
-- **SELL HIGH**: SH% L5 > posterior + 7% **ET** L10 > posterior + 5% (streak confirmé et persistant)
-- **BUY LOW**: SH% L5 < posterior - 7% **ET** L10 < posterior - 5% (slump confirmé et persistant)
-- Le posterior étant plus stable que le cumulatif, les signaux de streaks sont plus fiables
-- À combiner avec on-ice SH% et SF/SA une fois implémentés
+- **Horizon flexible**: Paramètre X matchs (adapté selon calendrier et changements restants)
+- **Validation continue**: Backtesting sur 2024-25 pour calibrer seuils
+- **Faux positifs**: Toujours vérifier volume (shots, TOI) avant de flaguer
+- **Symétrie**: Buy low et sell high suivent mêmes principes (régression bidirectionnelle)

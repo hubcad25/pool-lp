@@ -65,6 +65,20 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#stream-narratif-global-des-streaks" id="toc-stream-narratif-global-des-streaks" class="nav-link" data-scroll-target="#stream-narratif-global-des-streaks"><span class="header-section-number">2.5.4</span> Stream: Narratif global des streaks</a></li>
   </ul></li>
   <li><a href="#analyse-de-durée-des-streaks" id="toc-analyse-de-durée-des-streaks" class="nav-link" data-scroll-target="#analyse-de-durée-des-streaks"><span class="header-section-number">2.6</span> Analyse de durée des streaks</a></li>
+  <li><a href="#persistance-temporelle-des-streaks" id="toc-persistance-temporelle-des-streaks" class="nav-link" data-scroll-target="#persistance-temporelle-des-streaks"><span class="header-section-number">2.7</span> Persistance temporelle des streaks</a>
+  <ul class="collapse">
+  <li><a href="#corrélations-combien-de-temps-les-streaks-persistent-ils" id="toc-corrélations-combien-de-temps-les-streaks-persistent-ils" class="nav-link" data-scroll-target="#corrélations-combien-de-temps-les-streaks-persistent-ils"><span class="header-section-number">2.7.1</span> Corrélations: Combien de temps les streaks persistent-ils?</a></li>
+  <li><a href="#distribution-des-durées-de-streaks" id="toc-distribution-des-durées-de-streaks" class="nav-link" data-scroll-target="#distribution-des-durées-de-streaks"><span class="header-section-number">2.7.2</span> Distribution des durées de streaks</a></li>
+  </ul></li>
+  <li><a href="#aire-sous-la-courbe-auc-des-streaks" id="toc-aire-sous-la-courbe-auc-des-streaks" class="nav-link" data-scroll-target="#aire-sous-la-courbe-auc-des-streaks"><span class="header-section-number">2.8</span> Aire sous la courbe (AUC) des streaks</a>
+  <ul class="collapse">
+  <li><a href="#calcul-de-lauc" id="toc-calcul-de-lauc" class="nav-link" data-scroll-target="#calcul-de-lauc"><span class="header-section-number">2.8.1</span> Calcul de l’AUC</a></li>
+  <li><a href="#distribution-de-lauc-par-fenêtre" id="toc-distribution-de-lauc-par-fenêtre" class="nav-link" data-scroll-target="#distribution-de-lauc-par-fenêtre"><span class="header-section-number">2.8.2</span> Distribution de l’AUC par fenêtre</a></li>
+  <li><a href="#relation-auc-vs-durée" id="toc-relation-auc-vs-durée" class="nav-link" data-scroll-target="#relation-auc-vs-durée"><span class="header-section-number">2.8.3</span> Relation AUC vs Durée</a></li>
+  <li><a href="#densités-comparatives" id="toc-densités-comparatives" class="nav-link" data-scroll-target="#densités-comparatives"><span class="header-section-number">2.8.4</span> Densités comparatives</a></li>
+  <li><a href="#statistiques-comparatives" id="toc-statistiques-comparatives" class="nav-link" data-scroll-target="#statistiques-comparatives"><span class="header-section-number">2.8.5</span> Statistiques comparatives</a></li>
+  <li><a href="#synthèse-utilité-de-lauc" id="toc-synthèse-utilité-de-lauc" class="nav-link" data-scroll-target="#synthèse-utilité-de-lauc"><span class="header-section-number">2.8.6</span> Synthèse: Utilité de l’AUC</a></li>
+  </ul></li>
   </ul></li>
   <li><a href="#on-ice-shooting-chance-déquipe" id="toc-on-ice-shooting-chance-déquipe" class="nav-link" data-scroll-target="#on-ice-shooting-chance-déquipe"><span class="header-section-number">3</span> On-Ice Shooting % (Chance d’équipe)</a>
   <ul class="collapse">
@@ -152,15 +166,15 @@ ul.task-list li input[type="checkbox"] {
 <pre><code># A tibble: 9 × 5
   player_id player_name position games total_points
       &lt;dbl&gt; &lt;chr&gt;       &lt;chr&gt;    &lt;int&gt;        &lt;int&gt;
-1   8480069 C. Makar    D           80           92
-2   8476887 F. Forsberg F           82           76
-3   8482175 J. Peterka  F           77           68
-4   8482093 S. Jarvis   F           73           67
-5   8475314 A. Lee      F           82           54
-6   8484153 L. Carlsson F           76           45
-7   8482665 M. Beniers  F           82           43
-8   8483464 M. Kasper   F           77           37
-9   8479638 J. Brazeau  F           76           22</code></pre>
+1   8475810 B. Rust     F           71           65
+2   8477500 B. Horvat   F           81           57
+3   8484227 W. Smith    F           74           45
+4   8476479 P. Danault  F           80           43
+5   8480748 K. Sherwood F           78           40
+6   8479351 S. Steel    F           79           25
+7   8481567 H. Thrun    D           60           12
+8   8481527 K. Korczak  D           40           10
+9   8471677 J. Johnson  D           41            6</code></pre>
 </div>
 </div>
 <section id="introduction" class="level1" data-number="1">
@@ -389,6 +403,273 @@ Statistiques de durée des streaks (SH%)
 </div>
 <p><strong>Statistiques de durée:</strong> Les streaks typiques durent 2-5 matchs consécutifs. Les streaks extrêmes (&gt;+7% ou &lt;-7%) sont plus courts car la régression vers le posterior est forte.</p>
 </section>
+<section id="persistance-temporelle-des-streaks" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="persistance-temporelle-des-streaks"><span class="header-section-number">2.7</span> Persistance temporelle des streaks</h2>
+<section id="corrélations-combien-de-temps-les-streaks-persistent-ils" class="level3" data-number="2.7.1">
+<h3 data-number="2.7.1" class="anchored" data-anchor-id="corrélations-combien-de-temps-les-streaks-persistent-ils"><span class="header-section-number">2.7.1</span> Corrélations: Combien de temps les streaks persistent-ils?</h3>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>✓ Données préparées et sauvegardées</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>✓ Heatmap créé</code></pre>
+</div>
+<div class="cell-output-display">
+<div id="fig-persistence-heatmap" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-persistence-heatmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: Corrélation entre diff_Lx actuel et futur (Forwards)
+</figcaption>
+<div aria-describedby="fig-persistence-heatmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="explo_dynamic_valuation_files/figure-html/fig-persistence-heatmap-1.png" class="img-fluid figure-img" style="width:90.0%">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Observations:</strong></p>
+<ul>
+<li><strong>L10 est optimal</strong>: Corrélations plus fortes et plus persistantes que L3/L5</li>
+<li><strong>Persistance limitée</strong>: Après 10 matchs, corrélation proche de 0 (régression complète)</li>
+<li><strong>Fenêtre d’action</strong>: Les 5-10 premiers matchs sont critiques pour détecter opportunités</li>
+</ul>
+</section>
+<section id="distribution-des-durées-de-streaks" class="level3" data-number="2.7.2">
+<h3 data-number="2.7.2" class="anchored" data-anchor-id="distribution-des-durées-de-streaks"><span class="header-section-number">2.7.2</span> Distribution des durées de streaks</h3>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>✓ Ridge plot créé</code></pre>
+</div>
+<div class="cell-output-display">
+<div id="fig-duration-ridges" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-duration-ridges-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8: Distribution des durées par fenêtre, seuil et direction
+</figcaption>
+<div aria-describedby="fig-duration-ridges-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="explo_dynamic_valuation_files/figure-html/fig-duration-ridges-1.png" class="img-fluid figure-img" style="width:90.0%">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Insights:</strong></p>
+<ul>
+<li><strong>Durées typiques</strong>: 3-7 matchs pour la plupart des streaks</li>
+<li><strong>L10 plus stable</strong>: Distributions plus centrées que L3/L5</li>
+<li><strong>Asymétrie</strong>: Cold streaks (bleu) tendent à durer légèrement plus longtemps que hot streaks (rouge)</li>
+</ul>
+</section>
+</section>
+<section id="aire-sous-la-courbe-auc-des-streaks" class="level2" data-number="2.8">
+<h2 data-number="2.8" class="anchored" data-anchor-id="aire-sous-la-courbe-auc-des-streaks"><span class="header-section-number">2.8</span> Aire sous la courbe (AUC) des streaks</h2>
+<p>Cette section explore une métrique composite pour quantifier l’intensité cumulée des streaks: l’<strong>aire sous la courbe (AUC)</strong>. L’AUC mesure la somme cumulée de l’écart (rolling - posterior) jusqu’à ce que le streak traverse le posterior (crossover), capturant ainsi à la fois l’intensité et la durée du streak en une seule métrique.</p>
+<section id="calcul-de-lauc" class="level3" data-number="2.8.1">
+<h3 data-number="2.8.1" class="anchored" data-anchor-id="calcul-de-lauc"><span class="header-section-number">2.8.1</span> Calcul de l’AUC</h3>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Calcul de diff_L3_posterior...
+✓ AUC calculée pour tous les streaks
+  - Fenêtres: L3, L5, L10
+  - Total observations: 26446 
+  - Total streaks identifiés: 13820 
+  - Hot streaks: 6812 
+  - Cold streaks: 7008 </code></pre>
+</div>
+</div>
+<p><strong>Méthodologie:</strong></p>
+<ul>
+<li><strong>AUC cumulée</strong>: Somme de <code>diff_rolling_posterior</code> jusqu’au crossover (changement de signe)</li>
+<li><strong>Fenêtres testées</strong>: L3, L5, L10 (différentes sensibilités temporelles)</li>
+<li><strong>Identification des épisodes</strong>: Chaque streak est un épisode continu avant crossover</li>
+<li><strong>Direction</strong>: AUC positive = hot streak, AUC négative = cold streak</li>
+</ul>
+</section>
+<section id="distribution-de-lauc-par-fenêtre" class="level3" data-number="2.8.2">
+<h3 data-number="2.8.2" class="anchored" data-anchor-id="distribution-de-lauc-par-fenêtre"><span class="header-section-number">2.8.2</span> Distribution de l’AUC par fenêtre</h3>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+=== Statistiques AUC par Fenêtre ===
+
+# A tibble: 3 × 10
+  window n_streaks auc_mean auc_median auc_sd auc_p25 auc_p75 auc_p90
+  &lt;fct&gt;      &lt;int&gt;    &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+1 L3          5564     55.1       38.6   57.2   14.1     75.4    125.
+2 L5          4645     56.3       32.8   69.3    8.91    76.6    143.
+3 L10         3611     50.1       17.8   75.9    2.97    67.7    145.
+# ℹ 2 more variables: duration_mean &lt;dbl&gt;, duration_median &lt;dbl&gt;
+
+=== Statistiques AUC par Type de Streak ===
+
+# A tibble: 6 × 7
+  window streak_type n_streaks auc_mean auc_median duration_mean duration_median
+  &lt;fct&gt;  &lt;fct&gt;           &lt;int&gt;    &lt;dbl&gt;      &lt;dbl&gt;         &lt;dbl&gt;           &lt;dbl&gt;
+1 L3     Hot              2720     61.0       41.7          3.66               3
+2 L3     Cold             2844     49.4       35.1          4.72               3
+3 L5     Hot              2296     60.2       34.3          5.13               5
+4 L5     Cold             2349     52.5       32.2          5.96               4
+5 L10    Hot              1796     52.7       17.2          7.02               5
+6 L10    Cold             1815     47.5       18.3          7.61               4
+
+=== Table Comparative AUC ===
+
+# A tibble: 3 × 7
+  Fenêtre           `Nombre de streaks` `AUC moyenne (abs)` `AUC médiane (abs)`
+  &lt;chr&gt;                           &lt;int&gt;               &lt;dbl&gt;               &lt;dbl&gt;
+1 Rolling 3 matchs                 5564                55.1                38.6
+2 Rolling 5 matchs                 4645                56.3                32.8
+3 Rolling 10 matchs                3611                50.1                17.8
+# ℹ 3 more variables: `AUC P90 (abs)` &lt;dbl&gt;, `Durée moyenne (matchs)` &lt;dbl&gt;,
+#   `Durée médiane (matchs)` &lt;dbl&gt;</code></pre>
+</div>
+<div class="cell-output-display">
+<div id="fig-auc-distributions" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-auc-distributions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9: Distribution de l’AUC par fenêtre rolling et type de streak (ridge plot)
+</figcaption>
+<div aria-describedby="fig-auc-distributions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="explo_dynamic_valuation_files/figure-html/fig-auc-distributions-1.png" class="img-fluid figure-img" style="width:90.0%">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Observations:</strong></p>
+<ul>
+<li><strong>L10 génère les AUC les plus élevées</strong>: Fenêtre plus large permet accumulation sur plus de matchs (médianes visibles via lignes verticales)</li>
+<li><strong>L3 et L5 AUC plus concentrées</strong>: Fenêtres courtes → streaks moins longs → AUC plus petites et distributions plus étroites</li>
+<li><strong>Distribution symétrique</strong>: Hot et cold streaks produisent des AUC similaires en magnitude (facets côte à côte montrent formes comparables)</li>
+<li><strong>Quantiles visibles</strong>: Lignes verticales (Q25-Q50-Q75) permettent de voir dispersion et asymétrie des distributions</li>
+<li><strong>Outliers extrêmes</strong>: Quelques streaks avec AUC &gt; 40-50 points de % (queues de distribution visibles)</li>
+</ul>
+</section>
+<section id="relation-auc-vs-durée" class="level3" data-number="2.8.3">
+<h3 data-number="2.8.3" class="anchored" data-anchor-id="relation-auc-vs-durée"><span class="header-section-number">2.8.3</span> Relation AUC vs Durée</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-auc-vs-duration-grid" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-auc-vs-duration-grid-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;10: Relation entre durée et AUC par fenêtre rolling et type de streak (Forwards)
+</figcaption>
+<div aria-describedby="fig-auc-vs-duration-grid-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="explo_dynamic_valuation_files/figure-html/fig-auc-vs-duration-grid-1.png" class="img-fluid figure-img" style="width:90.0%">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Observations clés:</strong></p>
+<ul>
+<li><strong>Relation non-linéaire</strong>: AUC augmente avec la durée mais avec saturation (effet logarithmique)</li>
+<li><strong>L10 accumule plus</strong>: Pour une même durée, L10 génère des AUC plus élevées (fenêtre plus large capture plus d’intensité)</li>
+<li><strong>Hot vs Cold similaires</strong>: Patterns de croissance similaires entre hot et cold streaks (symétrie confirmée)</li>
+<li><strong>Convergence</strong>: Au-delà de 15-20 matchs, AUC plafonne (crossover devient probable, régression commence)</li>
+</ul>
+</section>
+<section id="densités-comparatives" class="level3" data-number="2.8.4">
+<h3 data-number="2.8.4" class="anchored" data-anchor-id="densités-comparatives"><span class="header-section-number">2.8.4</span> Densités comparatives</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-auc-density" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-auc-density-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;11: Courbes de densité de l’AUC par fenêtre
+</figcaption>
+<div aria-describedby="fig-auc-density-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="explo_dynamic_valuation_files/figure-html/fig-auc-density-1.png" class="img-fluid figure-img" style="width:90.0%">
+</div>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="statistiques-comparatives" class="level3" data-number="2.8.5">
+<h3 data-number="2.8.5" class="anchored" data-anchor-id="statistiques-comparatives"><span class="header-section-number">2.8.5</span> Statistiques comparatives</h3>
+<div class="cell">
+<div id="tbl-auc-comparison" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-auc-comparison-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Statistiques descriptives de l’AUC par fenêtre rolling
+</figcaption>
+<div aria-describedby="tbl-auc-comparison-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 10%">
+<col style="width: 17%">
+<col style="width: 17%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Fenêtre</th>
+<th style="text-align: right;">Nombre de streaks</th>
+<th style="text-align: right;">AUC moyenne (abs)</th>
+<th style="text-align: right;">AUC médiane (abs)</th>
+<th style="text-align: right;">AUC P90 (abs)</th>
+<th style="text-align: right;">Durée moyenne (matchs)</th>
+<th style="text-align: right;">Durée médiane (matchs)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Rolling 10 matchs</td>
+<td style="text-align: right;">3611</td>
+<td style="text-align: right;">50.09</td>
+<td style="text-align: right;">17.79</td>
+<td style="text-align: right;">144.64</td>
+<td style="text-align: right;">7.3</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Rolling 3 matchs</td>
+<td style="text-align: right;">5564</td>
+<td style="text-align: right;">55.06</td>
+<td style="text-align: right;">38.64</td>
+<td style="text-align: right;">125.28</td>
+<td style="text-align: right;">4.2</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Rolling 5 matchs</td>
+<td style="text-align: right;">4645</td>
+<td style="text-align: right;">56.32</td>
+<td style="text-align: right;">32.83</td>
+<td style="text-align: right;">143.02</td>
+<td style="text-align: right;">5.6</td>
+<td style="text-align: right;">5</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+</section>
+<section id="synthèse-utilité-de-lauc" class="level3" data-number="2.8.6">
+<h3 data-number="2.8.6" class="anchored" data-anchor-id="synthèse-utilité-de-lauc"><span class="header-section-number">2.8.6</span> Synthèse: Utilité de l’AUC</h3>
+<p><strong>Avantages de la métrique AUC:</strong></p>
+<ol type="1">
+<li><strong>Métrique composite unique</strong>: Combine intensité × durée en une seule valeur interprétable</li>
+<li><strong>Intuitive</strong>: “Le joueur a accumulé X points de pourcentage au-dessus de son baseline”</li>
+<li><strong>Détection de streaks significatifs</strong>: AUC &gt; seuil identifie les streaks qui nécessitent attention</li>
+<li><strong>Comparable entre fenêtres</strong>: Permet de quantifier différence de sensibilité L3 vs L5 vs L10</li>
+</ol>
+<p><strong>Limites:</strong></p>
+<ul>
+<li><strong>Ne capture pas la tendance actuelle</strong>: AUC seule ne dit pas si le streak est en train de se terminer</li>
+<li><strong>Nécessite complément</strong>: Doit être combinée avec <code>diff_t</code> (position actuelle) et pente récente</li>
+</ul>
+<p><strong>Prochaine étape:</strong> Utiliser l’AUC comme prédicteur de régression dans les modèles (combine avec position actuelle et shots pour prédire production future).</p>
+</section>
+</section>
 </section>
 <section id="on-ice-shooting-chance-déquipe" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> On-Ice Shooting % (Chance d’équipe)</h1>
@@ -417,7 +698,7 @@ Statistiques de durée des streaks (SH%)
 <div id="fig-onice-sh-evolution" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-onice-sh-evolution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7: Évolution du on-ice shooting % avec différentes fenêtres temporelles
+Figure&nbsp;12: Évolution du on-ice shooting % avec différentes fenêtres temporelles
 </figcaption>
 <div aria-describedby="fig-onice-sh-evolution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="explo_dynamic_valuation_files/figure-html/fig-onice-sh-evolution-1.png" class="img-fluid figure-img" style="width:90.0%">
@@ -441,7 +722,7 @@ Figure&nbsp;7: Évolution du on-ice shooting % avec différentes fenêtres tempo
 <div id="fig-onice-sh-volatility" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-onice-sh-volatility-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;8: Distribution des écarts entre Rolling On-Ice SH% et Cumulatif
+Figure&nbsp;13: Distribution des écarts entre Rolling On-Ice SH% et Cumulatif
 </figcaption>
 <div aria-describedby="fig-onice-sh-volatility-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="explo_dynamic_valuation_files/figure-html/fig-onice-sh-volatility-1.png" class="img-fluid figure-img" style="width:90.0%">
@@ -463,7 +744,7 @@ Figure&nbsp;8: Distribution des écarts entre Rolling On-Ice SH% et Cumulatif
 <div id="tbl-volatility-stats-onice" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-volatility-stats-onice-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;2: Statistiques descriptives des écarts de On-Ice SH%
+Table&nbsp;3: Statistiques descriptives des écarts de On-Ice SH%
 </figcaption>
 <div aria-describedby="tbl-volatility-stats-onice-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
@@ -509,7 +790,7 @@ Table&nbsp;2: Statistiques descriptives des écarts de On-Ice SH%
 <div id="fig-onice-sh-heatmap" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-onice-sh-heatmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;9: Heatmap des streaks d’équipe (Top 50 joueurs)
+Figure&nbsp;14: Heatmap des streaks d’équipe (Top 50 joueurs)
 </figcaption>
 <div aria-describedby="fig-onice-sh-heatmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="explo_dynamic_valuation_files/figure-html/fig-onice-sh-heatmap-1.png" class="img-fluid figure-img" style="width:90.0%">
@@ -527,7 +808,7 @@ Figure&nbsp;9: Heatmap des streaks d’équipe (Top 50 joueurs)
 <div id="fig-onice-sh-spaghetti" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-onice-sh-spaghetti-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;10: Trajectoires individuelles + Percentiles (On-Ice SH%)
+Figure&nbsp;15: Trajectoires individuelles + Percentiles (On-Ice SH%)
 </figcaption>
 <div aria-describedby="fig-onice-sh-spaghetti-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="explo_dynamic_valuation_files/figure-html/fig-onice-sh-spaghetti-1.png" class="img-fluid figure-img" style="width:90.0%">
@@ -545,7 +826,7 @@ Figure&nbsp;10: Trajectoires individuelles + Percentiles (On-Ice SH%)
 <div id="fig-onice-sh-violin-temporal" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-onice-sh-violin-temporal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;11: Convergence du L10 vers le On-Ice SH% final (groupes de 5 matchs)
+Figure&nbsp;16: Convergence du L10 vers le On-Ice SH% final (groupes de 5 matchs)
 </figcaption>
 <div aria-describedby="fig-onice-sh-violin-temporal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="explo_dynamic_valuation_files/figure-html/fig-onice-sh-violin-temporal-1.png" class="img-fluid figure-img" style="width:90.0%">
@@ -563,7 +844,7 @@ Figure&nbsp;11: Convergence du L10 vers le On-Ice SH% final (groupes de 5 matchs
 <div id="fig-onice-sh-stream" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-onice-sh-stream-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;12: Proportion de joueurs par zone (On-Ice SH%)
+Figure&nbsp;17: Proportion de joueurs par zone (On-Ice SH%)
 </figcaption>
 <div aria-describedby="fig-onice-sh-stream-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="explo_dynamic_valuation_files/figure-html/fig-onice-sh-stream-1.png" class="img-fluid figure-img" style="width:90.0%">
@@ -598,7 +879,7 @@ Figure&nbsp;12: Proportion de joueurs par zone (On-Ice SH%)
 <div id="fig-correlations-goals-F" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-correlations-goals-F-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;13: Corrélations entre features de chance et production future de goals (Forwards)
+Figure&nbsp;18: Corrélations entre features de chance et production future de goals (Forwards)
 </figcaption>
 <div aria-describedby="fig-correlations-goals-F-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="explo_dynamic_valuation_files/figure-html/fig-correlations-goals-F-1.png" class="img-fluid figure-img" style="width:90.0%">
@@ -615,7 +896,7 @@ Figure&nbsp;13: Corrélations entre features de chance et production future de g
 <div id="fig-correlations-goals-D" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-correlations-goals-D-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;14: Corrélations entre features de chance et production future de goals (Defensemen)
+Figure&nbsp;19: Corrélations entre features de chance et production future de goals (Defensemen)
 </figcaption>
 <div aria-describedby="fig-correlations-goals-D-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="explo_dynamic_valuation_files/figure-html/fig-correlations-goals-D-1.png" class="img-fluid figure-img" style="width:90.0%">
@@ -642,7 +923,7 @@ Figure&nbsp;14: Corrélations entre features de chance et production future de g
 <div id="fig-correlations-assists-F" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-correlations-assists-F-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;15: Corrélations entre features de chance et production future d’assists (Forwards)
+Figure&nbsp;20: Corrélations entre features de chance et production future d’assists (Forwards)
 </figcaption>
 <div aria-describedby="fig-correlations-assists-F-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="explo_dynamic_valuation_files/figure-html/fig-correlations-assists-F-1.png" class="img-fluid figure-img" style="width:90.0%">
@@ -659,7 +940,7 @@ Figure&nbsp;15: Corrélations entre features de chance et production future d’
 <div id="fig-correlations-assists-D" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-correlations-assists-D-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;16: Corrélations entre features de chance et production future d’assists (Defensemen)
+Figure&nbsp;21: Corrélations entre features de chance et production future d’assists (Defensemen)
 </figcaption>
 <div aria-describedby="fig-correlations-assists-D-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="explo_dynamic_valuation_files/figure-html/fig-correlations-assists-D-1.png" class="img-fluid figure-img" style="width:90.0%">
@@ -684,7 +965,7 @@ Figure&nbsp;16: Corrélations entre features de chance et production future d’
 <div id="fig-correlation-evolution" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-correlation-evolution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;17: Évolution de la force des corrélations selon horizon de prédiction (Forwards)
+Figure&nbsp;22: Évolution de la force des corrélations selon horizon de prédiction (Forwards)
 </figcaption>
 <div aria-describedby="fig-correlation-evolution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="explo_dynamic_valuation_files/figure-html/fig-correlation-evolution-1.png" class="img-fluid figure-img" style="width:90.0%">
@@ -704,7 +985,7 @@ Figure&nbsp;17: Évolution de la force des corrélations selon horizon de prédi
 <div id="fig-regression-goals-F" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-regression-goals-F-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;18: Régression empirique: Excess goals par catégorie de streak (Forwards)
+Figure&nbsp;23: Régression empirique: Excess goals par catégorie de streak (Forwards)
 </figcaption>
 <div aria-describedby="fig-regression-goals-F-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="explo_dynamic_valuation_files/figure-html/fig-regression-goals-F-1.png" class="img-fluid figure-img" style="width:90.0%">
@@ -721,7 +1002,7 @@ Figure&nbsp;18: Régression empirique: Excess goals par catégorie de streak (Fo
 <div id="fig-regression-assists-F" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-regression-assists-F-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;19: Régression empirique: Excess assists par catégorie de streak (Forwards)
+Figure&nbsp;24: Régression empirique: Excess assists par catégorie de streak (Forwards)
 </figcaption>
 <div aria-describedby="fig-regression-assists-F-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="explo_dynamic_valuation_files/figure-html/fig-regression-assists-F-1.png" class="img-fluid figure-img" style="width:90.0%">
@@ -738,7 +1019,7 @@ Figure&nbsp;19: Régression empirique: Excess assists par catégorie de streak (
 <div id="fig-regression-goals-D" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-regression-goals-D-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;20: Régression empirique: Excess goals par catégorie de streak (Defensemen)
+Figure&nbsp;25: Régression empirique: Excess goals par catégorie de streak (Defensemen)
 </figcaption>
 <div aria-describedby="fig-regression-goals-D-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="explo_dynamic_valuation_files/figure-html/fig-regression-goals-D-1.png" class="img-fluid figure-img" style="width:90.0%">

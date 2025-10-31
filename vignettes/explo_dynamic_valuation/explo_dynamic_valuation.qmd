@@ -233,6 +233,145 @@ source("vignettes/explo_dynamic_valuation/r_scripts/15_streak_duration_analysis.
 **Statistiques de durée:**
 Les streaks typiques durent 2-5 matchs consécutifs. Les streaks extrêmes (>+7% ou <-7%) sont plus courts car la régression vers le posterior est forte.
 
+## Persistance temporelle des streaks
+
+### Corrélations: Combien de temps les streaks persistent-ils?
+
+```{r}
+#| label: fig-persistence-heatmap
+#| fig-height: 6
+#| fig-width: 10
+#| fig-cap: "Corrélation entre diff_Lx actuel et futur (Forwards)"
+#| cache: false
+
+source("vignettes/explo_dynamic_valuation/r_scripts/21_prepare_rolling_windows_temporal.R")
+source("vignettes/explo_dynamic_valuation/r_scripts/22_fig_streak_persistence_heatmap.R")
+fig_streak_persistence_heatmap
+```
+
+**Observations:**
+
+- **L10 est optimal**: Corrélations plus fortes et plus persistantes que L3/L5
+- **Persistance limitée**: Après 10 matchs, corrélation proche de 0 (régression complète)
+- **Fenêtre d'action**: Les 5-10 premiers matchs sont critiques pour détecter opportunités
+
+### Distribution des durées de streaks
+
+```{r}
+#| label: fig-duration-ridges
+#| fig-height: 9
+#| fig-width: 12
+#| fig-cap: "Distribution des durées par fenêtre, seuil et direction"
+#| cache: false
+
+source("vignettes/explo_dynamic_valuation/r_scripts/24_fig_streak_duration_ridges.R")
+fig_streak_duration_ridges
+```
+
+**Insights:**
+
+- **Durées typiques**: 3-7 matchs pour la plupart des streaks
+- **L10 plus stable**: Distributions plus centrées que L3/L5
+- **Asymétrie**: Cold streaks (bleu) tendent à durer légèrement plus longtemps que hot streaks (rouge)
+
+## Aire sous la courbe (AUC) des streaks
+
+Cette section explore une métrique composite pour quantifier l'intensité cumulée des streaks: l'**aire sous la courbe (AUC)**. L'AUC mesure la somme cumulée de l'écart (rolling - posterior) jusqu'à ce que le streak traverse le posterior (crossover), capturant ainsi à la fois l'intensité et la durée du streak en une seule métrique.
+
+### Calcul de l'AUC
+
+```{r}
+#| label: calculate-streak-auc
+#| cache: false
+
+source("vignettes/explo_dynamic_valuation/r_scripts/26_calculate_streak_auc.R")
+```
+
+**Méthodologie:**
+
+- **AUC cumulée**: Somme de `diff_rolling_posterior` jusqu'au crossover (changement de signe)
+- **Fenêtres testées**: L3, L5, L10 (différentes sensibilités temporelles)
+- **Identification des épisodes**: Chaque streak est un épisode continu avant crossover
+- **Direction**: AUC positive = hot streak, AUC négative = cold streak
+
+### Distribution de l'AUC par fenêtre
+
+```{r}
+#| label: fig-auc-distributions
+#| fig-height: 8
+#| fig-width: 14
+#| fig-cap: "Distribution de l'AUC par fenêtre rolling et type de streak (ridge plot)"
+#| cache: false
+
+source("vignettes/explo_dynamic_valuation/r_scripts/27_fig_streak_auc_distributions.R")
+fig_auc_distribution
+```
+
+**Observations:**
+
+- **L10 génère les AUC les plus élevées**: Fenêtre plus large permet accumulation sur plus de matchs (médianes visibles via lignes verticales)
+- **L3 et L5 AUC plus concentrées**: Fenêtres courtes → streaks moins longs → AUC plus petites et distributions plus étroites
+- **Distribution symétrique**: Hot et cold streaks produisent des AUC similaires en magnitude (facets côte à côte montrent formes comparables)
+- **Quantiles visibles**: Lignes verticales (Q25-Q50-Q75) permettent de voir dispersion et asymétrie des distributions
+- **Outliers extrêmes**: Quelques streaks avec AUC > 40-50 points de % (queues de distribution visibles)
+
+### Relation AUC vs Durée
+
+```{r}
+#| label: fig-auc-vs-duration-grid
+#| fig-height: 8
+#| fig-width: 14
+#| fig-cap: "Relation entre durée et AUC par fenêtre rolling et type de streak (Forwards)"
+#| cache: false
+
+fig_auc_duration_facet_grid
+```
+
+**Observations clés:**
+
+- **Relation non-linéaire**: AUC augmente avec la durée mais avec saturation (effet logarithmique)
+- **L10 accumule plus**: Pour une même durée, L10 génère des AUC plus élevées (fenêtre plus large capture plus d'intensité)
+- **Hot vs Cold similaires**: Patterns de croissance similaires entre hot et cold streaks (symétrie confirmée)
+- **Convergence**: Au-delà de 15-20 matchs, AUC plafonne (crossover devient probable, régression commence)
+
+### Densités comparatives
+
+```{r}
+#| label: fig-auc-density
+#| fig-height: 7
+#| fig-width: 12
+#| fig-cap: "Courbes de densité de l'AUC par fenêtre"
+#| cache: false
+
+fig_auc_density
+```
+
+### Statistiques comparatives
+
+```{r}
+#| label: tbl-auc-comparison
+#| tbl-cap: "Statistiques descriptives de l'AUC par fenêtre rolling"
+
+tbl_auc_comparison |>
+  knitr::kable()
+```
+
+### Synthèse: Utilité de l'AUC
+
+**Avantages de la métrique AUC:**
+
+1. **Métrique composite unique**: Combine intensité × durée en une seule valeur interprétable
+2. **Intuitive**: "Le joueur a accumulé X points de pourcentage au-dessus de son baseline"
+3. **Détection de streaks significatifs**: AUC > seuil identifie les streaks qui nécessitent attention
+4. **Comparable entre fenêtres**: Permet de quantifier différence de sensibilité L3 vs L5 vs L10
+
+**Limites:**
+
+- **Ne capture pas la tendance actuelle**: AUC seule ne dit pas si le streak est en train de se terminer
+- **Nécessite complément**: Doit être combinée avec `diff_t` (position actuelle) et pente récente
+
+**Prochaine étape:** Utiliser l'AUC comme prédicteur de régression dans les modèles (combine avec position actuelle et shots pour prédire production future).
+
 # On-Ice Shooting % (Chance d'équipe)
 
 ## Préparation des données

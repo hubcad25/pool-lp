@@ -52,12 +52,17 @@ Je crois que chaque modèle de projection devrait faire sa projection sur une fe
 
 ## SH%
 
+Ce qu'on a pour tenter de projeter le SH% d'un joueur sur k matchs:
 
-- SOG/60
-- TOI (total, EV + PP + SH)
-- PPTOI
-- CF/60
-- CF%
-- oiSH%
+SH% = f(k, ratio_obs, prior_g, cf_pct, cf_60)
+
+- Vitesse projetée de croissance/décroissance du ratio?
+
+## SOG/60
+## TOI (total, EV + PP + SH)
+## PPTOI
+## CF/60
+## CF%
+## oiSH%
 
 

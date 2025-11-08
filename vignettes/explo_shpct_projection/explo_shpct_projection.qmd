@@ -1,0 +1,37 @@
+---
+title: "[TITRE]"
+format:
+  html:
+    toc: true
+    theme:
+      - cosmo
+    code-block-background: "#f0f0f0"
+    code-background: "#fff"
+    code-link-color: "#555"
+    code-font-size: 14pt
+    fig-dpi: 300
+    number-sections: true
+execute:
+  cache: true
+  echo: false
+  message: false
+  warning: false
+fig-cap-location: top
+knitr:
+  opts_chunk:
+    out.width: "90%"
+  opts_knit:
+    root.dir: "./"
+editor: source
+---
+
+```{r}
+#| label: setting
+#| cache: false
+
+source("r_scripts/00_setting.R")
+
+```
+
+# Introduction
+

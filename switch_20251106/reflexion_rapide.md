@@ -1,0 +1,5 @@
+Pour les GP: avec l'api de la LNH, ça va prendre 2 secondes voir combien de matchs chaque équipe a joué et simplement faire 82 - X.
+
+Pour prédire le nombre de buts: SH% * SOG/60 * TOI. Il faudra simplement ajuster TOI selon le nombre de GP restantes * ATOI depuis le début de la saison. Pour SOG: on a les SOG et le TOI. On peut faire une simple regle de 3, je crois pas ça devrait tant changer? On pourrait vérifier rapidement dans les données match par match de 2024 voir si ya beaucoup de volatilité sur les SOG après 10-12 matchs. Pour SH%, on peut utiliser le baseline dynamique comme dans @vignettes/explo_dynamic_valuation/r_scripts/01b_calculate_posterior_bayesian.R
+
+Pour prédire le nombre de passes, on peut faire un modèle brms simple sur 2024 selon A = f(CF/60, TOI, PPTOI, oiSH%, CF%) pour avoir des coefficients, puis projeter selon un oiSH% moyen et les inputs qu'on a? Encore une fois, pas mal sur qu'on peut projeter le CF/60 et CF% sur saison complète. Peut-être qu'il faudrait controler pour le pace actuel du joueur dans notre projection? On pourrait le faire après la prédiction du modèle simple.
